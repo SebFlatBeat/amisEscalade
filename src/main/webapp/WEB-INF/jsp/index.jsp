@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -12,14 +12,14 @@
     <title>Amis de l'escalade</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/animate.css" rel="stylesheet" />
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="color/default.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../color/default.css" rel="stylesheet">
 
 </head>
 
@@ -35,8 +35,8 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="index.html">
-                <h1>SQUAD FREE</h1>
+            <a class="navbar-brand" href="index.jsp">
+                <h1>Les Amis de l'Escalade</h1>
             </a>
         </div>
 
@@ -44,7 +44,7 @@
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#intro">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#about">A propos</a></li>
                 <li><a href="#service">Service</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
