@@ -12,14 +12,14 @@
     <title>Amis de l'escalade</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- Fonts -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../color/default.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="../color/default.css" rel="stylesheet"/>
 
 </head>
 
@@ -35,7 +35,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="/index">
                 <h1>Les Amis de l'Escalade</h1>
             </a>
         </div>
@@ -44,15 +44,15 @@
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#intro">Home</a></li>
-                <li><a href="#about">A propos</a></li>
+                <li><a href="#search">Chercher</a></li>
                 <li><a href="#service">Service</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mon Profil <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Example menu</a></li>
-                        <li><a href="#">Example menu</a></li>
-                        <li><a href="#">Example menu</a></li>
+                        <li><a href="#">Mes spots</a></li>
+                        <li><a href="#">Mes topos</a></li>
+                        <li><a href="#">Mes amis</a></li>
                     </ul>
                 </li>
             </ul>
@@ -66,8 +66,8 @@
 <section id="intro" class="intro">
 
     <div class="slogan">
-        <h2>WELCOME TO <span class="text_color">SQUAD</span> </h2>
-        <h4>WE ARE GROUP OF GENTLEMEN MAKING AWESOME WEB WITH BOOTSTRAP</h4>
+        <h2>BIENVENUE CHEZ <span class="text_color">LES AMIS DE L'ESCALADE</span> </h2>
+        <h4>Un site de pasionné, fait par des pasionnés pour les pasionnés</h4>
     </div>
     <div class="page-scroll">
         <a href="#service" class="btn btn-circle">
@@ -78,14 +78,14 @@
 <!-- /Section: intro -->
 
 <!-- Section: about -->
-<section id="about" class="home-section text-center">
+<section id="search" class="home-section text-center">
     <div class="heading-about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>About us</h2>
+                            <h2>Chercher votre spot</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -108,7 +108,7 @@
                         <div class="inner">
                             <h5>Anna Hanaceck</h5>
                             <p class="subtitle">Pixel Crafter</p>
-                            <div class="avatar"><img src="img/team/1.jpg" alt="" class="img-responsive img-circle" /></div>
+                            <div class="avatar"><img src="../img/team/1.jpg" alt="" class="img-responsive img-circle" /></div>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                         <div class="inner">
                             <h5>Maura Daniels</h5>
                             <p class="subtitle">Ruby on Rails</p>
-                            <div class="avatar"><img src="img/team/2.jpg" alt="" class="img-responsive img-circle" /></div>
+                            <div class="avatar"><img src="../img/team/2.jpg" alt="" class="img-responsive img-circle" /></div>
 
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                         <div class="inner">
                             <h5>Jack Briane</h5>
                             <p class="subtitle">jQuery Ninja</p>
-                            <div class="avatar"><img src="img/team/3.jpg" alt="" class="img-responsive img-circle" /></div>
+                            <div class="avatar"><img src="../img/team/3.jpg" alt="" class="img-responsive img-circle" /></div>
 
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                         <div class="inner">
                             <h5>Tom Petterson</h5>
                             <p class="subtitle">Typographer</p>
-                            <div class="avatar"><img src="img/team/4.jpg" alt="" class="img-responsive img-circle" /></div>
+                            <div class="avatar"><img src="../img/team/4.jpg" alt="" class="img-responsive img-circle" /></div>
 
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="img/icons/service-icon-1.png" alt="" />
+                            <img src="../img/icons/service-icon-1.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Print</h5>
@@ -197,7 +197,7 @@
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="img/icons/service-icon-2.png" alt="" />
+                            <img src="../img/icons/service-icon-2.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Web Design</h5>
@@ -210,7 +210,7 @@
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="img/icons/service-icon-3.png" alt="" />
+                            <img src="../img/icons/service-icon-3.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Photography</h5>
@@ -223,7 +223,7 @@
                 <div class="wow fadeInRight" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="img/icons/service-icon-4.png" alt="" />
+                            <img src="../img/icons/service-icon-4.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Cloud System</h5>
@@ -371,14 +371,14 @@
 </footer>
 
 <!-- Core JavaScript Files -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.scrollTo.js"></script>
-<script src="js/wow.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.easing.min.js"></script>
+<script src="../js/jquery.scrollTo.js"></script>
+<script src="../js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="js/custom.js"></script>
-<script src="contactform/contactform.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../contactform/contactform.js"></script>
 
 </body>
 

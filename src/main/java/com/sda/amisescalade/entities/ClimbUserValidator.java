@@ -37,7 +37,7 @@ public class ClimbUserValidator implements Validator {
 
         if(!this.emailValidator.isValid(climbUserForm.getEmail())) {
             //Invalid email.
-            errors.rejectValue("email", "Pattern.climUser.Form.email");
+            errors.rejectValue("email", "Pattern.climUserForm.email");
         }else if (climbUserForm.getId() == null){
                 ClimbUser dbUser = climbUserDAO.findClimbUserByEmail(climbUserForm.getEmail());
             if (dbUser != null){
