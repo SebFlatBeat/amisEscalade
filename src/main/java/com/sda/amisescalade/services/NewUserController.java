@@ -49,7 +49,7 @@ public class NewUserController {
     @RequestMapping("/")
     public String viewHome(Model model) {
 
-        return "welcomePage";
+        return "index";
     }
 
     @RequestMapping("/members")
