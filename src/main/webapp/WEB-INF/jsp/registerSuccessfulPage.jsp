@@ -60,52 +60,30 @@
 
 <!-- Section: register -->
 <section id="intro" class="intro text-center text-light">
-        <div class="container">
-            <div class="row">
-                <h2>Inscription</h2>
-                <form action="/register" method="POST">
-                    <div class="form-group row">
-                        <div class="panel-group col-auto">
-                            <label>UserName</label>
-                            <input class="input-group center-block text-info" type="text" id="userName" name="userName" placeholder="Votre pseudo"/>
-                        </div>
-                        <div class="panel-group col-auto">
-                            <label>Password</label>
-                            <input class="input-group center-block text-info" type="password" id="password" name="password" placeholder="Votre mot de passe"/>
-                        </div>
-                        <div class="panel-group col-auto">
-                            <label>Confirm</label>
-                            <input class="input-group center-block text-info" type="password" id="confirm" placeholder="Confirmer votre mot de passe"/>
-                        </div>
-                        <div class="panel-group col-auto">
-                            <label>Email</label>
-                            <input class="input-group center-block text-info" type="text" id="email" name="email" placeholder="Votre adresse mail"/>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <h2>Inscription Réussie</h2>
 
-                        <div class="panel-group col-auto">
-                            <input class="input-group center-block btn btn-primary" type="submit" value="Submit" href="/registerSuccessful"/>
-                            <a class="btn btn-danger" href="/index">Cancel</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<p>Bonjour, ${pageContext.request.userPrincipal.name}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
+      <button class="btn btn-primary" type="button" href="/index">OK</button>
         </div>
+    </div>
 </section>
 <!-- /Section: register -->
 
 <footer>
     <div class="container">
-                <p>&copy;SquadFREE. All rights reserved.</p>
-                <div class="credits">
-                    <!--
-                      All the links in the footer should remain intact.
-                      You can delete the links only if you purchased the pro version.
-                      Licensing information: https://bootstrapmade.com/license/
-                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Squadfree
-                    -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                </div>
-            </div>
+        <p>&copy;SquadFREE. All rights reserved.</p>
+        <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Squadfree
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
 </footer>
 
 <!-- Core JavaScript Files -->
