@@ -21,7 +21,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
