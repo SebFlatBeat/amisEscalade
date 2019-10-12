@@ -1,5 +1,8 @@
 package com.sda.amisescalade.entities;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,14 +23,17 @@ public class ClimbUser implements Serializable {
     @Size(max=100)
     @NotBlank
     private String password;
+    @Column(columnDefinition = "boolean default true")
+    private boolean active;
 
     public ClimbUser() {
     }
 
-    public ClimbUser(String userName, String email, String password) {
+    public ClimbUser(@Size(max = 50) @NotBlank String userName, @Size(max = 100) @NotBlank String email, @Size(max = 100) @NotBlank String password, boolean active) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.active = active;
     }
 
     public Long getId() {
@@ -60,5 +66,13 @@ public class ClimbUser implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

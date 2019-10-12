@@ -30,7 +30,7 @@ public class ClimbUserValidator implements Validator {
         ClimbUserForm climbUserForm = (ClimbUserForm) target;
 
         // Check the fields of ClimbUserForm.
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "NotEmpty.climUserForm.username");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "NotEmpty.climUserForm.userName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.climUserForm.email");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.climUserForm.password");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotEmpty.climUserForm.confirmPassword");

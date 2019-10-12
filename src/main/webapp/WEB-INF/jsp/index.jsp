@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,14 +12,16 @@
     <title>Amis de l'escalade</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- FavIcon -->
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/animate.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="../css/style.css" rel="stylesheet"/>
-    <link href="../color/default.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="color/default.css" rel="stylesheet"/>
 
 </head>
 
@@ -35,7 +37,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="/index">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}index">
                 <h1>Les Amis de l'Escalade</h1>
             </a>
         </div>
@@ -45,18 +47,76 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#intro">Home</a></li>
                 <li><a href="#search">Chercher</a></li>
-                <li><a href="#entrainement">Entraînement</a></li>
-                <li><a href="#contact">News</a></li>
-                <li><a href="/registerPage">S'inscrire</a></li> <!--A terme regrouper les deux li avec une pop-up -->
-                <li><a href="/connexion">Se connecter</a></li>
+                <li><a href="#entrainement">Training</a></li>
+                <li><a href="#news">News</a></li>
+                <c:if test="${pageContext.request.userPrincipal == null}">
+                <li><a data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
+                    <div class="modal fade " id="id-popup" tabindex="-1" role="dialog" aria-labelledby="titrePopUp" aria-hidden="true" data-backdrop="false">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+
+                                <!-- le titre de la popup -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-center" id="titrePopUp">Connexion ou Inscription aux Amis de l'Escalade
+                                        <!-- lla croix de fermeture de la popup -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> </h4>
+                                </div>
+
+                                <!-- le contenu HTML de la popup -->
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-md-center">
+                                            <div class="col-lg-8 col-lg-offset-2">
+                                                <div class="wow bounceInUp" data-wow-delay="0.6s">
+                                                    <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
+                                                    <div class="card-body border-info">
+                                                        <form action="/login" method="post">
+                                                            <div class="col-lg-8 col-lg-offset-2 row">
+                                                                <label for="username">Username</label>
+                                                                <input type="text" name="username" id="username" placeholder="Pseudo"/>
+                                                            </div>
+                                                            <div class="col-lg-8 col-lg-offset-2 row">
+                                                                <label for="password">Password</label>
+                                                                <input type="password" name="password" id="password" placeholder="Mot de Passe">
+                                                            </div>
+                                                            <div class="col-lg-12 row">
+                                                                <input type="submit" class="btn btn-primary pull-right"/>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                        <!-- le pied de page de la popup -->
+                                                        <div class="modal-footer row">
+                                                            <div class="col-lg-12 row justify-content">
+                                                                <p>Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
+                                                                    <i class="glyphicon glyphicon-arrow-right"></i>
+                                                            <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a></p>
+                                                            </div>
+                                                        </div>
+                                                </img>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                </c:if>
+                <c:if test="${pageContext.request.userPrincipal != null}">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mon Profil <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.request.userPrincipal.name}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
                         <li><a href="#">Mes spots</a></li>
                         <li><a href="#">Mes topos</a></li>
                         <li><a href="#">Mes amis</a></li>
+                        <li><a href="<c:url value="/logout" />">Déconnexion</a> </li>
                     </ul>
                 </li>
+                </c:if>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -156,7 +216,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>Entraînement</h2>
+                            <h2>Training</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -176,7 +236,7 @@
                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="../img/icons/service-icon-1.png" alt="" />
+                            <img src="img/icons/service-icon-1.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Print</h5>
@@ -189,7 +249,7 @@
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="../img/icons/service-icon-2.png" alt="" />
+                            <img src="img/icons/service-icon-2.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Web Design</h5>
@@ -202,7 +262,7 @@
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="../img/icons/service-icon-3.png" alt="" />
+                            <img src="img/icons/service-icon-3.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Photography</h5>
@@ -215,7 +275,7 @@
                 <div class="wow fadeInRight" data-wow-delay="0.2s">
                     <div class="service-box">
                         <div class="service-icon">
-                            <img src="../img/icons/service-icon-4.png" alt="" />
+                            <img src="img/icons/service-icon-4.png" alt="" />
                         </div>
                         <div class="service-desc">
                             <h5>Cloud System</h5>
@@ -233,7 +293,7 @@
 
 
 <!-- Section: news -->
-<section id="contact" class="home-section text-center">
+<section id="news" class="home-section text-center">
     <div class="heading-contact">
         <div class="container">
             <div class="row">
@@ -281,12 +341,9 @@
                             <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
                         </ul>
                     </address>
-
                 </div>
             </div>
         </div>
-
-    </div>
 </section>
 <!-- /Section: news -->
 
@@ -317,14 +374,15 @@
 </footer>
 
 <!-- Core JavaScript Files -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
-<script src="../js/jquery.scrollTo.js"></script>
-<script src="../js/wow.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.scrollTo.js"></script>
+<script src="js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="../js/custom.js"></script>
-<script src="../contactform/contactform.js"></script>
+<script src="js/custom.js"></script>
+<script src="contactform/contactform.js"></script>
+
 
 </body>
 

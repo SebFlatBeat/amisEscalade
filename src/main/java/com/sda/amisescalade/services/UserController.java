@@ -10,4 +10,14 @@ public class UserController {
     public String index(){
         return "index";
     }
+
+    @RequestMapping("espacePerso")
+    public String espacePerso() {return "espacePerso";}
+
+    @RequestMapping("/logout")
+    public String logout() {
+        return "login?logout";
+    }
+
+
 }
