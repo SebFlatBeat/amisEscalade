@@ -38,7 +38,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.formLogin();
-        http.logout().logoutUrl("/index").invalidateHttpSession(true).deleteCookies("JSESSIONID");
+        http.logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
 
     @Override

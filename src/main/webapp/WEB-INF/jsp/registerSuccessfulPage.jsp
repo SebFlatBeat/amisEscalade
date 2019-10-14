@@ -16,10 +16,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Amis de l'escalade - Inscription</title>
+    <title>Inscription Réussie</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- FavIcon -->
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -64,8 +66,8 @@
         <div class="row">
             <h2>Inscription Réussie</h2>
 
-<p>Bonjour, ${pageContext.request.userPrincipal.name}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
-      <button class="btn btn-primary" type="button" href="/index">OK</button>
+<p>Bonjour, ${flashUser.userName}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
+      <a class="btn btn-primary" role="button" href="<c:url value="/index" />">OK</a>
         </div>
     </div>
 </section>

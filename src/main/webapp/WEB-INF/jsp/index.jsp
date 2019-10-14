@@ -13,6 +13,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- FavIcon -->
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -107,7 +109,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.request.userPrincipal.name}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Mon espace perso</a></li>
+                        <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
                         <li><a href="#">Mes spots</a></li>
                         <li><a href="#">Mes topos</a></li>
                         <li><a href="#">Mes amis</a></li>

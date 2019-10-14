@@ -60,8 +60,9 @@ public class NewUserController {
         return "membersPage";
     }
 
-    @RequestMapping("/registerSuccessful")
+    @RequestMapping("/registerSuccessfulPage")
     public String viewRegisterSuccessful(Model model) {
+
 
         return "registerSuccessfulPage";
     }

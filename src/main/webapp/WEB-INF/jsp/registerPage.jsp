@@ -16,10 +16,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Amis de l'escalade - Inscription</title>
+    <title>Inscription</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- FavIcon -->
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -70,6 +72,10 @@
                             <input class="input-group center-block text-info" type="text" id="userName" name="userName" placeholder="Votre pseudo"/>
                         </div>
                         <div class="panel-group col-auto">
+                            <label>Email</label>
+                            <input class="input-group center-block text-info" type="text" id="email" name="email" placeholder="Votre adresse mail"/>
+                        </div>
+                        <div class="panel-group col-auto">
                             <label>Password</label>
                             <input class="input-group center-block text-info" type="password" id="password" name="password" placeholder="Votre mot de passe"/>
                         </div>
@@ -77,14 +83,10 @@
                             <label>Confirm</label>
                             <input class="input-group center-block text-info" type="password" id="confirm" placeholder="Confirmer votre mot de passe"/>
                         </div>
-                        <div class="panel-group col-auto">
-                            <label>Email</label>
-                            <input class="input-group center-block text-info" type="text" id="email" name="email" placeholder="Votre adresse mail"/>
-                        </div>
 
-                        <div class="panel-group col-auto">
+                        <div class="panel-group row col-auto">
                             <input class="input-group center-block btn btn-primary" type="submit" value="Submit" href="/registerSuccessful"/>
-                            <a class="btn btn-danger" href="/index">Cancel</a>
+                            <a class="btn btn-danger" href="<c:url value="/index"/>">Cancel</a>
                         </div>
                     </div>
                 </form>

@@ -11,8 +11,13 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping("espacePerso")
+    public String espacePerso() {return "espacePerso";}
+
     @RequestMapping("/logout")
     public String logout() {
         return "login?logout";
     }
+
+
 }
