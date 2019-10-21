@@ -1,0 +1,16 @@
+<application>
+  <component name="libraryTable">
+    <library name="bootstrap-toggle" type="javaScript">
+      <properties>
+        <sourceFilesUrls>
+          <item url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_gitcdn.github.io_bootstrap-toggle_2.2.2_js_bootstrap-toggle.js" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_gitcdn.github.io_bootstrap-toggle_2.2.2_js_bootstrap-toggle.js" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</application>
