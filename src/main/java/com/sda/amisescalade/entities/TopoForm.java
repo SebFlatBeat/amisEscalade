@@ -1,6 +1,7 @@
 package com.sda.amisescalade.entities;
 
-import java.util.Date;
+import javax.persistence.JoinColumn;
+import java.sql.Date;
 
 public class TopoForm {
 
@@ -11,11 +12,16 @@ public class TopoForm {
     private String topoDepartement;
     private String topoCountry;
     private Date release;
+    private String topoDescription;
+
+    private ClimbUser climbUser;
+
+    private Spot spot;
 
     public TopoForm() {
     }
 
-    public TopoForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release) {
+    public TopoForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription) {
         this.id = id;
         this.topoName = topoName;
         this.available = available;
@@ -23,6 +29,7 @@ public class TopoForm {
         this.topoDepartement = topoDepartement;
         this.topoCountry = topoCountry;
         this.release = release;
+        this.topoDescription = topoDescription;
     }
 
     public Long getId() {
@@ -79,5 +86,29 @@ public class TopoForm {
 
     public void setRelease(Date release) {
         this.release = release;
+    }
+
+    public String getTopoDescription() {
+        return topoDescription;
+    }
+
+    public void setTopoDescription(String topoDescription) {
+        this.topoDescription = topoDescription;
+    }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 }

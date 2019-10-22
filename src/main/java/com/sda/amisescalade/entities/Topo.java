@@ -3,14 +3,13 @@ package com.sda.amisescalade.entities;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Optional;
+
 
 @Entity
 public class Topo implements Serializable {
@@ -20,27 +19,35 @@ public class Topo implements Serializable {
     @Size(max=100)
     @NotBlank
     private String  topoName;
+    @Column(columnDefinition = "boolean default true")
     private boolean available;
     private String topoCity;
     private String topoDepartement;
     private String topoCountry;
     private Date release;
+    private String topoDescription;
 
     @ManyToOne
+    @JoinColumn(name = "climb_user_id")
     @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
+    @ManyToOne
+    @JoinColumn(name = "spot_id")
+    @Cascade(CascadeType.DETACH)
+    private Spot spot;
 
     public Topo() {
     }
 
-    public Topo(String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release) {
+    public Topo(@Size(max = 100) @NotBlank String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription) {
         this.topoName = topoName;
         this.available = available;
         this.topoCity = topoCity;
         this.topoDepartement = topoDepartement;
         this.topoCountry = topoCountry;
         this.release = release;
+        this.topoDescription = topoDescription;
     }
 
     public Long getId() {
@@ -97,5 +104,29 @@ public class Topo implements Serializable {
 
     public void setRelease(Date release) {
         this.release = release;
+    }
+
+    public String getTopoDescription() {
+        return topoDescription;
+    }
+
+    public void setTopoDescription(String topoDescription) {
+        this.topoDescription = topoDescription;
+    }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 }

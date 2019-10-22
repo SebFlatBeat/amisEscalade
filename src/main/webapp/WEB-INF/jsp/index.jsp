@@ -14,7 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -53,7 +53,7 @@
                 <li><a data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
                     <div class="modal fade " id="id-popup" tabindex="-1" role="dialog" aria-labelledby="titrePopUp" aria-hidden="true" data-backdrop="false">
 
-                        <div class="modal-dialog">
+                        <div class="modal-dialog ">
 
                             <div class="modal-content">
 
@@ -73,25 +73,36 @@
                                                     <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
                                                     <div class="card-body border-info">
                                                         <form action="/login" method="post">
-                                                            <div class="col-lg-8 col-lg-offset-2 row">
+                                                            <div class="form-group">
+                                                            <div class="col-lg-6 row center-block">
                                                                 <label for="username">Username</label>
                                                                 <input type="text" name="username" id="username" placeholder="Pseudo"/>
                                                             </div>
-                                                            <div class="col-lg-8 col-lg-offset-2 row">
+                                                            <div class="col-lg-6 row center-block">
                                                                 <label for="password">Password</label>
                                                                 <input type="password" name="password" id="password" placeholder="Mot de Passe">
                                                             </div>
-                                                            <div class="col-lg-12 row">
+                                                            </div>
+                                                            <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                <p></p>
                                                                 <input type="submit" class="btn btn-primary pull-right"/>
+                                                            </div>
                                                             </div>
                                                         </form>
                                                     </div>
                                                         <!-- le pied de page de la popup -->
                                                         <div class="modal-footer row">
-                                                            <div class="col-lg-12 row justify-content">
-                                                                <p>Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
-                                                                    <i class="glyphicon glyphicon-arrow-right"></i>
-                                                            <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a></p>
+                                                            <div class="col-lg-12 row">
+                                                                <p></p>
+                                                                <p class="text-center">Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-6 center-block">
+                                                            <i class="glyphicon glyphicon-arrow-down"></i>
+                                                            </div>
+                                                                <div class="col-lg-8 row center-block">
+                                                            <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
                                                             </div>
                                                         </div>
                                                 </img>
@@ -110,8 +121,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.request.userPrincipal.name}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
+                        <li><a href="#">Les topos</a></li>
                         <li><a href="#">Mes spots</a></li>
-                        <li><a href="#">Mes topos</a></li>
                         <li><a href="#">Mes amis</a></li>
                         <li><a href="<c:url value="/logout" />">Déconnexion</a> </li>
                     </ul>

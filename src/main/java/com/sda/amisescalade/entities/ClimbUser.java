@@ -1,16 +1,19 @@
 package com.sda.amisescalade.entities;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Entity
-public class ClimbUser implements Serializable {
+public class ClimbUser implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
@@ -25,8 +28,21 @@ public class ClimbUser implements Serializable {
     private String password;
     @Column(columnDefinition = "boolean default true")
     private boolean active;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<ClimbUserRole> climbUserRoleList;
 
     public ClimbUser() {
+        this.active = true;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
     }
 
     public ClimbUser(@Size(max = 50) @NotBlank String userName, @Size(max = 100) @NotBlank String email, @Size(max = 100) @NotBlank String password, boolean active) {
@@ -44,10 +60,6 @@ public class ClimbUser implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -60,8 +72,46 @@ public class ClimbUser implements Serializable {
         this.email = email;
     }
 
+    public void grantAuthority(ClimbUserRole authority) {
+        if ( climbUserRoleList == null ) climbUserRoleList = new ArrayList<>();
+        climbUserRoleList.add(authority);
+    }
+
+    @Override
+    public List<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        climbUserRoleList.forEach(climbUserRole -> authorities.add(new SimpleGrantedAuthority(climbUserRole.toString())));
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return password;
+    }
+
+
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -75,4 +125,6 @@ public class ClimbUser implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+
 }

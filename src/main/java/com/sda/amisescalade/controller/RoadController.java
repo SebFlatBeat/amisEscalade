@@ -1,4 +1,4 @@
-package com.sda.amisescalade.services;
+package com.sda.amisescalade.controller;
 
 import org.springframework.stereotype.Controller;
 
