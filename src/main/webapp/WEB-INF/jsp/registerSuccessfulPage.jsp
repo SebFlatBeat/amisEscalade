@@ -61,12 +61,12 @@
 </nav>
 
 <!-- Section: register -->
-<section id="intro" class="intro text-center text-light">
-    <div class="container">
+<section id="intro" class="intro text-center">
+    <div class="container boxed-grey">
         <div class="row">
             <h2>Inscription Réussie</h2>
 
-<p>Bonjour, ${flashUser.userName}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
+<p>Bonjour, ${flashUser.username}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
       <a class="btn btn-primary" role="button" href="<c:url value="/index" />">OK</a>
         </div>
     </div>

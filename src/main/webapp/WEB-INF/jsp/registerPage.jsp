@@ -61,31 +61,34 @@
 </nav>
 
 <!-- Section: register -->
-<section id="intro" class="intro text-center text-light">
-        <div class="container">
+<section id="intro" class="intro text-center text-dark">
+        <div class="container boxed-grey col-lg-4 col-lg-offset-4">
             <div class="row">
                 <h2>Inscription</h2>
                 <form action="/register" method="POST">
-                    <div class="form-group row">
-                        <div class="panel-group col-auto">
+                    <div class="form row">
+                        <div class="form-group col-md-6">
                             <label>UserName</label>
                             <input class="input-group center-block text-info" type="text" id="userName" name="userName" placeholder="Votre pseudo"/>
+                            <span class="has-error">${climbUserForm.userName}</span>
                         </div>
-                        <div class="panel-group col-auto">
+                        <div class="form-group col-md-6">
                             <label>Email</label>
                             <input class="input-group center-block text-info" type="text" id="email" name="email" placeholder="Votre adresse mail"/>
                         </div>
-                        <div class="panel-group col-auto">
+                        <div class="form-group col-md-6">
                             <label>Password</label>
                             <input class="input-group center-block text-info" type="password" id="password" name="password" placeholder="Votre mot de passe"/>
                         </div>
-                        <div class="panel-group col-auto">
+                        <div class="form-group col-md-6">
                             <label>Confirm</label>
                             <input class="input-group center-block text-info" type="password" id="confirm" placeholder="Confirmer votre mot de passe"/>
                         </div>
 
-                        <div class="panel-group row col-auto">
+                        <div class="form-group col-md-12">
                             <input class="input-group center-block btn btn-primary" type="submit" value="Submit" href="/registerSuccessful"/>
+                        </div>
+                            <div class="form-group col-md-12">
                             <a class="btn btn-danger" href="<c:url value="/index"/>">Cancel</a>
                         </div>
                     </div>

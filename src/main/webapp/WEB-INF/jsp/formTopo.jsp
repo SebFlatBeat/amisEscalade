@@ -21,7 +21,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -53,6 +53,7 @@
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
+                <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -68,7 +69,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>Cherchez votre spot</h2>
+                            <h2>Enregistrez votre nouveau Topo</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -83,43 +84,99 @@
 
                 <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
-                <form id="contact-form" action="" method="post" role="form" class="contactForm">
+                <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md12 dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="spotList" data-toggle="spotList" aria-haspopup="true" aria-expanded="true">
+                                Choissisez le spot à affilier à votre Topo
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="spotList">
+                                <c:forEach items="${spotList}" var="spotList">
+                                    <li><a>${spotList.spotName}</a> </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label for="spot">
-                                    Spot</label>
-                                <input type="text" name="spot" class="form-control" id="spot" placeholder="Le spot" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <label for="topoName">
+                                   Le nom du Topo</label>
+                                <input type="text" name="topoName" class="form-control" id="topoName" placeholder="Entrez le nom du topo" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                 <div class="validation"></div>
                             </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label for="sector">
-                                    Secteur</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="sector" id="sector" placeholder="Le secteur" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                    <div class="validation"></div>
+                                <label for="topoCountry">
+                                    Pays</label>
+                                <input type="text" name="topoCountry" class="form-control" id="topoCountry" placeholder="Entrez le pays" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="topoDepartement">
+                                    Département</label>
+                                <input type="text" name="topoDepartement" class="form-control" id="topoDepartement" placeholder="Entrez le département" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="topoCity">
+                                    Ville</label>
+                                <input type="text" name="topoCity" class="form-control" id="topoCity" placeholder="Entrez la ville" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="topoDescription">
+                                    Description</label>
+                                <textarea class="form-control" name="topoDescription" id="topoDescription" placeholder="Entrez votre description"></textarea>
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+                            </div>
+                    <div class="col-md-12 boxed-grey">
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <label class="col-form-label col-md-2 pt-0">Vous souhaitez rendre le topo</label>
+                                <div class="col-md-2">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="gridRadios1">
+                                            Disponible
+                                            <input class="form-check-input center-block" type="radio" name="available" id="gridRadios1" value="true" checked>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+
+                                        <label class="form-check-label" for="gridRadios2">
+                                            Indisponible
+                                            <input class="form-check-input center-block" type="radio" name="available" id="gridRadios2" value="false">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class='col-md-2'>
+                                        <div class="form-group">
+                                            <label class="form-check-label">Date de parution</label>
+                                            <div class='input-group date' >
+                                                <input type="date" class="form-control" id="release" name="release" />
+                                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="road">
-                                    Voie</label>
-                                <input type="text" class="form-control" name="road" id="road" placeholder="La voie" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="scoring">
-                                    Cotations</label>
-                                <input type="text" class="form-control" name="scoring" id="scoring" placeholder="La cotation" data-rule="minlen:4"  data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
-                        </div>
+                        </fieldset>
+                    </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                                Chercher</button>
+                                Valider</button>
                         </div>
-                    </div>
                 </form>
             </div>
         </div>
@@ -150,7 +207,7 @@
 <script src="js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.js"></script>
-<script src="contactform/contactform.js"></script>
+
 
 
 </body>

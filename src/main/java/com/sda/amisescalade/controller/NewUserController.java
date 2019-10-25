@@ -1,4 +1,4 @@
-package com.sda.amisescalade.services;
+package com.sda.amisescalade.controller;
 
 import com.sda.amisescalade.dao.ClimbUserDAO;
 import com.sda.amisescalade.entities.ClimbUserForm;
@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +28,10 @@ public class NewUserController {
     @Autowired
     private ClimbUserValidator climbUserValidator;
 
+    /**
+     *
+     * @param dataBinder
+     */
     @InitBinder
     protected void initBinder(WebDataBinder dataBinder) {
         // Form target
@@ -44,6 +47,11 @@ public class NewUserController {
 
     }
 
+    /**
+     *
+     * @param model viewHome
+     * @return index
+     */
     @RequestMapping("/")
     public String viewHome(Model model) {
 
@@ -51,7 +59,11 @@ public class NewUserController {
     }
 
 
-
+    /**
+     *
+     * @param model viwMembers
+     * @return membersPage
+     */
     @RequestMapping("/members")
     public String viewMembers(Model model) {
         Iterable<ClimbUser> iterable = climbUserDAO.findAll();
@@ -60,13 +72,22 @@ public class NewUserController {
         return "membersPage";
     }
 
+    /**
+     *
+     * @param model viewRegisterSuccessful
+     * @return registerSuccessfulPage
+     */
     @RequestMapping("/registerSuccessfulPage")
     public String viewRegisterSuccessful(Model model) {
-
 
         return "registerSuccessfulPage";
     }
 
+    /**
+     *
+     * @param model viewRegister
+     * @return registerPage
+     */
     // Show Register page.
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String viewRegister(Model model) {
@@ -76,32 +97,45 @@ public class NewUserController {
         return "registerPage";
     }
 
+    /**
+     *
+     * @param model
+     * @param climbUserForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     // This method is called to save the registration information.
     // @Validated: To ensure that this Form
     // has been Validated before this method is invoked.
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String saveRegister(Model model, @ModelAttribute("climbUserForm") @Validated ClimbUserForm climbUserForm, BindingResult result, final RedirectAttributes redirectAttributes) {
+    public String saveRegister(Model model, @ModelAttribute("climbUserForm") ClimbUserForm climbUserForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 
         // Validate result
-
-        ClimbUser newUser= new ClimbUser();
-        newUser.setUserName(climbUserForm.getUserName());
-        newUser.setPassword(passwordEncoder.encode(climbUserForm.getPassword()));
-        newUser.setEmail(climbUserForm.getEmail());
-        try {
-            //newUser = climbUserDAO.createClimbUser(climbUserForm);
-            climbUserDAO.save(newUser);
-        }
-        // Other error!!
-        catch (Exception e) {
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+        climbUserValidator.validate(climbUserForm, result);
+        if (result.hasErrors()){
             return "registerPage";
+        }else {
+            ClimbUser newUser = new ClimbUser();
+            newUser.setUserName(climbUserForm.getUserName());
+            newUser.setPassword(passwordEncoder.encode(climbUserForm.getPassword()));
+            newUser.setEmail(climbUserForm.getEmail());
+            try {
+                //newUser = climbUserDAO.createClimbUser(climbUserForm);
+                climbUserDAO.save(newUser);
+            }
+            // Other error!!
+            catch (Exception e) {
+                model.addAttribute("errorMessage", "Error: " + e.getMessage());
+                return "registerPage";
+            }
+
+            redirectAttributes.addFlashAttribute("flashUser", newUser);
+
+            return "redirect:/registerSuccessfulPage";
         }
-
-        redirectAttributes.addFlashAttribute("flashUser", newUser);
-
-        return "redirect:/registerSuccessfulPage";
     }
+
 
 }
 
