@@ -1,10 +1,8 @@
 package com.sda.amisescalade.dao;
 
 import com.sda.amisescalade.entities.ClimbUser;
-import com.sda.amisescalade.entities.ClimbUserForm;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.Id;
 import java.util.*;
 
 

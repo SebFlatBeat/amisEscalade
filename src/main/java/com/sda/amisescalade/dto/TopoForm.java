@@ -1,25 +1,15 @@
-package com.sda.amisescalade.entities;
+package com.sda.amisescalade.dto;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import com.sda.amisescalade.entities.ClimbUser;
+import com.sda.amisescalade.entities.Spot;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
+import javax.persistence.JoinColumn;
 import java.sql.Date;
-import java.util.Optional;
 
+public class TopoForm {
 
-@Entity
-public class Topo implements Serializable {
-    @Id
-    @GeneratedValue
     private Long id;
-    @Size(max=100)
-    @NotBlank
-    private String  topoName;
-    @Column(columnDefinition = "boolean default true")
+    private String topoName;
     private boolean available;
     private String topoCity;
     private String topoDepartement;
@@ -27,19 +17,15 @@ public class Topo implements Serializable {
     private Date release;
     private String topoDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "climb_user_id")
-    @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
-    @ManyToOne
-    @JoinColumn(name = "spot_id")
     private Spot spot;
 
-    public Topo() {
+    public TopoForm() {
     }
 
-    public Topo(@Size(max = 100) @NotBlank String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription) {
+    public TopoForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription) {
+        this.id = id;
         this.topoName = topoName;
         this.available = available;
         this.topoCity = topoCity;

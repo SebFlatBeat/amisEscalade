@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Esapce Perso</title>
@@ -48,7 +49,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
-                <li><a href="#">Les topos</a></li>
+                <li><a href="<c:url value="/espacePerso#topos"/>">Les topos</a></li>
                 <li><a href="#">Mes spots</a></li>
                 <li><a href="#">Mes amis</a></li>
                 <c:if test="${pageContext.request.userPrincipal == null}">
@@ -144,7 +145,6 @@
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
                             <h2>Mon Espace perso</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
                         </div>
                         <div class="col-lg-12 center-block ">
                         <div class="col-md-3">
@@ -194,27 +194,24 @@
                                                 <tr class="bg-primary">
                                                     <th class="text-center" scope="col"> Nom du topo</th>
                                                     <th class="text-center" scope="col"> Date de parution</th>
-                                                    <th class="text-center" scope="col"> Ville</th>
+                                                    <th class="text-center" scope="col">Spot</th>
                                                     <th class="text-center" scope="col"> Disponibilté</th>
                                             </tr>
                                                 </thead>
-                                                <c:forEach items="${topoUser}" var="topoUser">
                                                 <tbody>
-                                                <th class="text-center" scope="row">${topoUser.topoName}</th>
-                                                <th class="text-center" scope="row">${topoUser.release}</th>
-                                                <th class="text-center" scope="row">${topoUser.topoCity}</th>
-                                                <th scope="row"><input id="available" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-on="Disponible" data-offstyle="default" data-off="Indisponible">
-
-                                                    <script>
-                                                        function toggleOn() {
-                                                            $('#available').bootstrapToggle('true')
-                                                        }
-                                                        function toggleOff() {
-                                                            $('#available').bootstrapToggle('false')
-                                                        }
-                                                    </script></th>
-                                                </tbody>
+                                                <c:forEach items="${topoUser}" var="topoClimber">
+                                                    <tr>
+                                                        <td class="text-center" scope="row">${topoClimber.topoName}</td>
+                                                        <td class="text-center" scope="row"><fmt:formatDate value="${topoClimber.release}"></fmt:formatDate></td>
+                                                        <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
+                                                        <td class="text-center" scope="row">
+                                                            <form action="/topo/${topoClimber.id}/availability" method="post">
+                                                                 <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Disponible" data-offstyle="default" data-off="Indisponible" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
                                                 </c:forEach>
+                                                </tbody>
                                             </table>
 
                                         </div>
@@ -230,6 +227,98 @@
     </div>
 </section>
 <!-- /Section: espacePerso -->
+
+<!-- Section: Les Topos-->
+<section id="topos" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>les Topos disponibles</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="boxed-grey">
+
+                <div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div>
+                <form id="contact-form" action="" method="post" role="form" class="contactForm">
+                    <div class="form row">
+                        <div class="form-group col-md-3">
+                                <label for="spot">
+                                    Spot</label>
+                                <input type="text" name="spot" class="form-control" id="spot" placeholder="Le spot" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        <div class="form-group col-md-3">
+                                <label for="">
+                                    Ville</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="topoCity" id="" placeholder="La ville" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+                        <div class="form-group col-md-3">
+                                <label for="">
+                                    Departement</label>
+                                <input type="text" class="form-control" name="topoDepartement"  placeholder="Le departement" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        <div class="form-group col-md-3">
+                                <label for="">
+                                    Pays</label>
+                                <input type="text" class="form-control" name="topoCountry" placeholder="La pays" data-rule="minlen:4"  data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                                Affiner</button>
+                        </div>
+                </form>
+                <div class="service-box team boxed-grey">
+                    <div class="service-desc">
+                        <h5>Liste des Topos</h5>
+                        <table class="table table-sm">
+                            <thead>
+                            <tr class="bg-primary">
+                                <th class="text-center" scope="col"> Nom du topo</th>
+                                <th class="text-center" scope="col"> Date de parution</th>
+                                <th class="text-center" scope="col">Spot</th>
+                                <th class="text-center" scope="col">Ville</th>
+                                <th class="text-center" scope="col">Departement</th>
+                                <th class="text-center" scope="col">Pays</th>
+                                <th class="text-center" scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${searchTopos}" var="topos">
+                                <tr>
+                            <td class="text-center" scope="row">${topos.topoName}</td>
+                            <td class="text-center" scope="row">${topos.release}</td>
+                            <td class="text-center" scope="row">${topos.spot.spotName}</td>
+                            <td class="text-center" scope="row">${topos.topoCity}</td>
+                            <td class="text-center" scope="row">${topos.topoDepartement}</td>
+                            <td class="text-center" scope="row">${topos.topoCountry}</td>
+                            <td class="text-center" scope="row"><button>Demandez la réservation</button></td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Section: Les Topos -->
 
 
 <footer>
@@ -258,6 +347,16 @@
 <script src="js/custom.js"></script>
 <script src="contactform/contactform.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+    function toggleOn() {
+        $('#available')
+    }
+    function toggleOff() {
+        $('#available')
+    }
+</script>
+
 
 </body>
 </html>

@@ -6,7 +6,7 @@ import com.sda.amisescalade.dao.TopoDAO;
 import com.sda.amisescalade.entities.ClimbUser;
 import com.sda.amisescalade.entities.Spot;
 import com.sda.amisescalade.entities.Topo;
-import com.sda.amisescalade.entities.TopoForm;
+import com.sda.amisescalade.dto.TopoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -65,7 +64,7 @@ public class TopoController {
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         newTopo.setClimbUser(climbUser);
         Spot spot = new Spot();
-        spot = spotDAO.findBySpotName(spot);
+        spot = spotDAO.findBySpotName(spot.getSpotName());
         newTopo.setSpot(spot);
 
         try{

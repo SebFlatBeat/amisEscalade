@@ -62,7 +62,7 @@
 </nav>
 
 <!-- Section: FormTopo -->
-<section id="search" class="home-section text-center">
+<section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
             <div class="row">
@@ -86,15 +86,15 @@
                 <div id="errormessage"></div>
                 <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
                     <div class="row">
-                        <div class="col-md12 dropdown">
-                            <button class="btn btn-warning dropdown-toggle" type="button" id="spotList" data-toggle="spotList" aria-haspopup="true" aria-expanded="true">
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="spotList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Choissisez le spot à affilier à votre Topo
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="spotList">
-                                <c:forEach items="${spotList}" var="spotList">
-                                    <li><a>${spotList.spotName}</a> </li>
+                            <div class="dropdown-menu" aria-labelledby="spotList">
+                                <c:forEach items="${spotList}" var="spot">
+                                    <a class="dropdown-item">${spot.spotName}<input type="hidden" id="spotId" name="spotId" value="${spot.spotName}"></a>
                                 </c:forEach>
-                            </ul>
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">

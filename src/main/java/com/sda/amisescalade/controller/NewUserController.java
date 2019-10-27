@@ -1,7 +1,7 @@
 package com.sda.amisescalade.controller;
 
 import com.sda.amisescalade.dao.ClimbUserDAO;
-import com.sda.amisescalade.entities.ClimbUserForm;
+import com.sda.amisescalade.dto.ClimbUserForm;
 import com.sda.amisescalade.entities.ClimbUser;
 import com.sda.amisescalade.entities.ClimbUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;

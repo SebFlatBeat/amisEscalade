@@ -2,6 +2,7 @@ package com.sda.amisescalade.entities;
 
 
 import com.sda.amisescalade.dao.ClimbUserDAO;
+import com.sda.amisescalade.dto.ClimbUserForm;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
