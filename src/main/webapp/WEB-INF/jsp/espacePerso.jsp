@@ -50,7 +50,7 @@
                 <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
                 <li><a href="<c:url value="/espacePerso#topos"/>">Les topos</a></li>
-                <li><a href="#">Mes spots</a></li>
+                <li><a href="<c:url value="/espacePerso#demandes"/>">Mes demandes</a></li>
                 <li><a href="#">Mes amis</a></li>
                 <c:if test="${pageContext.request.userPrincipal == null}">
                     <li><a data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
@@ -206,14 +206,14 @@
                                                         <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
                                                         <td class="text-center" scope="row">
                                                             <form action="/topo/${topoClimber.id}/availability" method="post">
-                                                                 <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Disponible" data-offstyle="default" data-off="Indisponible" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
+                                                                 <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Dispo" data-offstyle="default" data-off="Indispo" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
                                                             </form>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
+
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>
@@ -249,33 +249,49 @@
 
                 <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
-                <form id="contact-form" action="" method="post" role="form" class="contactForm">
+                <form id="contact-form" action="/topo/${searchTopos}/result" method="post" role="form" class="contactForm">
                     <div class="form row">
                         <div class="form-group col-md-3">
                                 <label for="spot">
                                     Spot</label>
-                                <input type="text" name="spot" class="form-control" id="spot" placeholder="Le spot" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                                <select class="form-control" id="spot">
+                                    <option></option>
+                                    <c:forEach items="${searchSpot}" var="findSpot">
+                                        <option>${findSpot.spotName}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         <div class="form-group col-md-3">
-                                <label for="">
+                                <label for="topos">
                                     Ville</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="topoCity" id="" placeholder="La ville" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                    <div class="validation"></div>
+                                    <select class="form-control" id="topoCity">
+                                        <option></option>
+                                    <c:forEach items="${searchSpot}" var="searchCity">
+                                        <option>${searchCity.city}</option>
+                                    </c:forEach>
+                                </select>
                                 </div>
                             </div>
                         <div class="form-group col-md-3">
-                                <label for="">
+                                <label for="topos">
                                     Departement</label>
-                                <input type="text" class="form-control" name="topoDepartement"  placeholder="Le departement" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                            <select class="form-control" id="topoDepartement">
+                                <option></option>
+                                <c:forEach items="${searchSpot}" var="searchDepartement">
+                                    <option>${searchDepartement.department}</option>
+                                </c:forEach>
+                            </select>
                             </div>
                         <div class="form-group col-md-3">
-                                <label for="">
+                                <label for="topos">
                                     Pays</label>
-                                <input type="text" class="form-control" name="topoCountry" placeholder="La pays" data-rule="minlen:4"  data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                            <select class="form-control" id="topoCountry">
+                                <option></option>
+                                <c:forEach items="${searchSpot}" var="searchCountry">
+                                    <option>${searchCountry.country}</option>
+                                </c:forEach>
+                            </select>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -301,13 +317,18 @@
                             <tbody>
                             <c:forEach items="${searchTopos}" var="topos">
                                 <tr>
-                            <td class="text-center" scope="row">${topos.topoName}</td>
-                            <td class="text-center" scope="row">${topos.release}</td>
+                                    <form action="/saveReservation" method="post">
+                            <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
+                            <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
                             <td class="text-center" scope="row">${topos.spot.spotName}</td>
                             <td class="text-center" scope="row">${topos.topoCity}</td>
                             <td class="text-center" scope="row">${topos.topoDepartement}</td>
                             <td class="text-center" scope="row">${topos.topoCountry}</td>
-                            <td class="text-center" scope="row"><button>Demandez la réservation</button></td>
+                            <td class="text-center" scope="row">
+                                <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
+                                <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
+                                <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
+                                <button>Demandez la réservation</button></td></form>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -320,6 +341,71 @@
 </section>
 <!-- /Section: Les Topos -->
 
+<!-- Section: Mes demandes -->
+<section id="demandes" class="home-section text-center">
+    <div class="heading-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Gestion des demandes de Topos</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-2 col-lg-offset-5">
+                <hr class="marginbot-50">
+            </div>
+        </div>
+
+
+        <div class="row col-lg-5">
+                <h5 class="text-center">Valider les demandes en cours</h5>
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="bg-primary">
+                            <th class="text-center" scope="col"> Nom du topo</th>
+                            <th class="text-center" scope="col">Nom de l'emprunteur</th>
+                            <th class="text-center" scope="col"> Validation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="borrow" items="${reservations}">
+                            <tr>
+                            <td class="text-center" scope="row">${borrow.topoNameReservation}</td>
+                            <td class="text-center" scope="row">${borrow.borrower}</td>
+                            <td class="text-center" scope="row"><form action="" method="post">
+                                <input name="lend" id="lend" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Prêter" data-offstyle="default" data-off="Refuser" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
+                            </form>
+                            </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+        </div>
+        <div class="row col-lg-5 col-lg-offset-2">
+                <h5 class="text-center">Prêt en cours</h5>
+            <table class="table table-sm">
+                <thead>
+                <tr class="bg-primary">
+                    <th class="text-center" scope="col"> Nom du topo</th>
+                    <th class="text-center" scope="col">Nom de l'emprunteur</th>
+                    <th class="text-center" scope="col">Date d'emprunt</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- /Section: Mes demandes -->
 
 <footer>
     <div class="container">

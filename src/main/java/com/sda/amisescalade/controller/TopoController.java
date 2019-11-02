@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TopoController {
@@ -63,9 +64,8 @@ public class TopoController {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         newTopo.setClimbUser(climbUser);
-        Spot spot = new Spot();
-        spot = spotDAO.findBySpotName(spot.getSpotName());
-        newTopo.setSpot(spot);
+        Optional<Spot> spotNewTopo = spotDAO.findById(topoform.getSpotId());
+        newTopo.setSpot(spotNewTopo.get());
 
         try{
             topoDAO.save(newTopo);

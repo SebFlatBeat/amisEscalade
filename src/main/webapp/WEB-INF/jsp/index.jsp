@@ -121,8 +121,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.request.userPrincipal.name}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
-                        <li><a href="#">Les topos</a></li>
-                        <li><a href="#">Mes spots</a></li>
+                        <li><a href="<c:url value="/espacePerso#topos"/>">Les topos</a></li>
+                        <li><a href="<c:url value="/espacePerso#demandes"/>">Mes demandes</a></li>
                         <li><a href="#">Mes amis</a></li>
                         <li><a href="<c:url value="/logout" />">Déconnexion</a> </li>
                     </ul>

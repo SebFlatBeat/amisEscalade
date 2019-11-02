@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SpotDAO extends JpaRepository <Spot,Long> {
-    Spot findBySpotName(String spot);
-
-    @Override
-    List<Spot> findAll();
+    Spot findBySpotName(String spotName);
 
     Spot findById(Spot spot);
 
