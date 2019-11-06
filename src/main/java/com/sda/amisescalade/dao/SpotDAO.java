@@ -4,11 +4,10 @@ import com.sda.amisescalade.entities.Spot;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SpotDAO extends JpaRepository <Spot,Long> {
-    Spot findBySpotName(Spot spot);
+    Spot findBySpotName(String spotName);
 
-    @Override
-    List<Spot> findAll();
+    Spot findById(Spot spot);
+
 }

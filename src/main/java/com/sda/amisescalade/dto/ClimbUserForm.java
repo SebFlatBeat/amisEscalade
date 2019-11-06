@@ -1,4 +1,4 @@
-package com.sda.amisescalade.entities;
+package com.sda.amisescalade.dto;
 
 public class ClimbUserForm {
 

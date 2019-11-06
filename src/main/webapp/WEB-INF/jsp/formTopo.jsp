@@ -62,13 +62,13 @@
 </nav>
 
 <!-- Section: FormTopo -->
-<section id="search" class="home-section text-center">
+<section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
-                        <div class="section-heading">
+                        <div class="section-heading text-center">
                             <h2>Enregistrez votre nouveau Topo</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
@@ -85,16 +85,18 @@
                 <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
                 <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
-                    <div class="row">
-                        <div class="col-md12 dropdown">
-                            <button class="btn btn-warning dropdown-toggle" type="button" id="spotList" data-toggle="spotList" aria-haspopup="true" aria-expanded="true">
-                                Choissisez le spot à affilier à votre Topo
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="spotList">
-                                <c:forEach items="${spotList}" var="spotList">
-                                    <li><a>${spotList.spotName}</a> </li>
+                    <div class="row col-md-6">
+                        <label> Choissisez le spot à affilier à votre Topo</label>
+                            <select class="form-control" type="button" id="spotList">
+                                <option></option>
+                                <c:forEach var="selectSpot" items="${spotList}">
+                                    <option>${selectSpot.spotName}</option>
+                                    <input type="hidden" name="topoCountry" class="form-control" id="topoCountry" value="${selectSpot.country}"/>
+                                    <input type="hidden" name="topoCity" class="form-control" id="topoCity" value="${selectSpot.city}"/>
+                                    <input type="hidden" name="topoDepartement" class="form-control" id="topoDepartement" value="${selectSpot.department}"/>
+                                    <input type="hidden" name="spotId" class="form-control" id="spotId" value="${selectSpot.id}"/>
                                 </c:forEach>
-                            </ul>
+                            </select>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
@@ -104,32 +106,7 @@
                                 <div class="validation"></div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="topoCountry">
-                                    Pays</label>
-                                <input type="text" name="topoCountry" class="form-control" id="topoCountry" placeholder="Entrez le pays" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="topoDepartement">
-                                    Département</label>
-                                <input type="text" name="topoDepartement" class="form-control" id="topoDepartement" placeholder="Entrez le département" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="topoCity">
-                                    Ville</label>
-                                <input type="text" name="topoCity" class="form-control" id="topoCity" placeholder="Entrez la ville" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
-                        </div>
-
-                            <div class="col-md-12">
+                                                <div class="col-md-12">
                             <div class="form-group">
                                 <label for="topoDescription">
                                     Description</label>
@@ -137,7 +114,6 @@
                                 <div class="validation"></div>
                             </div>
                         </div>
-                            </div>
                     <div class="col-md-12 boxed-grey">
                         <fieldset class="form-group">
                             <div class="row">

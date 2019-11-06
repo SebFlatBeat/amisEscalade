@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Confirm</label>
-                            <input class="input-group center-block text-info" type="password" id="confirm" placeholder="Confirmer votre mot de passe"/>
+                            <input class="input-group center-block text-info" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmer votre mot de passe"/>
                         </div>
 
                         <div class="form-group col-md-12">
