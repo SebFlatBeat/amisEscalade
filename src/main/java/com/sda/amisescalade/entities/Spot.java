@@ -17,6 +17,8 @@ public class Spot implements Serializable {
     private String department;
     private String region;
     private String country;
+    private boolean tag;
+    private String tagOfficiel;
 
     @ManyToOne
     @Cascade(CascadeType.DETACH)
@@ -33,12 +35,14 @@ public class Spot implements Serializable {
     public Spot() {
     }
 
-    public Spot(String spotName, String city, String department,String region, String country) {
+    public Spot(String spotName, String city, String department,String region, String country, boolean tag, String tagOfficiel) {
         this.spotName = spotName;
         this.city = city;
         this.department = department;
         this.region = region;
         this.country = country;
+        this.tag = tag;
+        this.tagOfficiel = tagOfficiel;
     }
 
     public Long getId() {
@@ -87,5 +91,45 @@ public class Spot implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public boolean isTag() {
+        return tag;
+    }
+
+    public void setTag(boolean tag) {
+        this.tag = tag;
+    }
+
+    public String getTagOfficiel() {
+        return tagOfficiel;
+    }
+
+    public void setTagOfficiel(String tagOfficiel) {
+        this.tagOfficiel = tagOfficiel;
+    }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Sector> getSectors() {
+        return sectors;
+    }
+
+    public void setSectors(List<Sector> sectors) {
+        this.sectors = sectors;
     }
 }
