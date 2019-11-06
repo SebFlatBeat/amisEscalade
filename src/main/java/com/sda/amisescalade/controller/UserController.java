@@ -67,6 +67,9 @@ public class UserController {
     public String updateAvailabilty(@PathVariable Long topoId, Model model, @ModelAttribute("checkBoxForm") @Validated CheckBoxForm checkBoxForm, BindingResult result, final RedirectAttributes redirectAttributes) {
             Topo topo = topoDAO.findById(topoId).get();
             topo.setAvailable(checkBoxForm.getRealAvailability());
+            if (topo.isAvailable()){
+            Reservation reservation = reservationDAO.findReservationsByTopoId(topoId);
+            reservationDAO.delete(reservation);}
             topoDAO.save(topo);
             return "redirect:/espacePerso";
         }

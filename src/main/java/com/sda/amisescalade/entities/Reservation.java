@@ -16,6 +16,7 @@ public class Reservation implements Serializable {
     private String owner;
     private String topoNameReservation;
     private Date borrowing;
+    private boolean accepted;
 
     @ManyToOne
     @JoinColumn(name = "climb_user_id")
@@ -29,11 +30,12 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(String borrower, String owner, String topoNameReservation, Date borrowing) {
+    public Reservation(String borrower, String owner, String topoNameReservation, Date borrowing, boolean accepted) {
         this.borrower = borrower;
         this.owner = owner;
         this.topoNameReservation = topoNameReservation;
         this.borrowing = borrowing;
+        this.accepted = accepted;
     }
 
     public Long getId() {
@@ -74,6 +76,14 @@ public class Reservation implements Serializable {
 
     public void setBorrowing(Date borrowing) {
         this.borrowing = borrowing;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 
     public ClimbUser getClimbUser() {

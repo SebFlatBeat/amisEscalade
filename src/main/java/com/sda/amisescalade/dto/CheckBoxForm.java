@@ -17,13 +17,14 @@ public class CheckBoxForm {
     private Date release;
     private String topoDescription;
     private String availability;
+    private  boolean accepted;
 
     private Spot spot;
 
     public CheckBoxForm() {
     }
 
-    public CheckBoxForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription) {
+    public CheckBoxForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription, boolean accepted) {
         this.id = id;
         this.topoName = topoName;
         this.available = available;
@@ -32,6 +33,7 @@ public class CheckBoxForm {
         this.topoCountry = topoCountry;
         this.release = release;
         this.topoDescription = topoDescription;
+        this.accepted = accepted;
     }
 
     public Long getId() {
@@ -98,6 +100,14 @@ public class CheckBoxForm {
         this.topoDescription = topoDescription;
     }
 
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
     public Spot getSpot() {
         return spot;
     }
@@ -114,11 +124,21 @@ public class CheckBoxForm {
         this.availability = availability;
     }
 
-    public boolean getRealAvailability (){
-        if(availability == null){
+    public boolean getRealAvailability () {
+        if (availability == null) {
             return false;
-        }else if (availability.equals("on"))
+        } else if (availability.equals("on")) {
             return true;
+        }
         return false;
+    }
+
+    public boolean getRealAccepted () {
+        if(availability == null){
+            return true;
+        }else if (availability.equals("on")) {
+            return false;
+        }
+        return true;
     }
 }

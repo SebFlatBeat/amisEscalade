@@ -42,6 +42,7 @@ public class TopoController {
         model.addAttribute("spotList", spotList);
         return "formTopo";
     }
+
     /**
      *
      * @param model
@@ -66,7 +67,6 @@ public class TopoController {
         newTopo.setClimbUser(climbUser);
         Optional<Spot> spotNewTopo = spotDAO.findById(topoform.getSpotId());
         newTopo.setSpot(spotNewTopo.get());
-
         try{
             topoDAO.save(newTopo);
         }
