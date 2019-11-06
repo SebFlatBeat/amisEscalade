@@ -15,6 +15,7 @@ public class Spot implements Serializable {
     private String spotName;
     private String city;
     private String department;
+    private String region;
     private String country;
 
     @ManyToOne
@@ -32,10 +33,11 @@ public class Spot implements Serializable {
     public Spot() {
     }
 
-    public Spot(String spotName, String city, String department, String country) {
+    public Spot(String spotName, String city, String department,String region, String country) {
         this.spotName = spotName;
         this.city = city;
         this.department = department;
+        this.region = region;
         this.country = country;
     }
 
@@ -69,6 +71,14 @@ public class Spot implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getCountry() {
