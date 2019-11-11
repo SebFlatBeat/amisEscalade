@@ -70,6 +70,18 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="prism-java" type="javaScript">
+      <properties>
+        <sourceFilesUrls>
+          <item url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_prism_1.17.1_components_prism-java.js" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_prism_1.17.1_components_prism-java.js" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="select2.full" type="javaScript">
       <properties>
         <sourceFilesUrls>
