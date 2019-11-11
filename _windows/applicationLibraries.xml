@@ -70,6 +70,23 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="jquery-ui" type="javaScript">
+      <properties>
+        <option name="frameworkName" value="jQuery" />
+        <option name="frameworkVersion" value="1.9.2" />
+        <sourceFilesUrls>
+          <item url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_ui_1.9.2_jquery-ui.js" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_ui_1.9.2_jquery-ui.js" />
+      </CLASSES>
+      <DOCUMENTATION>
+        <root url="http://api.jquery.com" />
+      </DOCUMENTATION>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="prism-java" type="javaScript">
       <properties>
         <sourceFilesUrls>
