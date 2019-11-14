@@ -34,6 +34,14 @@ public class ReservationController {
     @Autowired
     private TopoDAO topoDAO;
 
+    /**
+     *
+     * @param model
+     * @param reservationForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/saveReservation")
     public String createReservation(Model model, @ModelAttribute("reservationForm")ReservationForm reservationForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Reservation newReservation = new Reservation();
@@ -58,6 +66,15 @@ public class ReservationController {
         return "redirect:/espacePerso#topos";
     }
 
+    /**
+     *
+     * @param reservationId
+     * @param model
+     * @param checkBoxForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/reservation/{reservationId}/accepted")
     public String updateAccepted(@PathVariable Long reservationId, Model model, @ModelAttribute("checkBoxForm") @Validated CheckBoxForm checkBoxForm, BindingResult result, final RedirectAttributes redirectAttributes) {
         Reservation reservation = reservationDAO.findById(reservationId).get();

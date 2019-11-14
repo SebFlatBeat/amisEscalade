@@ -8,9 +8,6 @@ import com.sda.amisescalade.dto.TopoForm;
 import com.sda.amisescalade.entities.*;
 import com.sda.amisescalade.dto.CheckBoxForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,10 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -46,7 +41,11 @@ public class UserController {
 
     /**
      *
-     * @return espacePerso
+     * @param modelListTopoUser
+     * @param modelListTopo
+     * @param modelSpot
+     * @param modelReservation
+     * @return
      */
        @GetMapping("/espacePerso")
        public String espacePerso(Model modelListTopoUser, Model modelListTopo, Model modelSpot, Model modelReservation) {
@@ -63,6 +62,15 @@ public class UserController {
            return "espacePerso";
        }
 
+    /**
+     *
+     * @param topoId
+     * @param model
+     * @param checkBoxForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/topo/{topoId}/availability")
     public String updateAvailabilty(@PathVariable Long topoId, Model model, @ModelAttribute("checkBoxForm") @Validated CheckBoxForm checkBoxForm, BindingResult result, final RedirectAttributes redirectAttributes) {
             Topo topo = topoDAO.findById(topoId).get();
@@ -81,6 +89,15 @@ public class UserController {
            return "/espacePerso#topos";
         }
 
+    /**
+     *
+     * @param topoId
+     * @param model
+     * @param topoForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
         @GetMapping("/topo/{topoId}/result")
         public String resultSearchTopo(@PathVariable Long topoId, Model model, @ModelAttribute("topoForm") @Validated TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes){
             List<Topo> searchTopos = new ArrayList<>();
