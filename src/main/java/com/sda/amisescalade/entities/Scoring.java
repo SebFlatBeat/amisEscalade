@@ -44,4 +44,28 @@ public class Scoring implements Serializable {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public Road getRoad() {
+        return road;
+    }
+
+    public void setRoad(Road road) {
+        this.road = road;
+    }
+
+    public Lenght getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(Lenght lenght) {
+        this.lenght = lenght;
+    }
 }

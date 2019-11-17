@@ -37,7 +37,7 @@ public class TopoController {
      * @return formTopo
      */
     @RequestMapping(value = "/formTopo")
-    public String form(Model model){
+    public String formTopo(Model model){
         List<Spot> spotList = spotDAO.findAll();
         model.addAttribute("spotList", spotList);
         return "formTopo";
@@ -55,9 +55,10 @@ public class TopoController {
     public String saveFormTopo (Model model, @ModelAttribute("topoForm") @Validated TopoForm topoform,BindingResult result, final RedirectAttributes redirectAttributes) {
 
         Topo newTopo = new Topo();
-        newTopo.setTopoCity(topoform.getTopoCity());
-        newTopo.setTopoCountry(topoform.getTopoCountry());
-        newTopo.setTopoDepartement(topoform.getTopoDepartement());
+        Optional<Spot> spotlist = spotDAO.findById(topoform.getSpotId());
+        newTopo.setTopoCity(spotlist.get().getCity());
+        newTopo.setTopoCountry(spotlist.get().getCountry());
+        newTopo.setTopoDepartement(spotlist.get().getDepartment());
         newTopo.setTopoName(topoform.getTopoName());
         newTopo.setRelease(topoform.getRelease());
         newTopo.setAvailable(topoform.isAvailable());

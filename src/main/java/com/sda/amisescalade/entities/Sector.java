@@ -26,6 +26,10 @@ public class Sector implements Serializable {
     @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Spot spot;
+
     @OneToMany
     @Cascade(CascadeType.DETACH)
     private List<Road> road;
@@ -69,5 +73,29 @@ public class Sector implements Serializable {
 
     public void setAccess(String access) {
         this.access = access;
+    }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
+    }
+
+    public List<Road> getRoad() {
+        return road;
+    }
+
+    public void setRoad(List<Road> road) {
+        this.road = road;
     }
 }

@@ -123,7 +123,7 @@
                         <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
                         <li><a href="<c:url value="/espacePerso#topos"/>">Les topos</a></li>
                         <li><a href="<c:url value="/espacePerso#demandes"/>">Mes demandes</a></li>
-                        <li><a href="#">Mes amis</a></li>
+                        <li><a href="<c:url value="/espacePerso#spots"/>">Les spots</a></li>
                         <li><a href="<c:url value="/logout" />">Déconnexion</a> </li>
                     </ul>
                 </li>

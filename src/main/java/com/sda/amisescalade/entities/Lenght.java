@@ -51,4 +51,12 @@ public class Lenght implements Serializable {
     public void setHeight(String height) {
         this.height = height;
     }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
 }

@@ -18,7 +18,6 @@ public class Spot implements Serializable {
     private String region;
     private String country;
     private boolean tag;
-    private String tagOfficiel;
 
     @ManyToOne
     @Cascade(CascadeType.DETACH)
@@ -32,17 +31,20 @@ public class Spot implements Serializable {
     @Cascade(CascadeType.DETACH)
     private List <Sector> sectors;
 
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Cartography cartography;
+
     public Spot() {
     }
 
-    public Spot(String spotName, String city, String department,String region, String country, boolean tag, String tagOfficiel) {
+    public Spot(String spotName, String city, String department,String region, String country, boolean tag) {
         this.spotName = spotName;
         this.city = city;
         this.department = department;
         this.region = region;
         this.country = country;
         this.tag = tag;
-        this.tagOfficiel = tagOfficiel;
     }
 
     public Long getId() {
@@ -65,7 +67,7 @@ public class Spot implements Serializable {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city, Long codePostalCartography) {
         this.city = city;
     }
 
@@ -73,7 +75,7 @@ public class Spot implements Serializable {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(String department, Long departmentCartography) {
         this.department = department;
     }
 
@@ -101,14 +103,6 @@ public class Spot implements Serializable {
         this.tag = tag;
     }
 
-    public String getTagOfficiel() {
-        return tagOfficiel;
-    }
-
-    public void setTagOfficiel(String tagOfficiel) {
-        this.tagOfficiel = tagOfficiel;
-    }
-
     public ClimbUser getClimbUser() {
         return climbUser;
     }
@@ -131,5 +125,13 @@ public class Spot implements Serializable {
 
     public void setSectors(List<Sector> sectors) {
         this.sectors = sectors;
+    }
+
+    public Cartography getCartography() {
+        return cartography;
+    }
+
+    public void setCartography(Cartography cartography) {
+        this.cartography = cartography;
     }
 }

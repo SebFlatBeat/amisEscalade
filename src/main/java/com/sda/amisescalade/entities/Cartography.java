@@ -17,24 +17,20 @@ public class Cartography {
     private String countryCartography;
     private String regionCartography;
     private Long departmentCartography;
+    private String departmentNameCartography;
     private String communeCartography;
     private Long codePostalCartography;
 
-    @ManyToOne
-    @Cascade(CascadeType.DETACH)
-    private Spot spot;
 
-    @ManyToOne
-    @Cascade(CascadeType.DETACH)
-    private Topo topo;
 
     public Cartography() {
     }
 
-    public Cartography(String countryCartography, String regionCartography, Long departmentCartography, String communeCartography, Long codePostalCartography) {
+    public Cartography(String countryCartography, String regionCartography, Long departmentCartography,String departmentNameCartography,String communeCartography, Long codePostalCartography) {
         this.countryCartography = countryCartography;
         this.regionCartography = regionCartography;
         this.departmentCartography = departmentCartography;
+        this.departmentNameCartography = departmentNameCartography;
         this.communeCartography = communeCartography;
         this.codePostalCartography = codePostalCartography;
     }
@@ -67,8 +63,18 @@ public class Cartography {
         return departmentCartography;
     }
 
+    public String getDepartmentNameCartography() {
+        return departmentNameCartography;
+    }
+
+    public void setDepartmentNameCartography(String departmentNameCartography) {
+        this.departmentNameCartography = departmentNameCartography;
+    }
+
     public void setDepartmentCartography(Long departmentCartography) {
         this.departmentCartography = departmentCartography;
+
+
     }
 
     public String getCommuneCartography() {
@@ -87,19 +93,4 @@ public class Cartography {
         this.codePostalCartography = codePostalCartography;
     }
 
-    public Spot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
-    }
-
-    public Topo getTopo() {
-        return topo;
-    }
-
-    public void setTopo(Topo topo) {
-        this.topo = topo;
-    }
 }

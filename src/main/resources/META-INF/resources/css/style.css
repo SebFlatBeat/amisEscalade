@@ -18,6 +18,8 @@ body {
     background-color: #fff;
 }
 
+form{ display: inline-block; }
+
 
 html {
     width: 100%;
@@ -713,7 +715,7 @@ Parallax
 }
 
 @-moz-keyframes pulse {
-    0 {
+0 {
         -moz-transform: scale(1);
         transform: scale(1);
     }

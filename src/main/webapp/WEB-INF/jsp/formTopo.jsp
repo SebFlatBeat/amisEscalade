@@ -29,6 +29,8 @@
     <!-- Squad theme CSS -->
     <link href="css/style.css" rel="stylesheet"/>
     <link href="color/default.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
 </head>
 
@@ -86,19 +88,18 @@
                 <div id="errormessage"></div>
                 <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
                     <div class="row col-md-6">
-                        <label> Choissisez le spot à affilier à votre Topo</label>
-                            <select class="form-control" type="button" id="spotList">
+                        <div class="form-group">
+                        <label for="spotId"> Choissisez le spot à affilier à votre Topo</label>
+                            <select class="chosen-select" type="button" id="spotId">
                                 <option></option>
                                 <c:forEach var="selectSpot" items="${spotList}">
-                                    <option>${selectSpot.spotName}</option>
-                                    <input type="hidden" name="topoCountry" class="form-control" id="topoCountry" value="${selectSpot.country}"/>
-                                    <input type="hidden" name="topoCity" class="form-control" id="topoCity" value="${selectSpot.city}"/>
-                                    <input type="hidden" name="topoDepartement" class="form-control" id="topoDepartement" value="${selectSpot.department}"/>
-                                    <input type="hidden" name="spotId" class="form-control" id="spotId" value="${selectSpot.id}"/>
+                                    <option value="${selectSpot.id}">${selectSpot.spotName}</option>
                                 </c:forEach>
                             </select>
-                        </div>
-                        <div class="col-md-3">
+                       <p>Votre spot n'apparait pas dans la liste? Ajoutez-le en cliquant ici : <a class="btn btn-xs btn-skin" type="button" href="<c:url value="/formSpot"/>">Ajouter un spot</a></p>
+                    </div>
+                    </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="topoName">
                                    Le nom du Topo</label>
@@ -183,7 +184,8 @@
 <script src="js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.js"></script>
-
+<script src="chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 
 
 </body>

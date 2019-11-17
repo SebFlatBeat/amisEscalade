@@ -44,4 +44,20 @@ public class Road implements Serializable {
     public void setRoadName(String roadName) {
         this.roadName = roadName;
     }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public List<Lenght> getLenghts() {
+        return lenghts;
+    }
+
+    public void setLenghts(List<Lenght> lenghts) {
+        this.lenghts = lenghts;
+    }
 }

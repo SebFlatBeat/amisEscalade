@@ -36,6 +36,10 @@ public class Topo implements Serializable {
     @JoinColumn(name = "spot_id")
     private Spot spot;
 
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Cartography cartography;
+
     public Topo() {
     }
 
@@ -127,5 +131,13 @@ public class Topo implements Serializable {
 
     public void setSpot(Spot spot) {
         this.spot = spot;
+    }
+
+    public Cartography getCartography() {
+        return cartography;
+    }
+
+    public void setCartography(Cartography cartography) {
+        this.cartography = cartography;
     }
 }

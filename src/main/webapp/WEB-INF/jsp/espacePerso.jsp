@@ -51,7 +51,7 @@
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
                 <li><a href="<c:url value="/espacePerso#topos"/>">Les topos</a></li>
                 <li><a href="<c:url value="/espacePerso#demandes"/>">Mes demandes</a></li>
-                <li><a href="#">Mes amis</a></li>
+                <li><a href="<c:url value="/espacePerso#spots"/>">Les spots</a></li>
                 <c:if test="${pageContext.request.userPrincipal == null}">
                     <li><a data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
                         <div class="modal fade " id="id-popup" tabindex="-1" role="dialog" aria-labelledby="titrePopUp" aria-hidden="true" data-backdrop="false">
@@ -350,8 +350,6 @@
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
                             <h2>Gestion des demandes de Topos</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
-
                         </div>
                     </div>
                 </div>
@@ -381,7 +379,7 @@
                 <c:forEach var="borrow" items="${reservations}">
                     <tr>
                         <c:if test="${not borrow.accepted}">
-                        <td class="text-center" scope="row">${borrow.topoNameReservation}</td>
+                            <td class="text-center" scope="row">${borrow.topoNameReservation}</td>
                             <td class="text-center" scope="row">${borrow.borrower}</td>
                             <td class="text-center" scope="row"><form action="/reservation/${borrow.id}/accepted" method="post">
                                 <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Prêter" data-offstyle="default" data-off="Refuser" data-size="mini" ${borrow.accepted ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
@@ -406,11 +404,11 @@
                 <tbody>
                 <c:forEach var="lend" items="${reservations}">
                     <tr>
-                <c:if test="${lend.accepted}">
-                    <td class="text-center" scope="row">${lend.topoNameReservation}</td>
-                    <td class="text-center" scope="row">${lend.borrower}</td>
-                    <td class="text-center" scope="row"><fmt:formatDate value="${lend.borrowing}"></fmt:formatDate></td>
-                </c:if>
+                        <c:if test="${lend.accepted}">
+                            <td class="text-center" scope="row">${lend.topoNameReservation}</td>
+                            <td class="text-center" scope="row">${lend.borrower}</td>
+                            <td class="text-center" scope="row"><fmt:formatDate value="${lend.borrowing}"></fmt:formatDate></td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -420,6 +418,78 @@
 </section>
 <!-- /Section: Mes demandes -->
 
+<!-- Section: Les spots -->
+<section id="spots" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>les Spots</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="service-box team boxed-grey">
+                <div class="service-desc">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="bg-primary">
+                            <th class="text-center" scope="col"> Nom du spot</th>
+                            <th class="text-center" scope="col">Ville</th>
+                            <th class="text-center" scope="col">Departement</th>
+                            <th class="text-center" scope="col">Region</th>
+                            <th class="text-center" scope="col"> Spot Officiel</th>
+                            <th class="text-center" scope="col"> Edition </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${searchSpot}" var="Spot">
+                            <tr>
+                                <td class="text-center" scope="row">${Spot.spotName}</td>
+                                <td class="text-center" scope="row">${Spot.city}</td>
+                                <td class="text-center" scope="row">${Spot.department}</td>
+                                <td class="text-center" scope="row">${Spot.region}</td>
+                                <c:if test="${Spot.tag == true}">
+                                <td class="text-center" scope="row">Oui</td>
+                                </c:if>
+                                <c:if test="${Spot.tag == false}">
+                                <td class="text-center" scope="row">Non</td>
+                                </c:if>
+                                <td class="text-center" scope="row">
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value=""></c:url> ">Editer Spot</a>
+                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="spot/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="boxed-grey">
+                <div class="wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="service-box team boxed-grey">
+                        <div class="service-icon">
+                            <img src="img/icons/service-icon-2.png" alt="" />
+                        </div>
+                        <div class="service-desc">
+                            <h5>Ajouter un nouveau Spot</h5>
+                            <a role="button" class="btn btn-success" href="<c:url value="/formSpot"/>">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Section: Les spots -->
 <footer>
     <div class="container">
         <p>&copy;SquadFREE. All rights reserved.</p>
@@ -434,6 +504,7 @@
         </div>
     </div>
 </footer>
+
 
 
 <!-- Core JavaScript Files -->
