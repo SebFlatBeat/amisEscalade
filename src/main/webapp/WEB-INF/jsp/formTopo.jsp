@@ -29,6 +29,7 @@
     <!-- Squad theme CSS -->
     <link href="css/style.css" rel="stylesheet"/>
     <link href="color/default.css" rel="stylesheet"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
@@ -90,7 +91,7 @@
                     <div class="row col-md-6">
                         <div class="form-group">
                         <label for="spotId"> Choissisez le spot à affilier à votre Topo</label>
-                            <select class="chosen-select" type="button" id="spotId">
+                            <select id="spotId" name="spotId" class="chosen-select" data-placeholder="Cherchez le spot" >
                                 <option></option>
                                 <c:forEach var="selectSpot" items="${spotList}">
                                     <option value="${selectSpot.id}">${selectSpot.spotName}</option>
@@ -184,9 +185,14 @@
 <script src="js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script src="chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-
+<script type="text/javascript">
+    $(function() {
+        $(".chosen-select").chosen();
+    });
+</script>
 
 </body>
 

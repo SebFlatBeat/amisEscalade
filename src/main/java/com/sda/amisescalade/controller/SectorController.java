@@ -37,12 +37,12 @@ public class SectorController {
     @Autowired
     ScoringDAO scoringDAO;
 
-    @GetMapping(value = "spot/{spotId}/sectorForm")
+    @GetMapping(value = "{spotId}/sectorForm")
     public String getFormSector(@PathVariable Long spotId) {
         return "/formSector";
     }
 
-    @PostMapping(value = "spot/{spotId}/sectorForm")
+    @PostMapping(value = "{spotId}/sectorForm")
     public String saveFormSector(@PathVariable Long spotId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Spot spot = spotDAO.findById(spotId).get();
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,6 +56,7 @@ public class SectorController {
         sectorDAO.save(sector);
         Road road = new Road();
         road.setClimbUser(climbUser);
+        road.setSector(sector);
         road.setRoadName(sectorForm.getRoadName());
         roadDAO.save(road);
         Lenght lenght = new Lenght();

@@ -66,8 +66,7 @@ public class TopoController {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         newTopo.setClimbUser(climbUser);
-        Optional<Spot> spotNewTopo = spotDAO.findById(topoform.getSpotId());
-        newTopo.setSpot(spotNewTopo.get());
+        newTopo.setSpot(spotlist.get());
         try{
             topoDAO.save(newTopo);
         }

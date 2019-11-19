@@ -49,14 +49,14 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="${pageContext.request.contextPath}index">
-                <h1>Edition d'un spot</h1>
+                <h1>Les Amis de l'Escalade</h1>
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
+                <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
@@ -84,48 +84,57 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/spot/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
                 <div class="row col-md-12 form-group">
+                    <label>Le secteur</label>
                     <div class="col-lg-push-3 col-md-6">
                         <div class="form-group">
-                            <label> Choisisez le lieu</label>
-
-
+                            <label for="sectorName"> Entrez le nom du secteur :</label>
+                            <input type="text" id="sectorName" name="sectorName" class="form-control"/>
                         </div>
-
-                    </div>
-                            <div class="row col-md-12 form-group">
-                                <div class="col-lg-push-3 col-md-6">
-                            <div class="form-group">
-                                <label for="spotName">Entrez le nom du Spot</label>
-                                <input id="spotName" name="spotName" class="form-control" type="text"/>
-                            </div>
-                                </div>
-                                <div class="row col-md-12 form-group">
-                                <fieldset class="col-lg-push-3 col-md-6 form-group">
-                            <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Oui
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Non
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios2" value="false"/>
-                                    </label>
-                                </div>
-                            </div>
-                        </fieldset>
-                                </div>
+                        <div class="form-group">
+                            <label for="location">Entrez les coordonées géographique du secteur :</label>
+                            <input type="text" id="location" name="location" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="access">Décrivez l'acces :</label>
+                            <input type="textaera" id="access" name="access" class="form-control"/>
+                        </div>
                     </div>
                 </div>
+                <div class="row col-md-12 form-group">
+                    <label>La voie</label>
+                    <div class="col-lg-push-3 col-md-6">
+                        <div class="form-group">
+                            <label for="roadName">Entrez le nom de la voie :</label>
+                            <input type="text" id="roadName" name="roadName" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="distance">Entrez la distance :</label>
+                            <input type="number" id="distance" name="distance" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Entrez la hauteur :</label>
+                            <input type="number" id="height" name="height" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12 form-group">
+                    <label>La difficulté</label>
+                    <div class="col-lg-push-3 col-md-6">
+                        <div class="form-group">
+                            <label for="rating">Entrez la difficulté :</label>
+                            <input type="text" id="rating" name="rating" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Suivant</button>
+                        Envoyez
+                    </button>
                 </div>
             </form>
         </div>
@@ -159,10 +168,10 @@
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script src="chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".chosen-select").chosen();
-        });
+<script type="text/javascript">
+    $(function() {
+        $(".chosen-select").chosen();
+    });
 </script>
 
 

@@ -18,6 +18,10 @@ public class Road implements Serializable {
     @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Sector sector;
+
     @OneToMany
     @Cascade(CascadeType.DETACH)
     private List <Lenght> lenghts;
@@ -51,6 +55,14 @@ public class Road implements Serializable {
 
     public void setClimbUser(ClimbUser climbUser) {
         this.climbUser = climbUser;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 
     public List<Lenght> getLenghts() {

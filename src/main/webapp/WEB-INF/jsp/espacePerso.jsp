@@ -463,7 +463,7 @@
                                 </c:if>
                                 <td class="text-center" scope="row">
                                     <a type="button" class="btn btn-warning btn-xs" href="<c:url value=""></c:url> ">Editer Spot</a>
-                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="spot/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
                                 </td>
                             </tr>
                         </c:forEach>
