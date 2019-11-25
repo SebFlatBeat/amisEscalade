@@ -16,20 +16,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Enregistrer un Spot</title>
+    <title>Editer un Spot</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- FavIcon -->
     <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/animate.css" rel="stylesheet" />
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="color/default.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/color/default.css" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2>Enregistrez un nouveau Spot</h2>
+                            <h2>Modifiez un Spot</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -84,28 +84,39 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/saveFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/${spotId}/updateFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
+                <div class="col-lg-push-2 col-md-3 form-group">
+                    <div class="form-group">
+                        <label for="spotName">Nom actuel du spot :</label>
+                        <h4>${spot.spotName}</h4>
+                    </div>
+                </div>
+                <div class="col-lg-push-1 col-md-6">
+                    <div class="form-group">
+                        <label for="spotName">Modifiez le nom du Spot</label>
+                        <input id="spotName" name="spotName" class="form-control" type="text" value="${spot.spotName}"/>
+                    </div>
+                </div>
+
+
                 <div class="row col-md-12 form-group">
-                    <div class="col-lg-push-3 col-md-6">
+                    <div class="col-lg-push-2 col-md-3 form-group">
                         <div class="form-group">
-                            <label for="spotNameId"> Choisisez le lieu</label>
-                            <select  id="spotNameId" name="spotNameId" data-placeholder="Cherchez le lieu" class="chosen-select">
-                                <option></option>
-                                <c:forEach var="selectCity" items="${cartographyListCity}">
-                                    <option value="${selectCity.id}">${selectCity.communeCartography} (${selectCity.codePostalCartography})</option>
-                                </c:forEach>
-                            </select>
+                            <label for="spotName">Lieu actuel du spot :</label>
+                            <h4>${spot.cartography.communeCartography} (${spot.cartography.codePostalCartography})</h4>
                         </div>
                     </div>
-                            <div class="row col-md-12 form-group">
-                                <div class="col-lg-push-3 col-md-6">
-                            <div class="form-group">
-                                <label for="spotName">Entrez le nom du Spot</label>
-                                <input id="spotName" name="spotName" class="form-control" type="text"/>
-                            </div>
-                                </div>
-                                <div class="row col-md-12 form-group">
-                                <fieldset class="col-lg-push-3 col-md-6 form-group">
+                    <div class="col-lg-push-1 col-md-6">
+                        <label for="spotNameId">Modifiez le lieu</label>
+                        <select  id="spotNameId" name="spotNameId" data-placeholder="Modifiez le lieu" class="chosen-select">
+                            <option></option>
+                            <c:forEach var="selectCity" items="${cartographyListCity}">
+                                <option value="${selectCity.id}">${selectCity.communeCartography} (${selectCity.codePostalCartography})</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="row col-md-12 form-group">
+                        <fieldset class="col-lg-push-3 col-md-6 form-group">
                             <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
                             <div class="col-md-4">
                                 <div class="form-check">
@@ -123,15 +134,14 @@
                                 </div>
                             </div>
                         </fieldset>
-                                </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Suivant</button>
-                </div>
-            </form>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                Modifier</button>
         </div>
+        </form>
+    </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->
@@ -152,20 +162,20 @@
 </footer>
 
 <!-- Core JavaScript Files -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.scrollTo.js"></script>
-<script src="js/wow.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.min.js"></script>
+<script src="/js/jquery.scrollTo.js"></script>
+<script src="/js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="js/custom.js"></script>
+<script src="/js/custom.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script src="chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".chosen-select").chosen();
-        });
+<script type="text/javascript">
+    $(function() {
+        $(".chosen-select").chosen();
+    });
 </script>
 
 

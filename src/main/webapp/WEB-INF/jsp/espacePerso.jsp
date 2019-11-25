@@ -456,13 +456,13 @@
                                 <td class="text-center" scope="row">${Spot.department}</td>
                                 <td class="text-center" scope="row">${Spot.region}</td>
                                 <c:if test="${Spot.tag == true}">
-                                <td class="text-center" scope="row">Oui</td>
+                                    <td class="text-center" scope="row">Oui</td>
                                 </c:if>
                                 <c:if test="${Spot.tag == false}">
-                                <td class="text-center" scope="row">Non</td>
+                                    <td class="text-center" scope="row">Non</td>
                                 </c:if>
                                 <td class="text-center" scope="row">
-                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value=""></c:url> ">Editer Spot</a>
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/${Spot.id}/editSpot"></c:url> ">Editer Spot</a>
                                     <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
                                 </td>
                             </tr>
@@ -508,14 +508,14 @@
 
 
 <!-- Core JavaScript Files -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.scrollTo.js"></script>
-<script src="js/wow.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.min.js"></script>
+<script src="/js/jquery.scrollTo.js"></script>
+<script src="/js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="js/custom.js"></script>
-<script src="contactform/contactform.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/contactform/contactform.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script>
@@ -525,6 +525,16 @@
     function toggleOff() {
         $('#available')
     }
+</script>
+
+<script src="/js/custom.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".chosen-select").chosen();
+    });
 </script>
 
 

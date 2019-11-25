@@ -70,4 +70,33 @@ public class SpotController {
         return "redirect:/espacePerso";
     }
 
+    @GetMapping(value = "{spotId}/editSpot")
+    public String updateSpot (@PathVariable Long spotId, Model model, Model modelCity){
+        Spot spot = spotDAO.findById(spotId).get();
+        model.addAttribute("spot", spot);
+        List<Cartography> cartographyListCity = cartographyDAO.findAllCity();
+        modelCity.addAttribute("cartographyListCity", cartographyListCity);
+        return "editSpot";
+    }
+    @PostMapping(value = "{spotId}/updateFormSpot")
+    public String updateSpot(@PathVariable Long spotId,Model model, @ModelAttribute("formSpot") SpotForm spotForm, BindingResult result, final RedirectAttributes redirectAttributes) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        Spot updateSpot = spotDAO.findById(spotId).get();
+        if (spotForm.getSpotNameId() != null) {
+            Optional<Cartography> cartography = cartographyDAO.findById(spotForm.getSpotNameId());
+            updateSpot.setCartography(cartography.get());
+            updateSpot.setCity(cartography.get().getCommuneCartography(), cartography.get().getCodePostalCartography());
+            updateSpot.setCountry(cartography.get().getCountryCartography());
+            updateSpot.setDepartment(cartography.get().getDepartmentNameCartography(), cartography.get().getDepartmentCartography());
+            updateSpot.setRegion(cartography.get().getRegionCartography());
+        }
+        if(spotForm.getSpotName() != null){
+            updateSpot.setSpotName(spotForm.getSpotName());
+        }
+        updateSpot.setClimbUser(climbUser);
+        updateSpot.setTag(spotForm.isTag());
+        spotDAO.save(updateSpot);
+        return "redirect:/espacePerso";
+    }
 }

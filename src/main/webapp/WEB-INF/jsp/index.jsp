@@ -50,7 +50,7 @@
                 <li><a href="#entrainement">Training</a></li>
                 <li><a href="#news">News</a></li>
                 <c:if test="${pageContext.request.userPrincipal == null}">
-                <li><a data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
+                <li><a href="" data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
                     <div class="modal fade " id="id-popup" tabindex="-1" role="dialog" aria-labelledby="titrePopUp" aria-hidden="true" data-backdrop="false">
 
                         <div class="modal-dialog ">
