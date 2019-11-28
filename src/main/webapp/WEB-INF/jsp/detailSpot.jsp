@@ -16,23 +16,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Enregistrer un Secteur</title>
+    <title>Spot en détail</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/color/default.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/color/default.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"/>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
 </head>
 
@@ -49,14 +49,14 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="${pageContext.request.contextPath}index">
-                <h1>Les Amis de l'Escalade</h1>
+                <h1>Détail d'un spot</h1>
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
@@ -65,7 +65,7 @@
     <!-- /.container -->
 </nav>
 
-<!-- Section: formSector -->
+<!-- Section: EditSpot -->
 <section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2>Enregistrez un nouveau Secteur</h2>
+                            <h2>${spotDetails.spotName}</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -83,60 +83,35 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
-                <div class="row col-md-12 form-group">
-                    <label>Le secteur</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="sectorName"> Entrez le nom du secteur :</label>
-                            <input type="text" id="sectorName" name="sectorName" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Entrez les coordonées géographique du secteur :</label>
-                            <input type="text" id="location" name="location" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="access">Décrivez l'accès :</label>
-                            <input type="textaera" id="access" name="access" class="form-control"/>
-                        </div>
-                    </div>
+        <div class="col-lg-12">
+            <div class="service-box team boxed-grey">
+                <div class="service-desc">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="bg-primary">
+                            <th class="text-center" scope="col"> Nom du secteur</th>
+                            <th class="text-center" scope="col">Coordonées géographique</th>
+                            <th class="text-center" scope="col">Accès</th>
+                            <th class="text-center" scope="col">Edition</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${sectorList}" var="sector">
+                            <tr>
+                                <td class="text-center" scope="row"><a href="<c:url value="/${spotId}/${sector.id}/sectorDetails"></c:url>"> ${sector.sectorName}</a></td>
+                                <td class="text-center" scope="row">${sector.location}</td>
+                                <td class="text-center" scope="row">${sector.access}</td>
+                                <td class="text-center" scope="row">
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
+                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${sector.id}/roadForm"></c:url> ">Ajouter Voie</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <a type="button" class="btn btn-info pull-right" href="/espacePerso#spots">Retour</a>
                 </div>
-                <div class="row col-md-12 form-group">
-                    <label>La voie</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="roadName">Entrez le nom de la voie :</label>
-                            <input type="text" id="roadName" name="roadName" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="distance">Entrez la distance :</label>
-                            <input type="number" id="distance" name="distance" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="height">Entrez la hauteur :</label>
-                            <input type="number" id="height" name="height" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row col-md-12 form-group">
-                    <label>La difficulté</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="rating">Entrez la difficulté :</label>
-                            <input type="text" id="rating" name="rating" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Envoyez
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </section>

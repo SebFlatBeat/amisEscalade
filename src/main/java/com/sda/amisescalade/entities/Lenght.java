@@ -20,6 +20,10 @@ public class Lenght implements Serializable {
     @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Road road;
+
     public Lenght() {
     }
 
@@ -58,5 +62,13 @@ public class Lenght implements Serializable {
 
     public void setClimbUser(ClimbUser climbUser) {
         this.climbUser = climbUser;
+    }
+
+    public Road getRoad() {
+        return road;
+    }
+
+    public void setRoad(Road road) {
+        this.road = road;
     }
 }

@@ -1,13 +1,8 @@
 package com.sda.amisescalade.controller;
 
-import com.sda.amisescalade.dao.CartographyDAO;
-import com.sda.amisescalade.dao.ClimbUserDAO;
-import com.sda.amisescalade.dao.SpotDAO;
-import com.sda.amisescalade.dao.TopoDAO;
+import com.sda.amisescalade.dao.*;
 import com.sda.amisescalade.dto.SpotForm;
-import com.sda.amisescalade.entities.Cartography;
-import com.sda.amisescalade.entities.ClimbUser;
-import com.sda.amisescalade.entities.Spot;
+import com.sda.amisescalade.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,13 +26,16 @@ public class SpotController {
     private CartographyDAO cartographyDAO;
 
     @Autowired
-    ClimbUserDAO climbUserDAO;
+    private ClimbUserDAO climbUserDAO;
 
     @Autowired
-    TopoDAO topoDAO;
+    private SpotDAO spotDAO;
 
     @Autowired
-    SpotDAO spotDAO;
+    private SectorDAO sectorDAO;
+
+    @Autowired
+    private RoadDAO roadDAO;
 
     /**
      *
@@ -76,7 +74,7 @@ public class SpotController {
         model.addAttribute("spot", spot);
         List<Cartography> cartographyListCity = cartographyDAO.findAllCity();
         modelCity.addAttribute("cartographyListCity", cartographyListCity);
-        return "editSpot";
+        return "/editSpot";
     }
     @PostMapping(value = "{spotId}/updateFormSpot")
     public String updateSpot(@PathVariable Long spotId,Model model, @ModelAttribute("formSpot") SpotForm spotForm, BindingResult result, final RedirectAttributes redirectAttributes) {
@@ -98,5 +96,14 @@ public class SpotController {
         updateSpot.setTag(spotForm.isTag());
         spotDAO.save(updateSpot);
         return "redirect:/espacePerso";
+    }
+
+    @GetMapping(value = "{spotId}/spotDetails")
+    public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelRoad){
+        Spot spotDetails = spotDAO.findById(spotId).get();
+        modelSpot.addAttribute("spotDetails", spotDetails);
+        List<Sector> sectorList = sectorDAO.findSectorsBySpotId(spotId);
+        modelSector.addAttribute("sectorList",sectorList);
+        return "/detailSpot";
     }
 }

@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2>Enregistrez un nouveau Secteur</h2>
+                            <h2>Enregistrez une nouvelle voier</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -84,24 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
-                <div class="row col-md-12 form-group">
-                    <label>Le secteur</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="sectorName"> Entrez le nom du secteur :</label>
-                            <input type="text" id="sectorName" name="sectorName" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Entrez les coordonées géographique du secteur :</label>
-                            <input type="text" id="location" name="location" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="access">Décrivez l'accès :</label>
-                            <input type="textaera" id="access" name="access" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
+            <form id="contact-form" action="/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
                 <div class="row col-md-12 form-group">
                     <label>La voie</label>
                     <div class="col-lg-push-3 col-md-6">

@@ -16,23 +16,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Enregistrer un Secteur</title>
+    <title>Editer un Secteur</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/color/default.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/color/default.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"/>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
 </head>
 
@@ -49,14 +49,14 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="${pageContext.request.contextPath}index">
-                <h1>Les Amis de l'Escalade</h1>
+                <h1>Edition d'un secteur</h1>
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
@@ -65,7 +65,7 @@
     <!-- /.container -->
 </nav>
 
-<!-- Section: formSector -->
+<!-- Section: EditSpot -->
 <section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2>Enregistrez un nouveau Secteur</h2>
+                            <h2>Modifiez un Secteur</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -84,60 +84,64 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
-                <div class="row col-md-12 form-group">
-                    <label>Le secteur</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="sectorName"> Entrez le nom du secteur :</label>
-                            <input type="text" id="sectorName" name="sectorName" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Entrez les coordonées géographique du secteur :</label>
-                            <input type="text" id="location" name="location" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="access">Décrivez l'accès :</label>
-                            <input type="textaera" id="access" name="access" class="form-control"/>
-                        </div>
+            <form id="contact-form" action="/${spotId}/${sectorId}/updateFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
+                <div class="col-lg-push-2 col-md-3 form-group">
+                    <div class="form-group">
+                        <label for="spotName">Nom actuel du spot :</label>
+                        <h4>${spot.spotName}</h4>
                     </div>
                 </div>
-                <div class="row col-md-12 form-group">
-                    <label>La voie</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="roadName">Entrez le nom de la voie :</label>
-                            <input type="text" id="roadName" name="roadName" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="distance">Entrez la distance :</label>
-                            <input type="number" id="distance" name="distance" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="height">Entrez la hauteur :</label>
-                            <input type="number" id="height" name="height" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row col-md-12 form-group">
-                    <label>La difficulté</label>
-                    <div class="col-lg-push-3 col-md-6">
-                        <div class="form-group">
-                            <label for="rating">Entrez la difficulté :</label>
-                            <input type="text" id="rating" name="rating" class="form-control"/>
-                        </div>
+                <div class="col-lg-push-1 col-md-6">
+                    <div class="form-group">
+                        <label for="spotName">Modifiez le nom du Spot</label>
+                        <input id="spotName" name="spotName" class="form-control" type="text" value="${spot.spotName}"/>
                     </div>
                 </div>
 
 
+                <div class="row col-md-12 form-group">
+                    <div class="col-lg-push-2 col-md-3 form-group">
+                        <div class="form-group">
+                            <label for="spotName">Lieu actuel du spot :</label>
+                            <h4>${spot.cartography.communeCartography} (${spot.cartography.codePostalCartography})</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-push-1 col-md-6">
+                        <label for="spotNameId">Modifiez le lieu</label>
+                        <select  id="spotNameId" name="spotNameId" data-placeholder="Modifiez le lieu" class="chosen-select">
+                            <option></option>
+                            <c:forEach var="selectCity" items="${cartographyListCity}">
+                                <option value="${selectCity.id}">${selectCity.communeCartography} (${selectCity.codePostalCartography})</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="row col-md-12 form-group">
+                        <fieldset class="col-lg-push-3 col-md-6 form-group">
+                            <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Oui
+                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
+                                    </label>
+                                </div>
+                                <div class="form-check">
 
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Envoyez
-                    </button>
+                                    <label class="form-check-label" for="gridRadios2">
+                                        Non
+                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios2" value="false"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
-            </form>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                Modifier</button>
         </div>
+        </form>
+    </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->

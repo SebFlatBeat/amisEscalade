@@ -451,7 +451,7 @@
                         <tbody>
                         <c:forEach items="${searchSpot}" var="Spot">
                             <tr>
-                                <td class="text-center" scope="row">${Spot.spotName}</td>
+                                <td class="text-center" scope="row" ><a href="<c:url value="/${Spot.id}/spotDetails"></c:url>">${Spot.spotName}</a></td>
                                 <td class="text-center" scope="row">${Spot.city}</td>
                                 <td class="text-center" scope="row">${Spot.department}</td>
                                 <td class="text-center" scope="row">${Spot.region}</td>

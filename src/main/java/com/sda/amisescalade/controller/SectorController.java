@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class SectorController {
 
@@ -71,5 +74,25 @@ public class SectorController {
         scoring.setRating(sectorForm.getRating());
         scoringDAO.save(scoring);
         return "redirect:/espacePerso";
+    }
+
+    @GetMapping(value = "{sectorId}/updateSector")
+    public String updateSector( @PathVariable Long sectorId){
+
+        Sector sector = sectorDAO.findById(sectorId).get();
+        return "editSector";
+    }
+
+    @GetMapping(value = "{spotId}/{sectorId}/sectorDetails")
+    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId, Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght){
+        Spot spot = spotDAO.findById(spotId).get();
+        modelSpot.addAttribute("spot",spot);
+        Sector sectorDetails = sectorDAO.findById(sectorId).get();
+        modelSector.addAttribute("sectorDetails", sectorDetails);
+        List <Road> roadList = roadDAO.findRoadsBySectorId(sectorId);
+        modelRoad.addAttribute("roadList",roadList);
+        List <Lenght> lenghtList = lenghtDAO.findLenghtBySectorId(sectorId);
+        modelLenght.addAttribute("lenghtList", lenghtList);
+        return "/detailSector";
     }
 }
