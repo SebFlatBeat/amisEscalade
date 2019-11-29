@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="service-desc">
                                             <h5>Modifier un Topo</h5>
-                                            <button type="button" class="btn btn-warning">Modifier</button>
+                                            <a role="button" class="btn btn-warning" href="<c:url value="/editListTopo"/>">Modifier</a>
                                         </div>
                                     </div>
                                 </div>
