@@ -141,13 +141,13 @@
     <div class="heading-about">
         <div class="container home-section">
             <div class="row">
-                <div class="col-lg-12 center-block">
-                    <div class="wow bounceInDown" data-wow-delay="0.4s">
-                        <div class="section-heading text-center">
-                            <h2>Mon Espace perso</h2>
-                        </div>
-                        <div class="col-lg-12 center-block ">
-                            <div class="col-md-3">
+                <div class="wow bounceInDown" data-wow-delay="0.4s">
+                    <div class="section-heading text-center">
+                        <h2>Mon Espace perso</h2>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-lg-12 ">
+                            <div class="col-lg-4">
                                 <div class="wow bounceInUp" data-wow-delay="0.2s">
                                     <div class="team boxed-grey">
                                         <div class="inner">
@@ -159,7 +159,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-lg-4">
                                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                                     <div class="service-box team boxed-grey">
                                         <div class="service-icon">
@@ -170,51 +170,31 @@
                                             <a role="button" class="btn btn-success" href="<c:url value="/formTopo"/>">Ajouter</a>
                                         </div>
                                     </div>
+
+                                    <div class="wow fadeInLeft" data-wow-delay="0.2s">
+                                        <div class="service-box team boxed-grey">
+                                            <div class="service-icon">
+                                                <img src="img/icons/service-icon-2.png" alt="" />
+                                            </div>
+                                            <div class="service-desc">
+                                                <h5>Modifier un Topo</h5>
+                                                <a role="button" class="btn btn-warning" href="<c:url value="/editListTopo"/>">Modifier</a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                                     <div class="service-box team boxed-grey">
                                         <div class="service-icon">
                                             <img src="img/icons/service-icon-2.png" alt="" />
                                         </div>
                                         <div class="service-desc">
-                                            <h5>Modifier un Topo</h5>
-                                            <a role="button" class="btn btn-warning" href="<c:url value="/editListTopo"/>">Modifier</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="wow fadeInLeft" data-wow-delay="0.2s">
-                                        <div class="service-box team boxed-grey">
-                                            <div class="service-desc">
-                                                <h5>Liste de mes Topos</h5>
-                                                <table class="table table-sm">
-                                                    <thead>
-                                                    <tr class="bg-primary">
-                                                        <th class="text-center" scope="col"> Nom du topo</th>
-                                                        <th class="text-center" scope="col"> Date de parution</th>
-                                                        <th class="text-center" scope="col">Spot</th>
-                                                        <th class="text-center" scope="col"> Disponibilté</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <c:forEach items="${topoUser}" var="topoClimber">
-                                                        <tr>
-                                                            <td class="text-center" scope="row">${topoClimber.topoName}</td>
-                                                            <td class="text-center" scope="row"><fmt:formatDate value="${topoClimber.release}"></fmt:formatDate></td>
-                                                            <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
-                                                            <td class="text-center" scope="row">
-                                                                <form action="/topo/${topoClimber.id}/availability" method="post">
-                                                                    <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Dispo" data-offstyle="default" data-off="Indispo" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <h5>Supprimer un Topo</h5>
+                                            <a role="button" class="btn btn-danger" href="<c:url value="/deleteListTopo"/>">Supprimer</a>
                                         </div>
                                     </div>
                                 </div>
@@ -222,8 +202,48 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-lg-6">
+                    <div class="wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="service-box team boxed-grey">
+                            <div class="service-desc">
+                                <h5>Liste de mes Topos</h5>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" scope="col"> Nom du topo</th>
+                                        <th class="text-center" scope="col"> Date de parution</th>
+                                        <th class="text-center" scope="col">Spot</th>
+                                        <th class="text-center" scope="col"> Disponibilté</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${topoUser}" var="topoClimber">
+                                        <tr>
+                                            <td class="text-center" scope="row">${topoClimber.topoName}</td>
+                                            <td class="text-center" scope="row"><fmt:formatDate value="${topoClimber.release}"></fmt:formatDate></td>
+                                            <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
+                                            <td class="text-center" scope="row">
+                                                <form action="/topo/${topoClimber.id}/availability" method="post">
+                                                    <input name="availability" id="availability" type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Dispo" data-offstyle="default" data-off="Indispo" data-size="mini" ${topoClimber.available ? "checked":""}><button class="btn-xs" type="submit" > OK </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 </section>
 <!-- /Section: espacePerso -->

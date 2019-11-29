@@ -100,7 +100,28 @@
                         <td class="text-center" scope="row">${topoClimber.topoName}</td>
                         <td class="text-center" scope="row"><fmt:formatDate value="${topoClimber.release}"></fmt:formatDate></td>
                         <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
-                        <td class="text-center" scope="row"><a type="button" class="btn btn-success btn-xs" href="<c:url value="/${topoClimber.id}/editTopo"></c:url> " >Selectionner</a></td>
+                        <td class="text-center" scope="row"><a type="button" class="btn btn-danger btn-xs "data-toggle="modal" data-target="#confirmDelete">Suppression</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                           Etes-vous sûr de vouloir supprimer le topo ${topoClimber.topoName} ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="/${topoClimber.id}/deleteTopo" method="post">
+                                            <input type="button" class="btn btn-danger" name="topoId" id="topoId"/><button type="submit" >Supprimer</button>                                            </form>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

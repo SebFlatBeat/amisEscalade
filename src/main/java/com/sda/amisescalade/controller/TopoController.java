@@ -83,7 +83,7 @@ public class TopoController {
     }
 
     @GetMapping("/editListTopo")
-    public String ListupdateTopos(Model modelListEditTopo, Model modelSpot){
+    public String ListupdateTopos(Model modelListEditTopo){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
@@ -123,6 +123,22 @@ public class TopoController {
         updateTopo.setClimbUser(climbUser);
         topoDAO.save(updateTopo);
 
+        return "redirect:/espacePerso";
+    }
+
+    @GetMapping("/deleteListTopo")
+    public String ListdeleteTopos(Model modelListDeleteTopo){
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
+        modelListDeleteTopo.addAttribute("topoUser", topoUser);
+        return "/deleteListTopo";
+    }
+
+    @PostMapping("/{topoId}/deleteTopo")
+    public String deleteTopo (@PathVariable Long topoId) {
+        Topo topo = topoDAO.findById(topoId).get();
+        topoDAO.delete(topo);
         return "redirect:/espacePerso";
     }
 }
