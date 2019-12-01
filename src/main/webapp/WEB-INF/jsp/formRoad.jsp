@@ -65,7 +65,7 @@
     <!-- /.container -->
 </nav>
 
-<!-- Section: formSector -->
+<!-- Section: formRoad -->
 <section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
-                            <h2>Enregistrez une nouvelle voier</h2>
+                            <h2>Enregistrez une nouvelle voie</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -84,7 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
+            <form id="contact-form" action="/sector/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
                 <div class="row col-md-12 form-group">
                     <label>La voie</label>
                     <div class="col-lg-push-3 col-md-6">
@@ -116,14 +116,14 @@
 
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Envoyez
+                        Envoyer
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </section>
-<!-- /Section: EditSpot -->
+<!-- /Section: formRoad -->
 
 <footer>
     <div class="container">

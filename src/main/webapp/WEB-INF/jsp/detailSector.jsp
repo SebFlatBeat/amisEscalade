@@ -87,50 +87,56 @@
 
             <div class="service-box team boxed-grey">
                 <div class="service-desc">
-                    <div class="col-lg-3">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="bg-primary">
-                            <th class="text-center" scope="col"> Nom de la voie</th>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${roadList}" var="road">
-                        <tr>
-                            <td class="text-center" scope="row">${road.roadName}</td>
-                            </c:forEach>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                    <div class="col-lg-6">
-
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="bg-primary">
-                            <th class="text-center" scope="col">Longueur</th>
-                            <th class="text-center" scope="col">Hauteur</th>
-                            <th class="text-center" scope="col">Edition</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
+                        <table class="table table-sm">
+                            <thead>
+                            <tr class="bg-primary">
+                                <th class="text-center" scope="col">Nom de la voie</th>
+                                <th class="text-center" scope="col">Longueur</th>
+                                <th class="text-center" scope="col">Hauteur</th>
+                                <th class="text-center" scope="col">Edition</th>
+                                <th class="text-center" scope="col">Suppression</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             <c:forEach items="${lenghtList}" var="lenght">
                                 <tr>
-                                <td class="text-center" scope="row">${lenght.distance} mètres</td>
-                                <td class="text-center" scope="row">${lenght.height} mètres</td>
-                                    <td>
-                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
-                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${sector.id}/roadForm"></c:url> ">Ajouter Voie</a>
+                                    <td class="text-center" scope="row">${lenght.road.roadName}</td>
+                                    <td class="text-center" scope="row">${lenght.distance} mètres</td>
+                                    <td class="text-center" scope="row">${lenght.height} mètres</td>
+                                    <td class="text-center" scope="row">
+                                        <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/road${lenght.road.id}/editSector"></c:url> ">Editer Voie</a>
+                                        <a type="button" class="btn btn-default btn-xs" href="<c:url value="/road${lenght.road.id}/roadForm"></c:url> ">Ajouter Voie</a>
                                     </td>
-                                    </c:forEach>
+                                    <td class="text-center" scope="row">
+                                        <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDeleteRoad${lenght.road.id}">Supprimer Voie
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmDeleteRoad${lenght.road.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Etes-vous sûr de vouloir supprimer le secteur ${lenght.road.roadName} ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="/road/${lenght.road.id}/deleteRoad" method="post">
+                                                                <button type="submit" name="roadId" id="roadId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
                                 </tr>
-                        </tbody>
-                    </table>
-                    <a type="button" class="btn btn-info pull-right" href="<c:url value="/${spot.id}/spotDetails"></c:url>">Retour</a>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    <a type="button" class="btn btn-info pull-right" href="/espacePerso#spots">Retour</a>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->

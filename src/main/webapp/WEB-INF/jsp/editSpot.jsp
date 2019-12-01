@@ -56,7 +56,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
+                <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
@@ -84,7 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${spotId}/updateFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/spot/${spotId}/updateFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
                 <div class="col-lg-push-2 col-md-3 form-group">
                     <div class="form-group">
                         <label for="spotName">Nom actuel du spot :</label>

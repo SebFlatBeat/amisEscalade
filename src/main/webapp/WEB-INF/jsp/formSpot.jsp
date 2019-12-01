@@ -97,38 +97,39 @@
                             </select>
                         </div>
                     </div>
-                            <div class="row col-md-12 form-group">
-                                <div class="col-lg-push-3 col-md-6">
+                    <div class="row col-md-12 form-group">
+                        <div class="col-lg-push-3 col-md-6">
                             <div class="form-group">
                                 <label for="spotName">Entrez le nom du Spot</label>
                                 <input id="spotName" name="spotName" class="form-control" type="text"/>
                             </div>
-                                </div>
-                                <div class="row col-md-12 form-group">
-                                <fieldset class="col-lg-push-3 col-md-6 form-group">
-                            <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Oui
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
-                                    </label>
-                                </div>
-                                <div class="form-check">
+                        </div>
+                        <div class="row col-md-12 form-group">
+                            <fieldset class="col-lg-push-3 col-md-6 form-group">
+                                <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="gridRadios1">
+                                            Oui
+                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
 
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Non
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios2" value="false"/>
-                                    </label>
+                                        <label class="form-check-label" for="gridRadios2">
+                                            Non
+                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios2" value="false"/>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Suivant</button>
+                        Envoyer
+                    </button>
                 </div>
             </form>
         </div>
@@ -162,10 +163,10 @@
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script src="chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".chosen-select").chosen();
-        });
+<script type="text/javascript">
+    $(function() {
+        $(".chosen-select").chosen();
+    });
 </script>
 
 

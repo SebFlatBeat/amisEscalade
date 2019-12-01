@@ -68,7 +68,7 @@ public class SpotController {
         return "redirect:/espacePerso";
     }
 
-    @GetMapping(value = "{spotId}/editSpot")
+    @GetMapping(value = "/spot/{spotId}/editSpot")
     public String updateSpot (@PathVariable Long spotId, Model model, Model modelCity){
         Spot spot = spotDAO.findById(spotId).get();
         model.addAttribute("spot", spot);
@@ -76,7 +76,7 @@ public class SpotController {
         modelCity.addAttribute("cartographyListCity", cartographyListCity);
         return "/editSpot";
     }
-    @PostMapping(value = "{spotId}/updateFormSpot")
+    @PostMapping(value = "/spot/{spotId}/updateFormSpot")
     public String updateSpot(@PathVariable Long spotId,Model model, @ModelAttribute("formSpot") SpotForm spotForm, BindingResult result, final RedirectAttributes redirectAttributes) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
@@ -98,12 +98,19 @@ public class SpotController {
         return "redirect:/espacePerso";
     }
 
-    @GetMapping(value = "{spotId}/spotDetails")
+    @GetMapping(value = "/spot/{spotId}/spotDetails")
     public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelRoad){
         Spot spotDetails = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spotDetails", spotDetails);
         List<Sector> sectorList = sectorDAO.findSectorsBySpotId(spotId);
         modelSector.addAttribute("sectorList",sectorList);
         return "/detailSpot";
+    }
+
+    @PostMapping("/spot/{spotId}/deleteSpot")
+    public String deleteSpot (@PathVariable Long spotId) {
+        Spot spot = spotDAO.findById(spotId).get();
+        spotDAO.delete(spot);
+        return "redirect:/espacePerso";
     }
 }

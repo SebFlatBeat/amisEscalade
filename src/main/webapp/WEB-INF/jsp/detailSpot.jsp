@@ -48,7 +48,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}index">
+            <a class="navbar-brand" href="<c:url value="/index"/>">
                 <h1>Détail d'un spot</h1>
             </a>
         </div>
@@ -56,7 +56,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}index">Home</a></li>
+                <li class="active"><a href="<c:url value="/index"/>">Home</a></li>
                 <li><a href="<c:url value="/espacePerso"/>">Mon espace perso</a></li>
             </ul>
         </div>
@@ -93,17 +93,39 @@
                             <th class="text-center" scope="col">Coordonées géographique</th>
                             <th class="text-center" scope="col">Accès</th>
                             <th class="text-center" scope="col">Edition</th>
+                            <th class="text-center" scope="col">Supressionn</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${sectorList}" var="sector">
                             <tr>
-                                <td class="text-center" scope="row"><a href="<c:url value="/${spotId}/${sector.id}/sectorDetails"></c:url>"> ${sector.sectorName}</a></td>
+                                <td class="text-center" scope="row"><a href="<c:url value="/spot/${spotId}/sector/${sector.id}/sectorDetails"></c:url>"> ${sector.sectorName}</a></td>
                                 <td class="text-center" scope="row">${sector.location}</td>
                                 <td class="text-center" scope="row">${sector.access}</td>
                                 <td class="text-center" scope="row">
-                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
-                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${sector.id}/roadForm"></c:url> ">Ajouter Voie</a>
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/sector/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
+                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/sector/${sector.id}/roadForm"></c:url> ">Ajouter Voie</a>
+                                </td>
+                                <td class="text-center" scope="row">
+                                <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDelete${sector.id}">Suprimmer Secteur</a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmDelete${sector.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                Etes-vous sûr de vouloir supprimer le secteur ${sector.sectorName} ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="/sector/${sector.id}/deleteSector" method="post">
+                                                    <button type="submit" name="sectorId" id="sectorId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </td>
                             </tr>
                         </c:forEach>

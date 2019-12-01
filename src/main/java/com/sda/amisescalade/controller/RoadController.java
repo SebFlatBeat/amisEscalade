@@ -35,12 +35,12 @@ public class RoadController {
     @Autowired
     private LenghtDAO lenghtDAO;
 
-    @GetMapping(value = "{sectorId}/roadForm")
+    @GetMapping(value = "sector/{sectorId}/roadForm")
     public String getFormRoad(@PathVariable Long sectorId) {
         return "/formRoad";
     }
 
-    @PostMapping(value = "{sectorId}/roadForm")
+    @PostMapping(value = "sector/{sectorId}/roadForm")
     public String saveFormRoad(@PathVariable Long sectorId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Sector sector = sectorDAO.findById(sectorId).get();
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -65,4 +65,10 @@ public class RoadController {
         return "redirect:/espacePerso";
     }
 
+    @PostMapping("/road/{roadId}/deleteRoad")
+    public String deleteRoad (@PathVariable Long roadId) {
+        Road road = roadDAO.findById(roadId).get();
+        roadDAO.delete(road);
+        return "redirect:/espacePerso";
+    }
 }

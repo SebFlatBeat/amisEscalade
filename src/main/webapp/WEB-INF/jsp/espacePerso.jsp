@@ -466,12 +466,13 @@
                             <th class="text-center" scope="col">Region</th>
                             <th class="text-center" scope="col"> Spot Officiel</th>
                             <th class="text-center" scope="col"> Edition </th>
+                            <th class="text-center" scope="col"> Suppression </th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${searchSpot}" var="Spot">
                             <tr>
-                                <td class="text-center" scope="row" ><a href="<c:url value="/${Spot.id}/spotDetails"></c:url>">${Spot.spotName}</a></td>
+                                <td class="text-center" scope="row" ><a href="<c:url value="/spot/${Spot.id}/spotDetails"></c:url>">${Spot.spotName}</a></td>
                                 <td class="text-center" scope="row">${Spot.city}</td>
                                 <td class="text-center" scope="row">${Spot.department}</td>
                                 <td class="text-center" scope="row">${Spot.region}</td>
@@ -482,8 +483,29 @@
                                     <td class="text-center" scope="row">Non</td>
                                 </c:if>
                                 <td class="text-center" scope="row">
-                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/${Spot.id}/editSpot"></c:url> ">Editer Spot</a>
-                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/spot/${Spot.id}/editSpot"></c:url> ">Editer Spot</a>
+                                    <a type="button" class="btn btn-default btn-xs" href="<c:url value="/spot/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDeleteSpot${Spot.id}">Suprimmer Spot</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="confirmDeleteSpot${Spot.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Etes-vous sûr de vouloir supprimer le spot ${Spot.spotName} ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="/spot/${Spot.id}/deleteSpot" method="post">
+                                                        <button type="submit" name="spotId" id="spotId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>

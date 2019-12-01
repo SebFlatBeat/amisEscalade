@@ -85,7 +85,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${topoId}/updateTopo" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/topo/${topoId}/updateTopo" method="post" role="form" class="contactForm center-block" name="formSpot">
                <div class="col-lg-12">
                    <div class="col-lg-12 form-group">
                 <label for="spotId"> Modifiez le spot à affilier à votre Topo</label>

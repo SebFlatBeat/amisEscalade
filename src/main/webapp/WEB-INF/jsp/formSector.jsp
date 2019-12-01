@@ -84,7 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/spot/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
                 <div class="row col-md-12 form-group">
                     <label>Le secteur</label>
                     <div class="col-lg-push-3 col-md-6">
@@ -133,14 +133,14 @@
 
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                        Envoyez
+                        Envoyer
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </section>
-<!-- /Section: EditSpot -->
+<!-- /Section: formSector -->
 
 <footer>
     <div class="container">

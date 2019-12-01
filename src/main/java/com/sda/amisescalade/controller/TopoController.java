@@ -91,7 +91,7 @@ public class TopoController {
         return "/editListTopo";
     }
 
-    @GetMapping("/{topoId}/editTopo")
+    @GetMapping("/topo/{topoId}/editTopo")
     public String getUpdateTopos (@PathVariable Long topoId,Model modelTopo ,Model modelSpot){
         Topo topo = topoDAO.findById(topoId).get();
         modelTopo.addAttribute("topo", topo);
@@ -100,7 +100,7 @@ public class TopoController {
         return "/editTopo";
     }
 
-    @PostMapping("/{topoId}/updateTopo")
+    @PostMapping("/topo/{topoId}/updateTopo")
     public String postUpdateTopos (@PathVariable Long topoId, @ModelAttribute("formTopo") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
@@ -135,7 +135,7 @@ public class TopoController {
         return "/deleteListTopo";
     }
 
-    @PostMapping("/{topoId}/deleteTopo")
+    @PostMapping("/topo/{topoId}/deleteTopo")
     public String deleteTopo (@PathVariable Long topoId) {
         Topo topo = topoDAO.findById(topoId).get();
         topoDAO.delete(topo);
