@@ -138,7 +138,9 @@
                 </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                Modifier</button>
+                Modifier
+            </button>
+            <a type="button"class="btn btn-warning pull-right" href="/spot/${spotId}/spotDetails">Retour</a>
         </div>
         </form>
     </div>

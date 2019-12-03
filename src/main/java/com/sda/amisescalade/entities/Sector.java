@@ -34,6 +34,10 @@ public class Sector implements Serializable {
     @Cascade(CascadeType.DETACH)
     private List<Road> road;
 
+    @OneToMany
+    @Cascade(CascadeType.DETACH)
+    private List <CommentSector> commentsSector;
+
     public Sector() {
     }
 
@@ -97,5 +101,14 @@ public class Sector implements Serializable {
 
     public void setRoad(List<Road> road) {
         this.road = road;
+    }
+
+    public List<CommentSector> getCommentsSector() {
+
+        return commentsSector;
+    }
+
+    public void setCommentsSector(List<CommentSector> commentsSector) {
+        this.commentsSector = commentsSector;
     }
 }

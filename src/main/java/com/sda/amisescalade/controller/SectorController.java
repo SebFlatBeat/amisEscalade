@@ -2,6 +2,7 @@ package com.sda.amisescalade.controller;
 
 import com.sda.amisescalade.dao.*;
 import com.sda.amisescalade.dto.SectorForm;
+import com.sda.amisescalade.dto.SpotForm;
 import com.sda.amisescalade.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,28 +18,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class SectorController {
 
     @Autowired
-    ClimbUserDAO climbUserDAO;
+    private ClimbUserDAO climbUserDAO;
 
     @Autowired
-    RoadDAO roadDAO;
+    private RoadDAO roadDAO;
 
     @Autowired
-    SpotDAO spotDAO;
+    private SpotDAO spotDAO;
 
     @Autowired
-    SectorDAO sectorDAO;
+    private SectorDAO sectorDAO;
 
     @Autowired
-    LenghtDAO lenghtDAO;
+    private LenghtDAO lenghtDAO;
 
     @Autowired
-    ScoringDAO scoringDAO;
+    private ScoringDAO scoringDAO;
+
+    @Autowired
+    private CommentSectorDAO commentSectorDAO;
+
+    @Autowired
+    private CartographyDAO cartographyDAO;
 
     @GetMapping(value = "spot/{spotId}/sectorForm")
     public String getFormSector(@PathVariable Long spotId) {
@@ -76,15 +84,37 @@ public class SectorController {
         return "redirect:/espacePerso";
     }
 
-    @GetMapping(value = "/sector/{sectorId}/updateSector")
-    public String updateSector( @PathVariable Long sectorId){
-
+    @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/editSector")
+    public String editSector( @PathVariable Long spotId ,@PathVariable Long sectorId, Model modelSpot, Model modelSector){
+        Spot spot = spotDAO.findById(spotId).get();
+        modelSpot.addAttribute("spot", spot);
         Sector sector = sectorDAO.findById(sectorId).get();
+        modelSector.addAttribute("sector",sector);
         return "editSector";
     }
 
+    @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/updateFormSector")
+    public String updateSector(@PathVariable Long spotId, @PathVariable Long sectorId,Model model, @ModelAttribute("formSector") SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        Spot spot = spotDAO.findById(spotId).get();
+        Sector updateSector = sectorDAO.findById(sectorId).get();
+        if(sectorForm.getSectorName() != null){
+            updateSector.setSectorName(sectorForm.getSectorName());
+        }
+        if(sectorForm.getLocation() != null){
+        updateSector.setLocation(sectorForm.getLocation());
+        }
+        if(sectorForm.getAccess() != null){
+        updateSector.setAccess(sectorForm.getAccess());
+        }
+        updateSector.setClimbUser(climbUser);
+        sectorDAO.save(updateSector);
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails)";
+    }
+
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/sectorDetails")
-    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId, Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght){
+    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId, Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
         Spot spot = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spot",spot);
         Sector sectorDetails = sectorDAO.findById(sectorId).get();
@@ -93,6 +123,10 @@ public class SectorController {
         modelRoad.addAttribute("roadList",roadList);
         List <Lenght> lenghtList = lenghtDAO.findLenghtBySectorId(sectorId);
         modelLenght.addAttribute("lenghtList", lenghtList);
+        List<CommentSector> commentSectors = commentSectorDAO.findBySectorId(sectorId);
+        modelCommentSector.addAttribute("commentSectors", commentSectors);
+        List<Scoring> scoringList = scoringDAO.findScoringBySectorId(sectorId);
+        modelScoring.addAttribute("scoringList",scoringList);
         return "/detailSector";
     }
 

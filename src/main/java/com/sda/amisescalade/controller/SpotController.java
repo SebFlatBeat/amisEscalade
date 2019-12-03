@@ -35,7 +35,7 @@ public class SpotController {
     private SectorDAO sectorDAO;
 
     @Autowired
-    private RoadDAO roadDAO;
+    private CommentSpotDAO commentSpotDAO;
 
     /**
      *
@@ -95,15 +95,17 @@ public class SpotController {
         updateSpot.setClimbUser(climbUser);
         updateSpot.setTag(spotForm.isTag());
         spotDAO.save(updateSpot);
-        return "redirect:/espacePerso";
+        return "redirect:/spot/{spotId}/spotDetails";
     }
 
     @GetMapping(value = "/spot/{spotId}/spotDetails")
-    public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelRoad){
+    public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelSpotComment){
         Spot spotDetails = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spotDetails", spotDetails);
         List<Sector> sectorList = sectorDAO.findSectorsBySpotId(spotId);
         modelSector.addAttribute("sectorList",sectorList);
+        List<CommentSpot> commentSpots = commentSpotDAO.findBySpotId(spotId);
+        modelSpotComment.addAttribute("commentSpots", commentSpots);
         return "/detailSpot";
     }
 

@@ -25,7 +25,7 @@ public class Spot implements Serializable {
 
     @OneToMany
     @Cascade(CascadeType.DETACH)
-    private List <Comment> comments;
+    private List <CommentSpot> commentsSpot;
 
     @OneToMany
     @Cascade(CascadeType.DETACH)
@@ -111,12 +111,20 @@ public class Spot implements Serializable {
         this.climbUser = climbUser;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public List<CommentSpot> getCommentsSpot() {
+        return commentsSpot;
+    }
+
+    public void setCommentsSpot(List<CommentSpot> commentsSpot) {
+        this.commentsSpot = commentsSpot;
     }
 
     public List<Sector> getSectors() {

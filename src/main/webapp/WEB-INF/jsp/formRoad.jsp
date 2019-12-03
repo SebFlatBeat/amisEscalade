@@ -84,7 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/sector/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
+            <form id="contact-form" action="/spot/${spotId}/sector/{sectorId}//sector/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
                 <div class="row col-md-12 form-group">
                     <label>La voie</label>
                     <div class="col-lg-push-3 col-md-6">
@@ -115,9 +115,11 @@
 
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                    <a type="button" class="btn btn-warning pull-right" href="/spot/${spotId}/sector/${sectorId}/sectorDetails">Retour</a>
+                    <button type="submit" class="btn btn-success pull-right" id="btnContactUs">
                         Envoyer
                     </button>
+
                 </div>
             </form>
         </div>

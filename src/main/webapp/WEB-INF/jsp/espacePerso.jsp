@@ -166,7 +166,7 @@
                                             <img src="img/icons/service-icon-2.png" alt="" />
                                         </div>
                                         <div class="service-desc">
-                                            <h5>Ajouter un nouveau Topo</h5>
+                                            <h5>Ajouter un Topo</h5>
                                             <a role="button" class="btn btn-success" href="<c:url value="/formTopo"/>">Ajouter</a>
                                         </div>
                                     </div>
@@ -331,7 +331,7 @@
                                 <th class="text-center" scope="col">Ville</th>
                                 <th class="text-center" scope="col">Departement</th>
                                 <th class="text-center" scope="col">Pays</th>
-                                <th class="text-center" scope="col"></th>
+                                <th class="text-center" scope="col">Réserver</th>
                             </tr>
                             </thead>
                             <tbody>

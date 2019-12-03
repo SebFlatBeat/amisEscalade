@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +22,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
+
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -65,7 +67,7 @@
     <!-- /.container -->
 </nav>
 
-<!-- Section: EditSpot -->
+<!-- Section: DetailSpot -->
 <section id="search" class="home-section">
     <div class="heading-about">
         <div class="container">
@@ -93,7 +95,7 @@
                             <th class="text-center" scope="col">Coordonées géographique</th>
                             <th class="text-center" scope="col">Accès</th>
                             <th class="text-center" scope="col">Edition</th>
-                            <th class="text-center" scope="col">Supressionn</th>
+                            <th class="text-center" scope="col">Supression</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -103,29 +105,29 @@
                                 <td class="text-center" scope="row">${sector.location}</td>
                                 <td class="text-center" scope="row">${sector.access}</td>
                                 <td class="text-center" scope="row">
-                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/sector/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
+                                    <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/spot/${spotId}/sector/${sector.id}/editSector"></c:url> ">Editer Secteur</a>
                                     <a type="button" class="btn btn-default btn-xs" href="<c:url value="/sector/${sector.id}/roadForm"></c:url> ">Ajouter Voie</a>
                                 </td>
                                 <td class="text-center" scope="row">
-                                <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDelete${sector.id}">Suprimmer Secteur</a>
-                                <!-- Modal -->
-                                <div class="modal fade" id="confirmDelete${sector.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                Etes-vous sûr de vouloir supprimer le secteur ${sector.sectorName} ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form action="/sector/${sector.id}/deleteSector" method="post">
-                                                    <button type="submit" name="sectorId" id="sectorId" class="btn btn-danger">Supprimer </button>                                           </form>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                    <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDelete${sector.id}">Suprimmer Secteur</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="confirmDelete${sector.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                        <div class="modal-dialog fa-align-center" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Etes-vous sûr de vouloir supprimer le secteur ${sector.sectorName} ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="/sector/${sector.id}/deleteSector" method="post">
+                                                        <button type="submit" name="sectorId" id="sectorId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -136,8 +138,58 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <form action="/spot/${spotId}/saveCommentSpot" method="post" class="col-lg-12">
+                <label for="texteComment">Un commentaire sur le spot ${spotDetails.spotName} ?</label>
+                <textarea class="form-control" name="texteComment" id="texteComment" placeholder="Entrez votre commentaire"></textarea>
+                <input type="hidden" name="spotId" id="spotID" value="${spotDetails.id}"/>
+                <button type="submit" class="btn btn-success pull-right" id="btnContactUs">
+                    Envoyer</button>
+            </form>
+        </div>
+    </div>
 </section>
-<!-- /Section: EditSpot -->
+<!-- /Section:  DetailSpot -->
+
+<!-- Section: DetailSpot -->
+<section id="comments" class="home-section">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row col-lg-12">
+                <h4>Les Commentaires</h4>
+                <c:forEach items="${commentSpots}" var="comment">
+
+                    <div class="boxed-grey col-lg-12 container-fluid table-bordered">
+                        <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
+                        <comment>${comment.texteComment}</comment>
+                        <a type="button" class=" btn btn-warning pull-right btn-xs " data-toggle="modal" data-target="#confirmUpdate${comment.id}">Modifier</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="confirmUpdate${comment.id}" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateTitle" aria-hidden="true" data-backdrop="false">
+                            <div class="modal-dialog fa-align-center" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier votre commentaire</h5>
+                                    </div>
+                                    <form action="/spot/${comment.spot.id}/updateCommentSpot/${comment.id}" method="post">
+                                        <div class="modal-body">
+                                            <input name="texteComment" id="texteComment" class="form-control" type="text" value="${comment.texteComment}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success">Modifier</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Section: DetailSpot -->
 
 <footer>
     <div class="container">

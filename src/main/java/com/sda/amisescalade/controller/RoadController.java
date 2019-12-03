@@ -35,13 +35,13 @@ public class RoadController {
     @Autowired
     private LenghtDAO lenghtDAO;
 
-    @GetMapping(value = "sector/{sectorId}/roadForm")
-    public String getFormRoad(@PathVariable Long sectorId) {
+    @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/roadForm")
+    public String getFormRoad(@PathVariable Long sectorId, @PathVariable Long spotId) {
         return "/formRoad";
     }
 
-    @PostMapping(value = "sector/{sectorId}/roadForm")
-    public String saveFormRoad(@PathVariable Long sectorId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
+    @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/roadForm")
+    public String saveFormRoad(@PathVariable Long sectorId,@PathVariable Long spotId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Sector sector = sectorDAO.findById(sectorId).get();
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
@@ -62,7 +62,7 @@ public class RoadController {
         scoring.setLenght(lenght);
         scoring.setRating(sectorForm.getRating());
         scoringDAO.save(scoring);
-        return "redirect:/espacePerso";
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
     @PostMapping("/road/{roadId}/deleteRoad")

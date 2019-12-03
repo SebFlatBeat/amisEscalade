@@ -83,6 +83,7 @@
             </div>
         </div>
     </div>
+
     <div class="service-box team boxed-grey">
         <div class="service-desc">
             <table class="table table-sm">
@@ -100,12 +101,13 @@
                         <td class="text-center" scope="row">${topoClimber.topoName}</td>
                         <td class="text-center" scope="row"><fmt:formatDate value="${topoClimber.release}"></fmt:formatDate></td>
                         <td class="text-center" scope="row">${topoClimber.spot.spotName}</td>
-                        <td class="text-center" scope="row"><a type="button" class="btn btn-success btn-xs" href="<c:url value="/${topoClimber.id}/editTopo"></c:url> " >Selectionner</a></td>
+                        <td class="text-center" scope="row"><a type="button" class="btn btn-success btn-xs" href="<c:url value="/topo/${topoClimber.id}/editTopo"></c:url> " >Selectionner</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
+        <a type="button"class="btn btn-info pull-right" href="<c:url value="/espacePerso"/>">Retour</a>
     </div>
 </section>
 

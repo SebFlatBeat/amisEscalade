@@ -9,21 +9,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AmisescaladeApplication {
 
     @Autowired
-private ClimbUserDAO climbUserDAO;
+    private ClimbUserDAO climbUserDAO;
     @Autowired
-private TopoDAO topoDAO;
+    private TopoDAO topoDAO;
     @Autowired
-private SpotDAO spotDAO;
+    private SpotDAO spotDAO;
     @Autowired
-private SectorDAO sectorDAO;
+    private SectorDAO sectorDAO;
     @Autowired
-private RoadDAO roadDAO;
+    private RoadDAO roadDAO;
     @Autowired
-private LenghtDAO lenghtDAO;
+    private LenghtDAO lenghtDAO;
     @Autowired
-private ScoringDAO scoringDAO;
+    private ScoringDAO scoringDAO;
     @Autowired
-private CommentDAO commentDAO;
+    private CommentSpotDAO commentSpotDAO;
+    @Autowired
+    private CommentSectorDAO commentSectorDAO;
+    @Autowired
+    private ReservationDAO reservationDAO;
 
 
     public static void main(String[] args) {

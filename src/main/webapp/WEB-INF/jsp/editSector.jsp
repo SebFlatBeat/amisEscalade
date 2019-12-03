@@ -84,64 +84,56 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/spoot/${spotId}/sector/${sectorId}/updateFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
-                <div class="col-lg-push-2 col-md-3 form-group">
-                    <div class="form-group">
-                        <label for="spotName">Nom actuel du spot :</label>
-                        <h4>${spot.spotName}</h4>
-                    </div>
-                </div>
-                <div class="col-lg-push-1 col-md-6">
-                    <div class="form-group">
-                        <label for="spotName">Modifiez le nom du Spot</label>
-                        <input id="spotName" name="spotName" class="form-control" type="text" value="${spot.spotName}"/>
-                    </div>
-                </div>
-
-
-                <div class="row col-md-12 form-group">
-                    <div class="col-lg-push-2 col-md-3 form-group">
+            <form id="contact-form" action="/spot/${spotId}/sector/${sectorId}/updateFormSector" method="post" role="form" class="contactForm center-block" name="formSpot">
+                <div class="col-lg-12 form-group">
+                    <div class="col-lg-6 form-group text-center">
                         <div class="form-group">
-                            <label for="spotName">Lieu actuel du spot :</label>
-                            <h4>${spot.cartography.communeCartography} (${spot.cartography.codePostalCartography})</h4>
+                            <label for="sectorName">Nom actuel du secteur :</label>
+                            <h4>${sector.sectorName}</h4>
                         </div>
                     </div>
-                    <div class="col-lg-push-1 col-md-6">
-                        <label for="spotNameId">Modifiez le lieu</label>
-                        <select  id="spotNameId" name="spotNameId" data-placeholder="Modifiez le lieu" class="chosen-select">
-                            <option></option>
-                            <c:forEach var="selectCity" items="${cartographyListCity}">
-                                <option value="${selectCity.id}">${selectCity.communeCartography} (${selectCity.codePostalCartography})</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="row col-md-12 form-group">
-                        <fieldset class="col-lg-push-3 col-md-6 form-group">
-                            <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Oui
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Non
-                                        <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios2" value="false"/>
-                                    </label>
-                                </div>
-                            </div>
-                        </fieldset>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="sectorName">Modifiez le nom du Spot</label>
+                            <input id="sectorName" name="sectorName" class="form-control" type="text" value="${sector.sectorName}"/>
+                        </div>
                     </div>
                 </div>
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                Modifier</button>
+
+                <div class="col-lg-12 form-group">
+                    <div class="col-lg-6 form-group text-center">
+                        <div class="form-group">
+                            <label for="location">Coordonnées GPS actuel du secteur :</label>
+                            <h4>${sector.location} </h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="location">Modifiez les coordonnées GPS</label>
+                            <input  type="text" id="location" class="form-control" name="location" value="${sector.location}">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 form-group">
+                        <div class="col-lg-6 form-group text-center">
+                            <div class="form-group">
+                                <label for="location">Accès actuel du secteur :</label>
+                                <h4>${sector.access} </h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="location">Modifiez l'accès au secteur</label>
+                            <input  type="text" id="location" name="location"  class="form-control" value="${sector.access}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                            Modifier
+                        </button>
+                        <a type="button"class="btn btn-warning pull-right" href="/spot/${spotId}/sector/${sectorId}/sectorDetails">Retour</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        </form>
-    </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->

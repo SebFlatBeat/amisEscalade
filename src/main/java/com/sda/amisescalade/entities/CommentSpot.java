@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 @Entity
-public class Comment implements Serializable {
+public class CommentSpot implements Serializable {
     @Id
     @GeneratedValue
 private Long id;
@@ -25,10 +25,14 @@ private Date date;
 @Cascade(CascadeType.DETACH)
 private ClimbUser climbUser;
 
-    public Comment() {
+@ManyToOne
+@Cascade(CascadeType.DETACH)
+private Spot spot;
+
+public CommentSpot() {
     }
 
-    public Comment(String texteComment, Date date) {
+    public CommentSpot(String texteComment, Date date) {
         this.texteComment = texteComment;
         this.date = date;
     }
@@ -55,5 +59,21 @@ private ClimbUser climbUser;
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public ClimbUser getClimbUser() {
+        return climbUser;
+    }
+
+    public void setClimbUser(ClimbUser climbUser) {
+        this.climbUser = climbUser;
+    }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 }

@@ -4,6 +4,7 @@ package com.sda.amisescalade.dto;
 public class SectorForm {
 
     private String sectorName;
+    private Long sectorNameId;
     private String location;
     private String access;
     private String roadName;
@@ -12,8 +13,9 @@ public class SectorForm {
     private String rating;
 
 
-    public SectorForm(String sectorName, String location, String access, String roadName, String distance, String height, String rating) {
+    public SectorForm(String sectorName,Long sectorNameId, String location, String access, String roadName, String distance, String height, String rating) {
         this.sectorName = sectorName;
+        this.sectorNameId = sectorNameId;
         this.location = location;
         this.access = access;
         this.roadName = roadName;
@@ -28,6 +30,14 @@ public class SectorForm {
 
     public void setSectorName(String sectorName) {
         this.sectorName = sectorName;
+    }
+
+    public Long getSectorNameId() {
+        return sectorNameId;
+    }
+
+    public void setSectorNameId(Long sectorNameId) {
+        this.sectorNameId = sectorNameId;
     }
 
     public String getLocation() {
