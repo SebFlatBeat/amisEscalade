@@ -113,6 +113,6 @@ public class SpotController {
     public String deleteSpot (@PathVariable Long spotId) {
         Spot spot = spotDAO.findById(spotId).get();
         spotDAO.delete(spot);
-        return "redirect:/espacePerso";
+        return "redirect:/espacePerso#spots";
     }
 }

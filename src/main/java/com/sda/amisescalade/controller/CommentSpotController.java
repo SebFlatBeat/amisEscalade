@@ -4,9 +4,7 @@ import com.sda.amisescalade.dao.ClimbUserDAO;
 import com.sda.amisescalade.dao.CommentSpotDAO;
 import com.sda.amisescalade.dao.SpotDAO;
 import com.sda.amisescalade.dto.CommentForm;
-import com.sda.amisescalade.entities.ClimbUser;
-import com.sda.amisescalade.entities.CommentSpot;
-import com.sda.amisescalade.entities.Spot;
+import com.sda.amisescalade.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,6 +55,14 @@ public class CommentSpotController {
         }
         commentSpotDAO.save(updateCommentSpot);
 
+        return "redirect:/spot/{spotId}/spotDetails";
+    }
+
+    @PostMapping("spot/{spotId}/deleteCommentSpot/{commentSpotId}")
+    public String deleteCommentSector (@PathVariable Long spotId, @PathVariable Long commentSpotId) {
+        Spot spot = spotDAO.findById(spotId).get();
+        CommentSpot commentSpot = commentSpotDAO.findById(commentSpotId).get();
+        commentSpotDAO.delete(commentSpot);
         return "redirect:/spot/{spotId}/spotDetails";
     }
 
