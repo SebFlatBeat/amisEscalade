@@ -16,8 +16,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -47,18 +54,28 @@ public class UserController {
      * @param modelReservation
      * @return
      */
-       @GetMapping("/espacePerso")
-       public String espacePerso(Model modelListTopoUser, Model modelListTopo, Model modelSpot, Model modelReservation) {
+       @RequestMapping(value = {"/espacePerso#topos", "/espacePerso"})
+       public String espacePerso(Model modelListTopoUser, Model modelListTopo, Model modelSpot, Model modelReservation, @RequestParam Optional <Long> spotId, Model modelResultTopo) {
            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
            ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
            List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
            modelListTopoUser.addAttribute("topoUser", topoUser);
            List <Topo> searchTopos = topoDAO.findTopoByAvailableTrue();
            modelListTopo.addAttribute("searchTopos", searchTopos);
-           List<Spot> searchSpot = spotDAO.findAll();
+           List<Spot> searchSpot = spotDAO.findAllSpot();
            modelSpot.addAttribute("searchSpot", searchSpot);
            List <Reservation> reservations = reservationDAO.findReservationsByOwner(climbUser.getUsername());
            modelReservation.addAttribute("reservations",reservations);
+           if (spotId.isPresent()) {
+               List<Topo> refineSearchTopos = topoDAO.findBySpotId(spotId.get());
+               if (refineSearchTopos != null) {
+                   searchTopos.addAll(refineSearchTopos);
+               }
+               modelResultTopo.addAttribute("refineSearchTopos", refineSearchTopos);
+               searchTopos = new ArrayList<>();
+               modelListTopo.addAttribute("searchTopos",searchTopos);
+               return "espacePerso#topos";
+           }
            return "espacePerso";
        }
 
@@ -85,12 +102,6 @@ public class UserController {
         }
 
 
-        @GetMapping("/espacePerso#topos")
-        @ResponseBody
-        public String refineSearchTopo (){
-           return "/espacePerso#topos";
-        }
-
     /**
      *
      * @param topoId
@@ -100,7 +111,7 @@ public class UserController {
      * @param redirectAttributes
      * @return
      */
-        @GetMapping("/topo/{topoId}/result")
+        @GetMapping("/espacePerso#topos/{topoId}/result")
         public String resultSearchTopo(@PathVariable Long topoId, Model model, @ModelAttribute("topoForm") @Validated TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes){
             List<Topo> searchTopos = new ArrayList<>();
             Topo resultTopo = topoDAO.findById(topoId).get();

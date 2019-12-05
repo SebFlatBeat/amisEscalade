@@ -85,13 +85,11 @@
         <div class="col-lg-12">
             <div class="boxed-grey">
 
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
                 <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
                     <div class="row col-md-6">
                         <div class="form-group">
                         <label for="spotId"> Choissisez le spot à affilier à votre Topo</label>
-                            <select id="spotId" name="spotId" class="chosen-select" data-placeholder="Cherchez le spot" >
+                            <select id="spotId" name="spotId" class="chosen-select col-lg-6 form-control" data-placeholder="Cherchez le spot" >
                                 <option></option>
                                 <c:forEach var="selectSpot" items="${spotList}">
                                     <option value="${selectSpot.id}">${selectSpot.spotName}</option>

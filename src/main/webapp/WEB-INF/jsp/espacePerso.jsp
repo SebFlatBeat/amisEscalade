@@ -13,18 +13,21 @@
     <title>Esapce Perso</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/animate.css" rel="stylesheet" />
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="color/default.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/color/default.css" rel="stylesheet"/>
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -267,56 +270,22 @@
         <div class="col-lg-12">
             <div class="boxed-grey">
 
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
-                <form id="contact-form" action="/topo/${searchTopos}/result" method="post" role="form" class="contactForm">
-                    <div class="form row">
+                <form id="contact-form" action="/espacePerso">
+                    <div class="row">
                         <div class="form-group col-md-3">
-                            <label for="spot">
-                                Spot</label>
-                            <select class="form-control" id="spot">
-                                <option></option>
-                                <c:forEach items="${searchSpot}" var="findSpot">
-                                    <option>${findSpot.spotName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="topos">
-                                Ville</label>
-                            <div class="form-group">
-                                <select class="form-control" id="topoCity">
+                                <label for="spotId"> le Spot</label>
+                                <select id="spotId" name="spotId" class="chosen-select form-control" data-placeholder="Cherchez le spot" >
                                     <option></option>
-                                    <c:forEach items="${searchSpot}" var="searchCity">
-                                        <option>${searchCity.city}</option>
+                                    <c:forEach var="findSpot" items="${searchSpot}">
+                                        <option value="${findSpot.id}">${findSpot.spotName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="topos">
-                                Departement</label>
-                            <select class="form-control" id="topoDepartement">
-                                <option></option>
-                                <c:forEach items="${searchSpot}" var="searchDepartement">
-                                    <option>${searchDepartement.department}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="topos">
-                                Pays</label>
-                            <select class="form-control" id="topoCountry">
-                                <option></option>
-                                <c:forEach items="${searchSpot}" var="searchCountry">
-                                    <option>${searchCountry.country}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                            Affiner</button>
+                            Affiner
+                        </button>
                     </div>
                 </form>
                 <div class="service-box team boxed-grey">
@@ -336,6 +305,22 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${searchTopos}" var="topos">
+                                <tr>
+                                    <form action="/saveReservation" method="post">
+                                        <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
+                                        <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
+                                        <td class="text-center" scope="row">${topos.spot.spotName}</td>
+                                        <td class="text-center" scope="row">${topos.topoCity}</td>
+                                        <td class="text-center" scope="row">${topos.topoDepartement}</td>
+                                        <td class="text-center" scope="row">${topos.topoCountry}</td>
+                                        <td class="text-center" scope="row">
+                                            <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
+                                            <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
+                                            <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
+                                            <button>Demandez la réservation</button></td></form>
+                                </tr>
+                            </c:forEach>
+                            <c:forEach items="${refineSearchTopos}" var="topos">
                                 <tr>
                                     <form action="/saveReservation" method="post">
                                         <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
@@ -550,16 +535,15 @@
 
 
 <!-- Core JavaScript Files -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.easing.min.js"></script>
-<script src="/js/jquery.scrollTo.js"></script>
-<script src="/js/wow.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.scrollTo.js"></script>
+<script src="js/wow.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="/js/custom.js"></script>
-<script src="/contactform/contactform.js"></script>
+<script src="js/custom.js"></script>
+<script src="contactform/contactform.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
 <script>
     function toggleOn() {
         $('#available')
@@ -568,17 +552,13 @@
         $('#available')
     }
 </script>
-
-<script src="/js/custom.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="chosen/chosen.jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $(".chosen-select").chosen();
     });
 </script>
-
-
 </body>
 </html>

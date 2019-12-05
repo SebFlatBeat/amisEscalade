@@ -81,7 +81,7 @@ public class SectorController {
         scoring.setLenght(lenght);
         scoring.setRating(sectorForm.getRating());
         scoringDAO.save(scoring);
-        return "redirect:/espacePerso";
+        return "redirect:/espacePerso#spots";
     }
 
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/editSector")
