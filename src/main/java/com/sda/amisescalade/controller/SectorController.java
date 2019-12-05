@@ -130,10 +130,11 @@ public class SectorController {
         return "/detailSector";
     }
 
-    @PostMapping("/sector/{sectorId}/deleteSector")
-    public String deleteSector (@PathVariable Long sectorId) {
+    @PostMapping("spot/{spotId}/sector/{sectorId}/deleteSector")
+    public String deleteSector (@PathVariable Long sectorId, @PathVariable Long spotId) {
+        Spot spot = spotDAO.findById(spotId).get();
         Sector sector = sectorDAO.findById(sectorId).get();
         sectorDAO.delete(sector);
-        return "redirect:/espacePerso";
+        return "redirect:/spot/{spotId}/spotDetails";
     }
 }

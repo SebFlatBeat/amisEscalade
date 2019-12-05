@@ -23,7 +23,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -111,12 +111,12 @@
                                         <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/road/${score.lenght.road.id}/editSector"></c:url> ">Editer Voie</a>
                                     </td>
                                     <td class="text-center" scope="row">
-                                        <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDeleteRoad${score.lenght.road.id}">Supprimer Voie
+                                        <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDelete${score.lenght.road.id}">Supprimer Voie </a>
                                             <!-- Modal -->
-                                            <div class="modal fade" id="confirmDeleteRoad${score.lenght.road.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal fade" id="confirmDelete${score.lenght.road.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                                <div class="modal-dialog fa-align-center" role="document">
                                                     <div class="modal-content">
-                                                        <div class="modal-header">
+                                                        <div class="modal-header alert-danger">
                                                             <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
                                                         </div>
                                                         <div class="modal-body">
@@ -124,13 +124,13 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <form action="/road/${score.lenght.road.id}/deleteRoad" method="post">
-                                                                <button type="submit" name="roadId" id="roadId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                                <button type="submit" name="roadId" id="roadId" class="btn btn-danger">Supprimer </button>
+                                                            </form>
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -167,9 +167,47 @@
                     <div class="boxed-grey col-lg-12 container-fluid table-bordered">
                         <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
                         <comment>${comment.texteComment}</comment>
-                        <a type="button" class=" btn btn-warning pull-right btn-xs " href="">Modifier</a>
+                        <a type="button" class=" btn btn-warning pull-right btn-xs " data-toggle="modal" data-target="#confirmUpdate${comment.id}">Modifier</a>
+                        <!-- Modal -->
+                        <form action="/spot/${comment.sector.spot.id}/sector/${comment.sector.id}/updateCommentSector/${comment.id}" method="post" class="col-lg-12">
+                        <div class="modal fade" id="confirmUpdate${comment.id}" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateTitle" aria-hidden="true" data-backdrop="false">
+                            <div class="modal-dialog fa-align-center" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header alert-warning">
+                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier votre commentaire</h5>
+                                    </div>
+                                        <div class="modal-body">
+                                            <input name="texteComment" id="texteComment" class="form-control" type="text" value="${comment.texteComment}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-warning">Modifier</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        <a type="button" class="btn btn-danger pull-right btn-xs" data-toggle="modal" data-target="#confirmDeleteComment${comment.id}">Supprimer </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="confirmDeleteComment${comment.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                <div class="modal-dialog fa-align-center" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header alert-danger">
+                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Attention</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                           <p>Etes-vous sûr de vouloir supprimer le commentaire " ${comment.texteComment}" ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="/spot/${comment.sector.spot.id}/sector/${comment.sector.id}/deleteCommentSector/${comment.id}" method="post">
+                                                <button type="submit" name="commentId" id="commentId" class="btn btn-danger">Supprimer </button>
+                                            </form>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
-
                 </c:forEach>
             </div>
         </div>

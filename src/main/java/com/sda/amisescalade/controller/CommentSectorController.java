@@ -45,4 +45,28 @@ public class CommentSectorController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    @PostMapping("/spot/{spotId}/sector/{sectorId}/updateCommentSector/{commentSectorId}")
+    public String updateCommentSpot(@PathVariable Long spotId, @PathVariable Long sectorId,@PathVariable Long commentSectorId , Model model, @ModelAttribute("commentForm") CommentForm commentForm, BindingResult result, final RedirectAttributes redirectAttributes){
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        Spot spot = spotDAO.findById(spotId).get();
+        Sector sector = sectorDAO.findById(sectorId).get();
+        CommentSector updateCommentSector = commentSectorDAO.findById(commentSectorId).get();
+        if (commentForm.getTexteComment() != null){
+            updateCommentSector.setTexteComment(commentForm.getTexteComment());
+            updateCommentSector.setDate(commentForm.getDate());
+            updateCommentSector.setClimbUser(climbUser);
+        }
+        commentSectorDAO.save(updateCommentSector);
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
+    }
+
+    @PostMapping("spot/{spotId}/sector/{sectorId}/deleteCommentSector/{commentSectorId}")
+    public String deleteCommentSector (@PathVariable Long sectorId, @PathVariable Long spotId, @PathVariable Long commentSectorId) {
+        Spot spot = spotDAO.findById(spotId).get();
+        Sector sector = sectorDAO.findById(sectorId).get();
+        CommentSector commentSector = commentSectorDAO.findById(commentSectorId).get();
+        commentSectorDAO.delete(commentSector);
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
+    }
 }
