@@ -8,6 +8,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Esapce Perso</title>
@@ -25,7 +26,6 @@
     <link href="/color/default.css" rel="stylesheet"/>
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
@@ -189,7 +189,9 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-4">
+                                <sec:authorize access="hasRole('ADMIN')">
                                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                                     <div class="service-box team boxed-grey">
                                         <div class="service-icon">
@@ -201,6 +203,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
                             </div>
                         </div>
                     </div>
@@ -269,23 +272,52 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="boxed-grey">
-
-                <form id="contact-form" action="/espacePerso">
+                <form id="contact-form" action="/espacePerso#topos">
                     <div class="row">
                         <div class="form-group col-md-3">
-                                <label for="spotId"> le Spot</label>
-                                <select id="spotId" name="spotId" class="chosen-select form-control" data-placeholder="Cherchez le spot" >
-                                    <option></option>
-                                    <c:forEach var="findSpot" items="${searchSpot}">
-                                        <option value="${findSpot.id}">${findSpot.spotName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                            <label for="spotId"> le Spot</label>
+                            <select id="spotId" name="spotId" class="chosen-select form-control" data-placeholder="Cherchez le spot" >
+                                <option></option>
+                                <c:forEach var="findSpot" items="${searchSpot}">
+                                    <option value="${findSpot.id}">${findSpot.spotName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="cartographyCityId"> La ville</label>
+                            <select id="cartographyCityId" name="cartographyCityId" class="chosen-select form-control" data-placeholder="Cherchez la ville" >
+                                <option></option>
+                                <c:forEach var="findSpot" items="${searchSpot}">
+                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.communeCartography}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
 
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                            Affiner
-                        </button>
+                        <div class="form-group col-md-3">
+                            <label for="cartographyDepartementId"> Le département</label>
+                            <select id="cartographyDepartementId" name="cartographyDepartementId" class="chosen-select form-control" data-placeholder="Cherchez le département" >
+                                <option></option>
+                                <c:forEach var="findSpot" items="${searchSpot}">
+                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.departmentNameCartography}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="cartographyRegionId"> La région</label>
+                            <select id="cartographyRegionId" name="cartographyRegionId" class="chosen-select form-control" data-placeholder="Cherchez la région" >
+                                <option></option>
+                                <c:forEach var="findSpot" items="${searchSpot}">
+                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.regionCartography}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                                Affiner
+                            </button>
+                        </div>
                     </div>
                 </form>
                 <div class="service-box team boxed-grey">
@@ -304,38 +336,42 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${searchTopos}" var="topos">
-                                <tr>
-                                    <form action="/saveReservation" method="post">
-                                        <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
-                                        <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
-                                        <td class="text-center" scope="row">${topos.spot.spotName}</td>
-                                        <td class="text-center" scope="row">${topos.topoCity}</td>
-                                        <td class="text-center" scope="row">${topos.topoDepartement}</td>
-                                        <td class="text-center" scope="row">${topos.topoCountry}</td>
-                                        <td class="text-center" scope="row">
-                                            <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
-                                            <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
-                                            <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
-                                            <button>Demandez la réservation</button></td></form>
-                                </tr>
-                            </c:forEach>
-                            <c:forEach items="${refineSearchTopos}" var="topos">
-                                <tr>
-                                    <form action="/saveReservation" method="post">
-                                        <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
-                                        <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
-                                        <td class="text-center" scope="row">${topos.spot.spotName}</td>
-                                        <td class="text-center" scope="row">${topos.topoCity}</td>
-                                        <td class="text-center" scope="row">${topos.topoDepartement}</td>
-                                        <td class="text-center" scope="row">${topos.topoCountry}</td>
-                                        <td class="text-center" scope="row">
-                                            <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
-                                            <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
-                                            <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
-                                            <button>Demandez la réservation</button></td></form>
-                                </tr>
-                            </c:forEach>
+                            <c:if test="${searchTopos.size()>0}">
+                                <c:forEach items="${searchTopos}" var="topos">
+                                    <tr>
+                                        <form action="/saveReservation" method="post">
+                                            <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
+                                            <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
+                                            <td class="text-center" scope="row">${topos.spot.spotName}</td>
+                                            <td class="text-center" scope="row">${topos.topoCity}</td>
+                                            <td class="text-center" scope="row">${topos.topoDepartement}</td>
+                                            <td class="text-center" scope="row">${topos.topoCountry}</td>
+                                            <td class="text-center" scope="row">
+                                                <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
+                                                <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
+                                                <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
+                                                <button>Demandez la réservation</button></td></form>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${refineSearchTopos}">
+                                <c:forEach items="${refineSearchTopos}" var="topos">
+                                    <tr>
+                                        <form action="/saveReservation" method="post">
+                                            <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
+                                            <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
+                                            <td class="text-center" scope="row">${topos.spot.spotName}</td>
+                                            <td class="text-center" scope="row">${topos.topoCity}</td>
+                                            <td class="text-center" scope="row">${topos.topoDepartement}</td>
+                                            <td class="text-center" scope="row">${topos.topoCountry}</td>
+                                            <td class="text-center" scope="row">
+                                                <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
+                                                <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
+                                                <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
+                                                <button>Demandez la réservation</button></td></form>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
                             </tbody>
                         </table>
                     </div>

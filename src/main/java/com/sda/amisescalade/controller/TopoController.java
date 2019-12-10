@@ -60,6 +60,7 @@ public class TopoController {
 
         Topo newTopo = new Topo();
         Optional<Spot> spotlist = spotDAO.findById(topoform.getSpotId());
+        Optional<Cartography> cartography = cartographyDAO.findById(topoform.getCartographyId());
         newTopo.setTopoCity(spotlist.get().getCity());
         newTopo.setTopoCountry(spotlist.get().getCountry());
         newTopo.setTopoDepartement(spotlist.get().getDepartment());
@@ -71,6 +72,7 @@ public class TopoController {
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         newTopo.setClimbUser(climbUser);
         newTopo.setSpot(spotlist.get());
+        newTopo.setCartography(cartography.get());
         try{
             topoDAO.save(newTopo);
         }

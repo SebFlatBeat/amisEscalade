@@ -45,9 +45,6 @@ public class SectorController {
     @Autowired
     private CommentSectorDAO commentSectorDAO;
 
-    @Autowired
-    private CartographyDAO cartographyDAO;
-
     @GetMapping(value = "spot/{spotId}/sectorForm")
     public String getFormSector(@PathVariable Long spotId) {
         return "/formSector";
@@ -103,10 +100,10 @@ public class SectorController {
             updateSector.setSectorName(sectorForm.getSectorName());
         }
         if(sectorForm.getLocation() != null){
-        updateSector.setLocation(sectorForm.getLocation());
+            updateSector.setLocation(sectorForm.getLocation());
         }
         if(sectorForm.getAccess() != null){
-        updateSector.setAccess(sectorForm.getAccess());
+            updateSector.setAccess(sectorForm.getAccess());
         }
         updateSector.setClimbUser(climbUser);
         sectorDAO.save(updateSector);

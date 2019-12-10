@@ -15,21 +15,21 @@ import java.util.Date;
 public class CommentSpot implements Serializable {
     @Id
     @GeneratedValue
-private Long id;
+    private Long id;
     @Size(max=500)
     @NotBlank
-private String texteComment;
-private Date date;
+    private String texteComment;
+    private Date date;
 
-@ManyToOne
-@Cascade(CascadeType.DETACH)
-private ClimbUser climbUser;
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private ClimbUser climbUser;
 
-@ManyToOne
-@Cascade(CascadeType.DETACH)
-private Spot spot;
+    @ManyToOne
+    @Cascade(CascadeType.DETACH)
+    private Spot spot;
 
-public CommentSpot() {
+    public CommentSpot() {
     }
 
     public CommentSpot(String texteComment, Date date) {

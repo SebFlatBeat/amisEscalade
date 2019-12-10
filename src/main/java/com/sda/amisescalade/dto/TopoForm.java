@@ -17,6 +17,7 @@ public class TopoForm {
     private Date release;
     private String topoDescription;
     private Long spotId;
+    private Long cartographyId;
 
 
     private ClimbUser climbUser;
@@ -26,7 +27,7 @@ public class TopoForm {
     public TopoForm() {
     }
 
-    public TopoForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription, Long spotId ) {
+    public TopoForm(Long id, String topoName, boolean available, String topoCity, String topoDepartement, String topoCountry, Date release, String topoDescription, String spotId ) {
         this.id = id;
         this.topoName = topoName;
         this.available = available;
@@ -35,7 +36,8 @@ public class TopoForm {
         this.topoCountry = topoCountry;
         this.release = release;
         this.topoDescription = topoDescription;
-        this.spotId = spotId;
+
+
     }
 
     public Long getId() {
@@ -123,7 +125,17 @@ public class TopoForm {
         return spotId;
     }
 
-    public void setSpotId(Long spotId) {
-        this.spotId = spotId;
+    public void setSpotId(String spotId) {
+        String [] arrayID =  spotId.split(",");
+        this.spotId = Long.parseLong(arrayID[0]);
+        this.cartographyId = Long.parseLong(arrayID[1]);
+    }
+
+    public Long getCartographyId() {
+        return cartographyId;
+    }
+
+    public void setCartographyId(Long cartographyId) {
+        this.cartographyId = cartographyId;
     }
 }

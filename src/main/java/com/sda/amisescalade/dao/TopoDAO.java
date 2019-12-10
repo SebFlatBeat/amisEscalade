@@ -11,6 +11,8 @@ public interface TopoDAO extends JpaRepository <Topo,Long>  {
 
     public List <Topo> findBySpotId(Long id);
 
+    public List<Topo>findByCartographyId(Long id);
+
     public List<Topo> findTopoByAvailableTrue();
 
 }

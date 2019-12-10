@@ -8,6 +8,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,17 +87,17 @@
     <div class="row">
         <div class="col-lg-12 boxed-grey">
             <form id="contact-form" action="/topo/${topoId}/updateTopo" method="post" role="form" class="contactForm center-block" name="formSpot">
-               <div class="col-lg-12">
-                   <div class="col-lg-12 form-group">
-                <label for="spotId"> Modifiez le spot à affilier à votre Topo</label>
-                <select id="spotId" name="spotId" class="chosen-select" data-placeholder="${topo.spot.spotName}" >
-                    <option></option>
-                    <c:forEach var="selectSpot" items="${spotList}">
-                        <option value="${selectSpot.id}">${selectSpot.spotName}</option>
-                    </c:forEach>
-                </select>
-                   </div>
-               </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-12 form-group">
+                        <label for="spotId"> Modifiez le spot à affilier à votre Topo</label>
+                        <select id="spotId" name="spotId" class="chosen-select" data-placeholder="${topo.spot.spotName}" >
+                            <option></option>
+                            <c:forEach var="selectSpot" items="${spotList}">
+                                <option value="${selectSpot.id}">${selectSpot.spotName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-lg-12 form-group">
                     <div class="form-group">
                         <label for="topoName">Nom actuel du Topo :</label>
@@ -137,17 +138,17 @@
                                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">Modifier</button>
+                            <a type="button"class="btn btn-warning pull-right" href="<c:url value="/editListTopo"/>">Retour</a>
+                        </div>
                     </div>
                 </div>
-                        </div>
-        <div class="col-lg-12">
-            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">Modifier</button>
-            <a type="button"class="btn btn-warning pull-right" href="<c:url value="/editListTopo"/>">Retour</a>
-        </div>
-                        </div>
-                    </div>
             </form>
-    </div>
+        </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->

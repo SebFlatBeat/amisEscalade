@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,14 +137,14 @@
                         </fieldset>
                     </div>
                 </div>
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                Modifier
-            </button>
-            <a type="button"class="btn btn-warning pull-right" href="/spot/${spotId}/spotDetails">Retour</a>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                        Modifier
+                    </button>
+                    <a type="button"class="btn btn-warning pull-right" href="/spot/${spotId}/spotDetails">Retour</a>
+                </div>
+            </form>
         </div>
-        </form>
-    </div>
     </div>
 </section>
 <!-- /Section: EditSpot -->

@@ -17,6 +17,7 @@ public class Spot implements Serializable {
     private String department;
     private String region;
     private String country;
+    private Long nbSector;
     private boolean tag;
 
     @ManyToOne
@@ -38,12 +39,13 @@ public class Spot implements Serializable {
     public Spot() {
     }
 
-    public Spot(String spotName, String city, String department,String region, String country, boolean tag) {
+    public Spot(String spotName, String city, String department,String region, String country,Long nbSector, boolean tag) {
         this.spotName = spotName;
         this.city = city;
         this.department = department;
         this.region = region;
         this.country = country;
+        this.nbSector = nbSector;
         this.tag = tag;
     }
 
@@ -93,6 +95,14 @@ public class Spot implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Long getNbSector() {
+        return nbSector;
+    }
+
+    public void setNbSector(Long nbSector) {
+        this.nbSector = nbSector;
     }
 
     public boolean isTag() {

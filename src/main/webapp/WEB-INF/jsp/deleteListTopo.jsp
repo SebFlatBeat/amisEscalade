@@ -8,6 +8,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,7 +111,7 @@
                                             <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
                                         </div>
                                         <div class="modal-body">
-                                           Etes-vous sûr de vouloir supprimer le topo ${topoClimber.topoName} ?
+                                            Etes-vous sûr de vouloir supprimer le topo ${topoClimber.topoName} ?
                                         </div>
                                         <div class="modal-footer">
                                             <form action="/${topoClimber.id}/deleteTopo" method="post">
@@ -130,20 +131,20 @@
     </div>
 </section>
 
-        <footer>
-            <div class="container">
-                <p>&copy;SquadFREE. All rights reserved.</p>
-                <div class="credits">
-                    <!--
-                      All the links in the footer should remain intact.
-                      You can delete the links only if you purchased the pro version.
-                      Licensing information: https://bootstrapmade.com/license/
-                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Squadfree
-                    -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                </div>
-            </div>
-        </footer>
+<footer>
+    <div class="container">
+        <p>&copy;SquadFREE. All rights reserved.</p>
+        <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Squadfree
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer>
 
 <!-- Core JavaScript Files -->
 <script src="/js/jquery.min.js"></script>

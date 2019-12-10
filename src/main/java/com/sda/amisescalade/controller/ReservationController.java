@@ -83,7 +83,7 @@ public class ReservationController {
         topo.setAvailable(checkBoxForm.getRealAccepted());
         topoDAO.save(topo);
         if (reservation.isAccepted()){
-        reservationDAO.save(reservation);
+            reservationDAO.save(reservation);
         }else{
             reservationDAO.delete(reservation);
         }
