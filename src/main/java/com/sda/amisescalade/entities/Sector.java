@@ -21,7 +21,6 @@ public class Sector implements Serializable {
     private String location;
     @Size(max=200)
     private String access;
-    private Long nbRoad;
 
     @ManyToOne
     @Cascade(CascadeType.DETACH)
@@ -42,11 +41,11 @@ public class Sector implements Serializable {
     public Sector() {
     }
 
-    public Sector(String sectorName, String location, String access, Long nbRoad) {
+    public Sector(String sectorName, String location, String access) {
         this.sectorName = sectorName;
         this.location = location;
         this.access = access;
-        this.nbRoad = nbRoad;
+
     }
 
     public Long getId() {
@@ -79,14 +78,6 @@ public class Sector implements Serializable {
 
     public void setAccess(String access) {
         this.access = access;
-    }
-
-    public Long getNbRoad() {
-        return nbRoad;
-    }
-
-    public void setNbRoad(Long nbRoad) {
-        this.nbRoad = nbRoad;
     }
 
     public ClimbUser getClimbUser() {
