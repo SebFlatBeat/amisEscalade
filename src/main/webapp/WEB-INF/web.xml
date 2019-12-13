@@ -20,5 +20,4 @@
             <include-prelude>/WEB-INF/jsp/taglibs.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
-
 </web-app>

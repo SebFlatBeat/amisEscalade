@@ -189,9 +189,7 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-4">
-                                <sec:authorize access="hasRole('ADMIN')">
                                 <div class="wow fadeInLeft" data-wow-delay="0.2s">
                                     <div class="service-box team boxed-grey">
                                         <div class="service-icon">
@@ -203,7 +201,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                </sec:authorize>
                             </div>
                         </div>
                     </div>
@@ -225,6 +222,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     <c:forEach items="${topoUser}" var="topoClimber">
                                         <tr>
                                             <td class="text-center" scope="row">${topoClimber.topoName}</td>
@@ -284,31 +282,40 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="cartographyCityId"> La ville</label>
-                            <select id="cartographyCityId" name="cartographyCityId" class="chosen-select form-control" data-placeholder="Cherchez la ville" >
+                            <label for="cartographyCityName"> La ville</label>
+                            <select id="cartographyCityName" name="cartographyCityName" class="chosen-select form-control" data-placeholder="Cherchez la ville" >
                                 <option></option>
-                                <c:forEach var="findSpot" items="${searchSpot}">
-                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.communeCartography}</option>
+                                <c:forEach var="listCity" items="${cartographyListCity}">
+                                    <option value="${listCity}">${listCity}</option>
                                 </c:forEach>
                             </select>
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label for="cartographyDepartementId"> Le département</label>
-                            <select id="cartographyDepartementId" name="cartographyDepartementId" class="chosen-select form-control" data-placeholder="Cherchez le département" >
+                            <label for="cartographyDepartementName"> Le département</label>
+                            <select id="cartographyDepartementName" name="cartographyDepartementName" class="chosen-select form-control" data-placeholder="Cherchez le département" >
                                 <option></option>
-                                <c:forEach var="findSpot" items="${searchSpot}">
-                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.departmentNameCartography}</option>
+                                <c:forEach var="listDepartment" items="${cartographyListDepartment}">
+                                    <option value="${listDepartment}">${listDepartment}</option>
                                 </c:forEach>
                             </select>
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label for="cartographyRegionId"> La région</label>
-                            <select id="cartographyRegionId" name="cartographyRegionId" class="chosen-select form-control" data-placeholder="Cherchez la région" >
+                            <label for="cartographyRegionName"> La région</label>
+                            <select id="cartographyRegionName" name="cartographyRegionName" class="chosen-select form-control" data-placeholder="Cherchez la région" >
                                 <option></option>
-                                <c:forEach var="findSpot" items="${searchSpot}">
-                                    <option value="${findSpot.cartography.id}">${findSpot.cartography.regionCartography}</option>
+                                <c:forEach var="listRegion" items="${cartographyListRegion}">
+                                    <option value="${listRegion}">${listRegion}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="cartographyCountryName"> Le Pays </label>
+                            <select id="cartographyCountryName" name="cartographyCountryName" class="chosen-select form-control" data-placeholder="Cherchez le pays" >
+                                <option></option>
+                                <c:forEach var="listCountry" items="${cartographyListCountry}">
+                                    <option value="${listCountry}">${listCountry}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -338,42 +345,30 @@
                             <tbody>
                             <c:if test="${searchTopos.size()>0}">
                                 <c:forEach items="${searchTopos}" var="topos">
-                                    <tr>
-                                        <form action="/saveReservation" method="post">
-                                            <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
-                                            <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
-                                            <td class="text-center" scope="row">${topos.spot.spotName}</td>
-                                            <td class="text-center" scope="row">${topos.topoCity}</td>
-                                            <td class="text-center" scope="row">${topos.topoDepartement}</td>
-                                            <td class="text-center" scope="row">${topos.topoCountry}</td>
-                                            <td class="text-center" scope="row">
-                                                <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
-                                                <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
-                                                <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
-                                                <button>Demandez la réservation</button></td></form>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            <c:if test="${refineSearchTopos}">
-                                <c:forEach items="${refineSearchTopos}" var="topos">
-                                    <tr>
-                                        <form action="/saveReservation" method="post">
-                                            <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
-                                            <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
-                                            <td class="text-center" scope="row">${topos.spot.spotName}</td>
-                                            <td class="text-center" scope="row">${topos.topoCity}</td>
-                                            <td class="text-center" scope="row">${topos.topoDepartement}</td>
-                                            <td class="text-center" scope="row">${topos.topoCountry}</td>
-                                            <td class="text-center" scope="row">
-                                                <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
-                                                <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
-                                                <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
-                                                <button>Demandez la réservation</button></td></form>
-                                    </tr>
+
+                                    <c:if test="${topos.climbUser.id != climbUser.id}">
+                                        <tr>
+                                            <form action="/saveReservation" method="post">
+                                                <td class="text-center" scope="row">${topos.topoName}<input type="hidden" id="topoNameReservation" name="topoNameReservation" value="${topos.topoName}"/></td>
+                                                <td class="text-center" scope="row"><fmt:formatDate value="${topos.release}"></fmt:formatDate></td>
+                                                <td class="text-center" scope="row">${topos.spot.spotName}</td>
+                                                <td class="text-center" scope="row">${topos.topoCity}</td>
+                                                <td class="text-center" scope="row">${topos.topoDepartement}</td>
+                                                <td class="text-center" scope="row">${topos.topoCountry}</td>
+                                                <td class="text-center" scope="row">
+                                                    <input type="hidden" id="owner" name="owner" value="${topos.climbUser.username}"/>
+                                                    <input type="hidden" id="ownerId" name="ownerId" value="${topos.climbUser.id}"/>
+                                                    <input type="hidden" id="topoId" name="topoId" value="${topos.id}"/>
+                                                    <button>Demandez la réservation</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    </c:if>
                                 </c:forEach>
                             </c:if>
                             </tbody>
                         </table>
+                        <a type="button" class="btn btn-warning pull-right" href="<c:url value="/espacePerso#topos"/>">Reset</a>
                     </div>
                 </div>
             </div>
@@ -487,7 +482,9 @@
                             <th class="text-center" scope="col">Region</th>
                             <th class="text-center" scope="col"> Spot Officiel</th>
                             <th class="text-center" scope="col"> Edition </th>
-                            <th class="text-center" scope="col"> Suppression </th>
+                            <sec:authorize access="hasAuthority('ADMIN')">
+                                <th class="text-center" scope="col"> Suppression </th>
+                            </sec:authorize>
                         </tr>
                         </thead>
                         <tbody>
@@ -507,27 +504,29 @@
                                     <a type="button" class="btn btn-warning btn-xs" href="<c:url value="/spot/${Spot.id}/editSpot"></c:url> ">Editer Spot</a>
                                     <a type="button" class="btn btn-default btn-xs" href="<c:url value="/spot/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
                                 </td>
-                                <td class="text-center" scope="row">
-                                    <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDeleteSpot${Spot.id}">Suprimmer Spot</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="confirmDeleteSpot${Spot.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Etes-vous sûr de vouloir supprimer le spot ${Spot.spotName} ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="/spot/${Spot.id}/deleteSpot" method="post">
-                                                        <button type="submit" name="spotId" id="spotId" class="btn btn-danger">Supprimer </button>                                           </form>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                <sec:authorize access="hasAuthority('ADMIN')">
+                                    <td class="text-center" scope="row">
+                                        <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#confirmDeleteSpot${Spot.id}">Supprimer Spot</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="confirmDeleteSpot${Spot.id}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTitle" aria-hidden="true" data-backdrop="false">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Attention</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Etes-vous sûr de vouloir supprimer le spot ${Spot.spotName} ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="/spot/${Spot.id}/deleteSpot" method="post">
+                                                            <button type="submit" name="spotId" id="spotId" class="btn btn-danger">Supprimer </button>                                           </form>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </sec:authorize>
                             </tr>
                         </c:forEach>
                         </tbody>

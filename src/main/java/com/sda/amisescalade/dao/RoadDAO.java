@@ -16,4 +16,7 @@ public interface RoadDAO extends JpaRepository<Road, Long> {
 
     List<Spot> findById(Optional<Long> roadId);
 
+    @Query("select distinct  count (road.sector.id) as NumberOfRoad from Road road group by road.sector.id order by NumberOfRoad")
+    public List<Long> findNumberOfRoad();
+
 }

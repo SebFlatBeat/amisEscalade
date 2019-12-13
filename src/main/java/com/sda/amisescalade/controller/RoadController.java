@@ -1,6 +1,7 @@
 package com.sda.amisescalade.controller;
 
 import com.sda.amisescalade.dao.*;
+import com.sda.amisescalade.dto.RoadForm;
 import com.sda.amisescalade.dto.SectorForm;
 import com.sda.amisescalade.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @Controller
 public class RoadController {
 
     @Autowired
     private ClimbUserDAO climbUserDAO;
+
+    @Autowired
+    private SpotDAO spotDAO;
 
     @Autowired
     private SectorDAO sectorDAO;
@@ -64,6 +70,54 @@ public class RoadController {
         scoringDAO.save(scoring);
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
+
+    @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/road/{roadId}/lenght/{lenghtId}/scoring/{scoringId}/updateRoadForm")
+    public String updateRoad(@PathVariable Long spotId, @PathVariable Long sectorId, @PathVariable Long roadId,@PathVariable Long lenghtId,@PathVariable Long scoringId, Model model, @ModelAttribute("formRoad")RoadForm roadForm, BindingResult result, final RedirectAttributes redirectAttributes){
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        Spot spot = spotDAO.findById(spotId).get();
+        Sector Sector = sectorDAO.findById(sectorId).get();
+        Road updateRoad = roadDAO.findById(roadId).get();
+        Lenght updateLenght = lenghtDAO.findById(lenghtId).get();
+        Scoring updateScoring = scoringDAO.findById(scoringId).get();
+        if(roadForm.getRoadName() != null){
+            updateRoad.setRoadName(roadForm.getRoadName());
+        }
+        if(roadForm.getDistance() != null){
+            updateLenght.setDistance(roadForm.getDistance());
+        }
+        if(roadForm.getHeight() != null){
+            updateLenght.setHeight(roadForm.getHeight());
+        }
+        if(roadForm.getRating() != null){
+            updateScoring.setRating(roadForm.getRating());
+        }
+        updateRoad.setClimbUser(climbUser);
+        updateLenght.setClimbUser(climbUser);
+        updateScoring.setClimbUser(climbUser);
+        roadDAO.save(updateRoad);
+        lenghtDAO.save(updateLenght);
+        scoringDAO.save(updateScoring);
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
+    }
+
+    @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/road/{roadId}/lenght/{lenghtId}/scoring/{scoringId}/editRoad")
+    public String editSector( @PathVariable Long spotId ,@PathVariable Long sectorId,@PathVariable Long roadId,@PathVariable Long lenghtId,@PathVariable Long scoringId, Model modelSpot, Model modelSector, Model modelRoad,Model modelLenght,Model modelScoring){
+        Spot spot = spotDAO.findById(spotId).get();
+        modelSpot.addAttribute("spot", spot);
+        Sector sector = sectorDAO.findById(sectorId).get();
+        modelSector.addAttribute("sector",sector);
+        Road road =roadDAO.findById(roadId).get();
+        modelRoad.addAttribute("road", road);
+        Lenght lenght = lenghtDAO.findBySectorId(sectorId);
+        modelLenght.addAttribute("lenght",lenght);
+        Scoring scoring = scoringDAO.findBySectorId(sectorId);
+        modelScoring.addAttribute("scoring",scoring);
+
+        return "editRoad";
+    }
+
+
 
     @PostMapping("/road/{roadId}/deleteRoad")
     public String deleteRoad (@PathVariable Long roadId) {

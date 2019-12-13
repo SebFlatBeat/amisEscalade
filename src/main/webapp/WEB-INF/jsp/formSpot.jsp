@@ -105,6 +105,12 @@
                                 <input id="spotName" name="spotName" class="form-control" type="text"/>
                             </div>
                         </div>
+                        <sec:authorize access="hasAuthority('USER')">
+                            <div>
+                            <input class="hidden" name="tag" value="false"/>
+                            </div>
+                        </sec:authorize>
+                        <sec:authorize access="hasAuthority('ADMIN')">
                         <div class="row col-lg-12 form-group">
                             <fieldset class="col-lg-push-3 col-md-6 form-group">
                                 <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
@@ -112,7 +118,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label" for="gridRadios1">
                                             Oui
-                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
+                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="false" checked/>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -127,6 +133,7 @@
                         </div>
                     </div>
                 </div>
+                </sec:authorize>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
                         Envoyer

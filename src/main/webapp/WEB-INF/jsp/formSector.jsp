@@ -85,7 +85,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/spot/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSpot">
+            <form id="contact-form" action="/spot/${spotId}/sectorForm" method="post" role="form" class="contactForm center-block" name="formSector">
                 <div class="row col-md-12 form-group">
                     <label>Le secteur</label>
                     <div class="col-lg-push-3 col-md-6">

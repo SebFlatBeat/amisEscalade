@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Enregistrer un Secteur</title>
+    <title>Enregistrer une Voie</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -49,7 +49,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}index">
+            <a class="navbar-brand" href="<c:url value="/index"/>">
                 <h1>Les Amis de l'Escalade</h1>
             </a>
         </div>
@@ -85,7 +85,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 boxed-grey">
-            <form id="contact-form" action="/spot/${spotId}/sector/{sectorId}//sector/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formSpot">>
+            <form id="contact-form" action="/spot/${spotId}/sector/${sectorId}/roadForm" method="post" role="form" class="contactForm center-block" name="formRoad">>
                 <div class="row col-md-12 form-group">
                     <label>La voie</label>
                     <div class="col-lg-push-3 col-md-6">

@@ -52,8 +52,6 @@
                 <li class="active"><a href="#intro">Home</a></li>
                 <li><a href="index#search">Chercher</a></li>
                 <li><a href="index#spots">Spots</a></li>
-                <li><a href="index#entrainement">Training</a></li>
-                <li><a href="index#news">News</a></li>
                 <c:if test="${pageContext.request.userPrincipal == null}">
                     <li><a href="" data-toggle="modal" data-target="#id-popup">Inscription / Connexion</a>
                         <div class="modal fade " id="id-popup" tabindex="-1" role="dialog" aria-labelledby="titrePopUp" aria-hidden="true" data-backdrop="false">
@@ -110,7 +108,6 @@
                                                                 <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
                                                             </div>
                                                         </div>
-                                                        </img>
                                                     </div>
                                                 </div>
                                             </div>
@@ -177,29 +174,29 @@
                 <form id="contact-form" action="/index#spots">
                     <div class="row">
                         <div class="form-group col-md-3">
-                            <label for="spotName"> le Spot</label>
-                            <select id="spotName" name="spotName" class="chosen-select form-control" data-placeholder="Cherchez par spot" >
+                            <label for="spotId"> le Spot</label>
+                            <select id="spotId" name="spotId" class="chosen-select form-control" data-placeholder="Cherchez par spot" >
                                 <option></option>
                                 <c:forEach var="findSpot" items="${spot}">
-                                    <option value="${findSpot.spotName}">${findSpot.spotName}</option>
+                                    <option value="${findSpot.id}">${findSpot.spotName}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="sectorId"> le Secteur</label>
-                            <select id="sectorId" name="sectorId" class="chosen-select form-control" data-placeholder="Cherchez par secteur" >
+                            <label for="sectorNumber"> le Secteur</label>
+                            <select id="sectorNumber" name="sectorNumber" class="chosen-select form-control" data-placeholder="Cherchez par secteur" >
                                 <option></option>
                                 <c:forEach var="findSector" items="${spotBySectors}">
-                                    <option value="${findSector.spot.id}">${findSector.sectorName}</option>
+                                    <option value="${findSector}">${findSector}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="roadId"> La voie</label>
-                            <select id="roadId" name="roadId" class="chosen-select form-control" data-placeholder="Cherchez par la voie" >
+                            <label for="roadNumber"> Nombre de voie</label>
+                            <select id="roadNumber" name="roadNumber" class="chosen-select form-control" data-placeholder="Cherchez par le nombre de voie" >
                                 <option></option>
                                 <c:forEach var="findRoad" items="${roads}">
-                                    <option value="${findRoad.sector.spot.id}">${findRoad.roadName}</option>
+                                    <option value="${findRoad}">${findRoad}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -278,7 +275,7 @@
             </div>
         </div>
     </div>
-
+    <c:if test="${spot.size()==searchSpot.size()}">
     <c:forEach var="listAllSpot" items="${spot}">
         <div class="col-lg-3">
             <div class="service-box team boxed-grey">
@@ -286,170 +283,47 @@
                     <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
                 </div>
                 <a href="<c:url value="spot/${listAllSpot.id}/spotDetails"/>"><h5>${listAllSpot.spotName}</h5></a>
-                <c:forEach var="listAllSpotBySectors" items="${spotBySectors}">
+                <c:forEach var="listAllSpotBySectors" items="${sectorName}">
                     <c:if test="${listAllSpot.id == listAllSpotBySectors.spot.id}">
                         <a href="<c:url value="/spot/${listAllSpotBySectors.spot.id}/sector/${listAllSpotBySectors.id}/sectorDetails"/> "><p> Secteur ${listAllSpotBySectors.sectorName}</p></a></c:if>
                 </c:forEach>
             </div>
         </div>
     </c:forEach>
-    <c:forEach var="listAllSpot" items="${searchSpot}">
+    </c:if>
+<c:if test="${spot.size()!=searchSpot.size()}">
+    <c:forEach var="listAllSpotSearch" items="${searchSpot}">
         <div class="col-lg-3">
             <div class="service-box team boxed-grey">
                 <div class="service-icon">
                     <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
                 </div>
-                <a href="<c:url value="spot/${listAllSpot.id}/spotDetails"/>"><h5>${listAllSpot.spotName}</h5></a>
+                <a href="<c:url value="spot/${listAllSpotSearch.id}/spotDetails"/>"><h5>${listAllSpotSearch.spotName}</h5></a>
                 <c:forEach var="listAllSpotBySectors" items="${spotBySectors}">
-                    <c:if test="${listAllSpot.id == listAllSpotBySectors.spot.id}">
+                    <c:if test="${listAllSpotSearch.id == listAllSpotBySectors.spot.id}">
                         <a href="<c:url value="/spot/${listAllSpotBySectors.spot.id}/sector/${listAllSpotBySectors.id}/sectorDetails"/> "><p> Secteur ${listAllSpotBySectors.sectorName}</p></a></c:if>
                 </c:forEach>
             </div>
         </div>
         </div>
     </c:forEach>
-
-</section>
-<!-- /Section: spot -->
-
-<!-- Section: entrainement -->
-<section id="entrainement" class="home-section text-center bg-gray">
-    <div class="heading-about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="wow bounceInDown" data-wow-delay="0.4s">
-                        <div class="section-heading">
-                            <h2>Training</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-12">
+    <a type="button" class="btn btn-warning pull-right" href="<c:url value="/index#spots"/>">Reset</a>
     </div>
-    <div class="container">
+</c:if>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 col-lg-offset-5">
-                <hr class="marginbot-50">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="wow fadeInLeft" data-wow-delay="0.2s">
-                    <div class="service-box">
-                        <div class="service-icon">
-                            <img src="img/icons/service-icon-1.png" alt="" />
-                        </div>
-                        <div class="service-desc">
-                            <h5>Print</h5>
-                            <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-box">
-                        <div class="service-icon">
-                            <img src="img/icons/service-icon-2.png" alt="" />
-                        </div>
-                        <div class="service-desc">
-                            <h5>Web Design</h5>
-                            <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-box">
-                        <div class="service-icon">
-                            <img src="img/icons/service-icon-3.png" alt="" />
-                        </div>
-                        <div class="service-desc">
-                            <h5>Photography</h5>
-                            <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="wow fadeInRight" data-wow-delay="0.2s">
-                    <div class="service-box">
-                        <div class="service-icon">
-                            <img src="img/icons/service-icon-4.png" alt="" />
-                        </div>
-                        <div class="service-desc">
-                            <h5>Cloud System</h5>
-                            <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-12">
+                <ul class="company-social">
+                    <li class="social-facebook"><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li class="social-twitter"><a href="https://www.twitter.com" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li class="social-dribble"><a href="https://www.dribbble.com" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
-<!-- /Section: entrainement -->
-
-
-
-
-<!-- Section: news -->
-<section id="news" class="home-section text-center">
-    <div class="heading-contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="wow bounceInDown" data-wow-delay="0.4s">
-                        <div class="section-heading">
-                            <h2>News</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-2 col-lg-offset-5">
-                <hr class="marginbot-50">
-            </div>
-        </div>
-
-
-        <div class="col-lg-4">
-            <div class="widget-contact">
-                <h5>Main Office</h5>
-
-                <address>
-                    <strong>Squas Design, Inc.</strong><br>
-                    Tower 795 Folsom Ave, Beautiful Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-
-                <address>
-                    <strong>Email</strong><br>
-                    <a href="mailto:#">email.name@example.com</a>
-                </address>
-                <address>
-                    <strong>We're on social networks</strong><br>
-                    <ul class="company-social">
-                        <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
-                    </ul>
-                </address>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- /Section: news -->
+<!-- /Section: spot -->
 
 <footer>
     <div class="container">

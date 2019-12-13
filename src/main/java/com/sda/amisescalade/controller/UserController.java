@@ -9,14 +9,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -42,12 +44,14 @@ public class UserController {
      * @return index
      */
     @RequestMapping("/index")
-    public String index(Model modelSpotAll, Model modelSectorList, Model modelRoadList, Model modelScoring,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry, @RequestParam Optional <String> spotName, Model modelResultSpot,@RequestParam Optional <Long> sectorId, @RequestParam Optional <Long> roadId, @RequestParam Optional<Long> scoringId, @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName) {
-        List<Spot> spot = spotDAO.findAllSpot();
+    public String index(Model modelSpotAll, Model modelSearchSpot, Model modelSectorList,Model modelSectorNameList, Model modelRoadList, Model modelScoring,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry, @RequestParam Optional <Long> spotId,@RequestParam Optional <Long> sectorNumber, @RequestParam Optional <Long> roadNumber, @RequestParam Optional<Long> scoringId, @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName) {
+        List<Spot> spot = spotDAO.findAll();
         modelSpotAll.addAttribute("spot", spot);
-        List<Sector> spotBySectors = sectorDAO.findAllSpotBySectors();
+        List<Long> spotBySectors = sectorDAO.findNumberOfSector();
         modelSectorList.addAttribute("spotBySectors", spotBySectors);
-        List<Road> roads = roadDAO.findDistinctBySector();
+        List<Sector> sectorName = sectorDAO.findAllSpotBySectors();
+        modelSectorNameList.addAttribute("sectorName",sectorName);
+        List<Long> roads = roadDAO.findNumberOfRoad();
         modelRoadList.addAttribute("roads", roads);
         List<Scoring> scorings = scoringDAO.findDistinctByRoad();
         modelScoring.addAttribute("scorings", scorings);
@@ -59,126 +63,80 @@ public class UserController {
         modelCartoRegion.addAttribute("cartographyListRegion", cartographyListRegion);
         List<String> cartographyListCountry = cartographyDAO.findDistinctByCountryCartography();
         modelCartoCountry.addAttribute("cartographyListCountry", cartographyListCountry);
-        List<Spot> searchSpot;
-        if (spotName.isPresent()) {
-            searchSpot = spotDAO.findBySpotName(spotName);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
+        List<Spot>searchSpot = spotDAO.findAll();
+        if (spotId.isPresent() && !searchSpot.isEmpty()) {
+            searchSpot = spotDAO.findBySpotIdInList(spotId.get(), searchSpot);
         }
-        if (sectorId.isPresent()) {
-            searchSpot = spotDAO.findById(sectorId);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
+        if (sectorNumber.isPresent() && !searchSpot.isEmpty()) {
+            List<Long[]> sector = spotDAO.findByNumberOfSectorInList(searchSpot);
+            sector =sector.stream().filter(element -> element[1] == sectorNumber.get()).collect(Collectors.toList());
+            List<Long> spotIds = sector.stream().map(element -> element[0]).collect(Collectors.toList());
+            searchSpot = spotDAO.findAllById(spotIds);
+        }
+        if (roadNumber.isPresent() && !searchSpot.isEmpty()) {
+            List<Long[]> road = spotDAO.findByNumberOfRoadInList(searchSpot);
+            road = road.stream().filter(element -> element[1] == roadNumber.get()).collect(Collectors.toList());
+            List<Long> spotIds = road.stream().map(element -> element[0]).collect(Collectors.toList());
+            searchSpot = spotDAO.findAllById(spotIds);
+        }
+        if(scoringId.isPresent() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByScoringInList(scoringId.get(),searchSpot);
+        }
+        if(cartographyCityName.isPresent() && !cartographyCityName.get().isEmpty() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByCartographyCityInList(cartographyCityName.get(),searchSpot);
+        }
+        if(cartographyDepartementName.isPresent() && !cartographyDepartementName.get().isEmpty() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByCartographyDepartmentInList(cartographyDepartementName.get(),searchSpot);
+        }
+        if(cartographyRegionName.isPresent() && !cartographyRegionName.get().isEmpty() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByCartographyRegionInList(cartographyRegionName.get(),searchSpot);
+        }
+        if(cartographyCountryName.isPresent() && !cartographyCountryName.get().isEmpty() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByCartographyCountryInList(cartographyCountryName.get(),searchSpot);
+        }
+        modelSearchSpot.addAttribute("searchSpot", searchSpot);
 
-        }
-        if (roadId.isPresent()) {
-            searchSpot = spotDAO.findById(roadId);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-        }
-
-        if (scoringId.isPresent()) {
-            searchSpot = spotDAO.findById(scoringId);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-
-        }
-        if (cartographyCityName.isPresent()) {
-            searchSpot = spotDAO.findByCartography_CommuneCartography(cartographyCityName);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-
-        }
-        if (cartographyDepartementName.isPresent()) {
-            searchSpot = spotDAO.findByCartography_DepartmentNameCartography(cartographyDepartementName);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-        }
-        if (cartographyRegionName.isPresent()) {
-            searchSpot = spotDAO.findByCartography_RegionCartography(cartographyRegionName);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-        }
-        if (cartographyCountryName.isPresent()) {
-            searchSpot = spotDAO.findByCartography_CountryCartography(cartographyCountryName);
-            if (!searchSpot.isEmpty()) {
-                spot.addAll(searchSpot);
-                spot = new ArrayList<>();
-                modelSpotAll.addAttribute("spot", spot);
-                modelResultSpot.addAttribute("searchSpot", searchSpot);
-            }
-        }
         return "index";
     }
 
-    /**
-     *
-     * @param modelListTopoUser
-     * @param modelListTopo
-     * @param modelSpot
-     * @param modelReservation
-     * @return
-     */
+
     @GetMapping("/espacePerso")
-    public String espacePerso(Model modelListTopoUser, Model modelListTopo, Model modelSpot, Model modelReservation, @RequestParam Optional <Long> spotId,@RequestParam Optional<Long> cartographyCityId, Model modelResultTopo) {
+    public String espacePerso(Model modelListTopoUser, Model modelListTopo, Model modelSpot, Model modelReservation, @RequestParam Optional <Long> spotId,  @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName, Model modelResultTopo, Model modelClimbUser,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        modelClimbUser.addAttribute("climbUser", climbUser);
         List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
         modelListTopoUser.addAttribute("topoUser", topoUser);
-        List <Topo> searchTopos = topoDAO.findTopoByAvailableTrue();
-        modelListTopo.addAttribute("searchTopos", searchTopos);
+
         List<Spot> searchSpot = spotDAO.findAllSpot();
         modelSpot.addAttribute("searchSpot", searchSpot);
         List <Reservation> reservations = reservationDAO.findReservationsByOwner(climbUser.getUsername());
         modelReservation.addAttribute("reservations",reservations);
-        List<Topo> refineSearchTopos;
-        if (spotId.isPresent()) {
-            refineSearchTopos = topoDAO.findBySpotId(spotId.get());
-            if (refineSearchTopos != null) {
-                searchTopos.addAll(refineSearchTopos);
-                searchTopos = new ArrayList<>();
-                modelListTopo.addAttribute("searchTopos",searchTopos);
-            }
-            modelResultTopo.addAttribute("refineSearchTopos", refineSearchTopos);
+        List<String> cartographyListCity = cartographyDAO.findDistinctByCityCartography();
+        modelCartoCity.addAttribute("cartographyListCity", cartographyListCity);
+        List<String> cartographyListDepartment = cartographyDAO.findDistinctByDepartmentCartography();
+        modelCartoDepartment.addAttribute("cartographyListDepartment", cartographyListDepartment);
+        List<String> cartographyListRegion= cartographyDAO.findDistinctByRegionCartography();
+        modelCartoRegion.addAttribute("cartographyListRegion", cartographyListRegion);
+        List<String> cartographyListCountry = cartographyDAO.findDistinctByCountryCartography();
+        modelCartoCountry.addAttribute("cartographyListCountry", cartographyListCountry);
+        List <Topo> searchTopos = topoDAO.findTopoByAvailableTrue();
+        if (spotId.isPresent() && !searchTopos.isEmpty()) {
+            searchTopos = topoDAO.findBySpotIdInList(spotId.get(),searchTopos);
         }
-        if (cartographyCityId.isPresent()){
-            refineSearchTopos = topoDAO.findByCartographyId(cartographyCityId.get());
-            if (refineSearchTopos != null) {
-                searchTopos.addAll(refineSearchTopos);
-                searchTopos = new ArrayList<>();
-                modelListTopo.addAttribute("searchTopos",searchTopos);
-            }
-            modelResultTopo.addAttribute("refineSearchTopos", refineSearchTopos);
-
+        if(cartographyCityName.isPresent() && !cartographyCityName.get().isEmpty() && !searchTopos.isEmpty()){
+            searchTopos = topoDAO.findByCartographyCityInList(cartographyCityName.get(),searchTopos);
         }
+        if(cartographyDepartementName.isPresent() && !cartographyDepartementName.get().isEmpty() && !searchTopos.isEmpty()){
+            searchTopos = topoDAO.findByCartographyDepartmentInList(cartographyDepartementName.get(),searchTopos);
+        }
+        if(cartographyRegionName.isPresent() && !cartographyRegionName.get().isEmpty() && !searchTopos.isEmpty()){
+            searchTopos = topoDAO.findByCartographyRegionInList(cartographyRegionName.get(),searchTopos);
+        }
+        if(cartographyCountryName.isPresent() && !cartographyCountryName.get().isEmpty() && !searchTopos.isEmpty()) {
+            searchTopos = topoDAO.findByCartographyCountryInList(cartographyCountryName.get(), searchTopos);
+        }
+        modelResultTopo.addAttribute("searchTopos", searchTopos);
         return "espacePerso";
     }
 

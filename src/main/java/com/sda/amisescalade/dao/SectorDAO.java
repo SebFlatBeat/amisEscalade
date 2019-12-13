@@ -17,8 +17,12 @@ public interface SectorDAO extends JpaRepository <Sector,Long> {
 
     public List<Sector> findBySectorName(Optional<String> sectorName);
 
-    @Query("select distinct sector from Sector sector left join fetch sector.spot s order by sector.spot  asc ")
+    @Query("select distinct sector from Sector sector left join fetch sector.spot")
     public List<Sector> findAllSpotBySectors();
 
     List<Spot> findById(Optional<Long> sectorId);
+
+    @Query("select distinct  count (sector.spot.id) as NumberOfSector from Sector sector group by sector.spot.id order by NumberOfSector")
+    public List<Long> findNumberOfSector();
+
 }
