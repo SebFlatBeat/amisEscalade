@@ -254,17 +254,17 @@
 <!-- /Section:  DetailSpot -->
 
 <!-- Section: DetailSpot -->
-<sec:authorize access="hasAnyAuthority('USER', 'ADMIN')">
+
     <section id="comments" class="home-section">
         <div class="heading-about">
             <div class="container">
                 <div class="row col-lg-12">
                     <h4 class="text-center">Les Commentaires</h4>
                     <c:forEach items="${commentSpots}" var="comment">
-
                         <div class="boxed-grey col-lg-12 container-fluid table-bordered">
                             <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
                             <comment>${comment.texteComment}</comment>
+                        <sec:authorize access="(hasAnyAuthority('ADMIN')|| ${climbUser.id} == ${comment.climbUser.id})">
                             <a type="button" class=" btn btn-warning pull-right btn-xs " data-toggle="modal" data-target="#confirmUpdate${comment.id}">Modifier</a>
                             <!-- Modal -->
                             <form action="/spot/${comment.spot.id}/updateCommentSpot/${comment.id}" method="post" class="col-lg-12">
@@ -305,13 +305,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </sec:authorize>
                         </div>
                     </c:forEach>
                 </div>
             </div>
         </div>
     </section>
-</sec:authorize>
+
 <!-- /Section: DetailSpot -->
 
 <footer>

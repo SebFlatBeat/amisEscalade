@@ -2,6 +2,8 @@ package com.sda.amisescalade.dao;
 
 import com.sda.amisescalade.entities.Spot;
 import com.sda.amisescalade.entities.Topo;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TopoDAO extends JpaRepository <Topo,Long>  {
+
 
     public List<Topo> findTopoByClimbUserId(Long id) ;
 

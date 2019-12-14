@@ -10,6 +10,7 @@ import com.sda.amisescalade.entities.Spot;
 import com.sda.amisescalade.entities.Topo;
 import com.sda.amisescalade.dto.TopoForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 

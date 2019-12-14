@@ -299,8 +299,8 @@
                     <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
                 </div>
                 <a href="<c:url value="spot/${listAllSpotSearch.id}/spotDetails"/>"><h5>${listAllSpotSearch.spotName}</h5></a>
-                <c:forEach var="listAllSpotBySectors" items="${spotBySectors}">
-                    <c:if test="${listAllSpotSearch.id == listAllSpotBySectors.spot.id}">
+                <c:forEach var="listAllSpotBySectors" items="${sectorName}">
+                    <c:if test="${listAllSpotSearch.id == listAllSpotBySectors.id}">
                         <a href="<c:url value="/spot/${listAllSpotBySectors.spot.id}/sector/${listAllSpotBySectors.id}/sectorDetails"/> "><p> Secteur ${listAllSpotBySectors.sectorName}</p></a></c:if>
                 </c:forEach>
             </div>

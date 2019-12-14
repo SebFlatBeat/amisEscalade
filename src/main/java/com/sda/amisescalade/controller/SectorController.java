@@ -111,7 +111,19 @@ public class SectorController {
     }
 
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/sectorDetails")
-    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId, Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
+    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId,Model modelClimbUser ,Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
+        UserDetails user = null;
+        ClimbUser climbUser = new ClimbUser();
+        climbUser.setId(0L);
+        try{
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch(ClassCastException e) {
+
+        }
+        if (user != null) {
+            climbUser  = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        }
+        modelClimbUser.addAttribute("climbUser",climbUser);
         Spot spot = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spot",spot);
         Sector sectorDetails = sectorDAO.findById(sectorId).get();

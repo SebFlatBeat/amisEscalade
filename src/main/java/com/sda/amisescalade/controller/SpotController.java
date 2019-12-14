@@ -3,6 +3,7 @@ package com.sda.amisescalade.controller;
 import com.sda.amisescalade.dao.*;
 import com.sda.amisescalade.dto.SpotForm;
 import com.sda.amisescalade.entities.*;
+import org.eclipse.jdt.internal.compiler.ast.CastExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -99,7 +100,19 @@ public class SpotController {
     }
 
     @GetMapping(value = "/spot/{spotId}/spotDetails")
-    public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelSpotComment){
+    public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelSpotComment, Model modelClimbUser){
+        UserDetails user = null;
+        ClimbUser climbUser = new ClimbUser();
+        climbUser.setId(0L);
+        try{
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch(ClassCastException e) {
+
+        }
+        if (user != null) {
+          climbUser  = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        }
+        modelClimbUser.addAttribute("climbUser", climbUser);
         Spot spotDetails = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spotDetails", spotDetails);
         List<Sector> sectorList = sectorDAO.findSectorsBySpotId(spotId);

@@ -251,7 +251,7 @@
                         <div class="boxed-grey col-lg-12 container-fluid table-bordered">
                             <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
                             <comment>${comment.texteComment}</comment>
-                            <sec:authorize access="hasAnyAuthority('USER', 'ADMIN')">
+                            <sec:authorize access="hasAnyAuthority('ADMIN') || ${climbUser.id} == ${comment.climbUser.id}">
                                 <a type="button" class=" btn btn-warning pull-right btn-xs " data-toggle="modal" data-target="#confirmUpdate${comment.id}">Modifier</a>
                                 <!-- Modal -->
                                 <form action="/spot/${comment.sector.spot.id}/sector/${comment.sector.id}/updateCommentSector/${comment.id}" method="post" class="col-lg-12">
