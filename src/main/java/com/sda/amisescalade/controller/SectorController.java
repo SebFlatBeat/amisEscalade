@@ -107,7 +107,7 @@ public class SectorController {
         }
         updateSector.setClimbUser(climbUser);
         sectorDAO.save(updateSector);
-        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails)";
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/sectorDetails")

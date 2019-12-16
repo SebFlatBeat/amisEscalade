@@ -147,6 +147,12 @@
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading text-center">
                             <h2>${spotDetails.spotName}</h2>
+                            <c:if test="${spotDetails.tag == true}">
+                                <h5>Spot Officiel</h5>
+                            </c:if>
+                            <c:if test="${spotDetails.tag == false}">
+                                <h5>Spot Non-Officiel</h5>
+                            </c:if>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -222,14 +228,14 @@
 
         </div>
         <c:if test="${sectorList.size()<=0}">
-        <sec:authorize access="hasAnyAuthority('USER','ADMIN')">
-            <div class="row">
-                <div  class="container-fluid col-lg-push-4 col-lg-4">
-                    <p>Il n'y a pas de secteur ajouté à ce spot? Ajoutez le maintenant</p>
-                    <a type="button" class="btn btn-warning btn-xs center-block" href="<c:url value="/spot/${Spot.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+            <sec:authorize access="hasAnyAuthority('USER','ADMIN')">
+                <div class="row">
+                    <div  class="container-fluid col-lg-push-4 col-lg-4">
+                        <p>Il n'y a pas de secteur ajouté à ce spot? Ajoutez le maintenant</p>
+                        <a type="button" class="btn btn-warning btn-xs center-block" href="<c:url value="/spot/${spotDetails.id}/sectorForm"></c:url> ">Ajouter Secteur</a>
+                    </div>
                 </div>
-            </div>
-        </sec:authorize>
+            </sec:authorize>
         </c:if>
         <div class="container-fluid col-lg-12">
             <img src="/img/staticMap.png" class="center-block" alt=""/>
@@ -255,15 +261,15 @@
 
 <!-- Section: DetailSpot -->
 
-    <section id="comments" class="home-section">
-        <div class="heading-about">
-            <div class="container">
-                <div class="row col-lg-12">
-                    <h4 class="text-center">Les Commentaires</h4>
-                    <c:forEach items="${commentSpots}" var="comment">
-                        <div class="boxed-grey col-lg-12 container-fluid table-bordered">
-                            <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
-                            <comment>${comment.texteComment}</comment>
+<section id="comments" class="home-section">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row col-lg-12">
+                <h4 class="text-center">Les Commentaires</h4>
+                <c:forEach items="${commentSpots}" var="comment">
+                    <div class="boxed-grey col-lg-12 container-fluid table-bordered">
+                        <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
+                        <comment>${comment.texteComment}</comment>
                         <sec:authorize access="(hasAnyAuthority('ADMIN')|| ${climbUser.id} == ${comment.climbUser.id})">
                             <a type="button" class=" btn btn-warning pull-right btn-xs " data-toggle="modal" data-target="#confirmUpdate${comment.id}">Modifier</a>
                             <!-- Modal -->
@@ -306,12 +312,12 @@
                                 </div>
                             </div>
                         </sec:authorize>
-                        </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <!-- /Section: DetailSpot -->
 

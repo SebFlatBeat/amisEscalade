@@ -75,44 +75,42 @@
                                         <div class="container-fluid">
                                             <div class="row justify-content-md-center">
                                                 <div class="col-lg-8 col-lg-offset-2">
-                                                    <div class="wow bounceInUp" data-wow-delay="0.6s">
-                                                        <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
-                                                        <div class="card-body border-info">
-                                                            <form action="/login" method="post">
-                                                                <div class="form-group">
-                                                                    <div class="col-lg-6 row center-block">
-                                                                        <label for="username">Username</label>
-                                                                        <input type="text" name="username" id="username" placeholder="Pseudo"/>
-                                                                    </div>
-                                                                    <div class="col-lg-6 row center-block">
-                                                                        <label for="password">Password</label>
-                                                                        <input type="password" name="password" id="password" placeholder="Mot de Passe">
-                                                                    </div>
+                                                    <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
+                                                    <div class="card-body border-info">
+                                                        <form action="/login" method="post">
+                                                            <div class="form-group">
+                                                                <div class="col-lg-6 row center-block">
+                                                                    <label for="username">Username</label>
+                                                                    <input type="text" name="username" id="username" placeholder="Pseudo"/>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="col-lg-12">
-                                                                        <p></p>
-                                                                        <input type="submit" class="btn btn-primary pull-right"/>
-                                                                    </div>
+                                                                <div class="col-lg-6 row center-block">
+                                                                    <label for="password">Password</label>
+                                                                    <input type="password" name="password" id="password" placeholder="Mot de Passe">
                                                                 </div>
-                                                            </form>
-                                                        </div>
-                                                        <!-- le pied de page de la popup -->
-                                                        <div class="modal-footer row">
-                                                            <div class="col-lg-12 row">
-                                                                <p></p>
-                                                                <p class="text-center">Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
-                                                                </p>
                                                             </div>
-                                                            <div class="col-lg-6 center-block">
-                                                                <i class="glyphicon glyphicon-arrow-down"></i>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    <p></p>
+                                                                    <input type="submit" class="btn btn-primary pull-right"/>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-lg-8 row center-block">
-                                                                <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
-                                                            </div>
-                                                        </div>
-                                                        </img>
+                                                        </form>
                                                     </div>
+                                                    <!-- le pied de page de la popup -->
+                                                    <div class="modal-footer row">
+                                                        <div class="col-lg-12 row">
+                                                            <p></p>
+                                                            <p class="text-center">Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-lg-6 center-block">
+                                                            <i class="glyphicon glyphicon-arrow-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-8 row center-block">
+                                                            <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
+                                                        </div>
+                                                    </div>
+                                                    </img>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,8 +125,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.request.userPrincipal.name}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<c:url value="/index#search"/>">Chercher</a></li>
-                            <li><a href="<c:url value="/index#entrainement"/>">Training</a></li>
-                            <li><a href="<c:url value="/index#news"/>">News</a></li>
+                            <li><a href="<c:url value="/index#spots"/>">Spots</a></li>
                             <li><a href="<c:url value="/logout" />">Déconnexion</a> </li>
                         </ul>
                     </li>
@@ -531,6 +528,13 @@
                         </c:forEach>
                         </tbody>
                     </table>
+                    <ul class="pagination">
+                        <li>
+                            <c:forEach items="${searchSpot}">
+                                <a href="${pages}"></a>
+                            </c:forEach>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

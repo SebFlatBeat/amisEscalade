@@ -12,10 +12,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface SpotDAO extends JpaRepository <Spot,Long> { ;
+public interface SpotDAO extends JpaRepository <Spot,Long> {
 
     @Query("select distinct spot from Spot spot left join fetch spot.cartography c order by spot.cartography.id asc ")
-    public List<Spot> findAllSpot();
+    public List<Spot> findAllSpot(Pageable pageable);
 
     @Query("select spot from Spot spot left join fetch spot.cartography c where spot.cartography.id = :idcartography")
     public List<Spot> findByCartographySpot(@Param("idcartography") Optional<Long> Id);

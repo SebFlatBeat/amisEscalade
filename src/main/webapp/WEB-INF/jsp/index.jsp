@@ -72,41 +72,39 @@
                                         <div class="container-fluid">
                                             <div class="row justify-content-md-center">
                                                 <div class="col-lg-8 col-lg-offset-2">
-                                                    <div class="wow bounceInUp" data-wow-delay="0.6s">
-                                                        <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
-                                                        <div class="card-body border-info">
-                                                            <form action="/login" method="post">
-                                                                <div class="form-group">
-                                                                    <div class="col-lg-6 row center-block">
-                                                                        <label for="username">Username</label>
-                                                                        <input type="text" name="username" id="username" placeholder="Pseudo"/>
-                                                                    </div>
-                                                                    <div class="col-lg-6 row center-block">
-                                                                        <label for="password">Password</label>
-                                                                        <input type="password" name="password" id="password" placeholder="Mot de Passe">
-                                                                    </div>
+                                                    <div class="avatar"><img src="img/works/Logo_ADE.png"  alt="" /></div>
+                                                    <div class="card-body border-info">
+                                                        <form action="/login" method="post">
+                                                            <div class="form-group">
+                                                                <div class="col-lg-6 row center-block">
+                                                                    <label for="username">Username</label>
+                                                                    <input type="text" name="username" id="username" placeholder="Pseudo"/>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="col-lg-12">
-                                                                        <p></p>
-                                                                        <input type="submit" class="btn btn-primary pull-right"/>
-                                                                    </div>
+                                                                <div class="col-lg-6 row center-block">
+                                                                    <label for="password">Password</label>
+                                                                    <input type="password" name="password" id="password" placeholder="Mot de Passe">
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    <p></p>
+                                                                    <input type="submit" class="btn btn-primary pull-right"/>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- le pied de page de la popup -->
+                                                    <div class="modal-footer row">
+                                                        <div class="col-lg-12 row">
+                                                            <p></p>
+                                                            <p class="text-center">Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
+                                                            </p>
                                                         </div>
-                                                        <!-- le pied de page de la popup -->
-                                                        <div class="modal-footer row">
-                                                            <div class="col-lg-12 row">
-                                                                <p></p>
-                                                                <p class="text-center">Si tu n'as pas encore de compte chez nous, c'est par ici que ça se passe
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-6 center-block">
-                                                                <i class="glyphicon glyphicon-arrow-down"></i>
-                                                            </div>
-                                                            <div class="col-lg-8 row center-block">
-                                                                <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
-                                                            </div>
+                                                        <div class="col-lg-6 center-block">
+                                                            <i class="glyphicon glyphicon-arrow-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-8 row center-block">
+                                                            <a href="<c:url value="/register"/>" type="submit" class="btn btn-warning">Inscription</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,7 +181,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="sectorNumber"> le Secteur</label>
+                            <label for="sectorNumber"> nombre de Secteur</label>
                             <select id="sectorNumber" name="sectorNumber" class="chosen-select form-control" data-placeholder="Cherchez par secteur" >
                                 <option></option>
                                 <c:forEach var="findSector" items="${spotBySectors}">
@@ -276,41 +274,49 @@
         </div>
     </div>
     <c:if test="${spot.size()==searchSpot.size()}">
-    <c:forEach var="listAllSpot" items="${spot}">
-        <div class="col-lg-3">
-            <div class="service-box team boxed-grey">
-                <div class="service-icon">
-                    <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
+        <c:forEach var="listAllSpot" items="${spot}">
+            <div class="col-lg-3">
+                <div class="service-box team boxed-grey">
+                    <div class="service-icon">
+                        <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
+                    </div>
+                    <a href="<c:url value="spot/${listAllSpot.id}/spotDetails"/>"><h5>${listAllSpot.spotName}</h5></a>
+
+                        <c:if test="${listAllSpot.tag == true}">
+                            <a><p>Spot Officiel</p></a>
+                        </c:if>
+                        <c:if test="${listAllSpot.tag == false}">
+                            <a><p>Spot Non-Officiel</p></a>
+                        </c:if>
+
                 </div>
-                <a href="<c:url value="spot/${listAllSpot.id}/spotDetails"/>"><h5>${listAllSpot.spotName}</h5></a>
-                <c:forEach var="listAllSpotBySectors" items="${sectorName}">
-                    <c:if test="${listAllSpot.id == listAllSpotBySectors.spot.id}">
-                        <a href="<c:url value="/spot/${listAllSpotBySectors.spot.id}/sector/${listAllSpotBySectors.id}/sectorDetails"/> "><p> Secteur ${listAllSpotBySectors.sectorName}</p></a></c:if>
-                </c:forEach>
             </div>
-        </div>
-    </c:forEach>
+        </c:forEach>
     </c:if>
-<c:if test="${spot.size()!=searchSpot.size()}">
-    <c:forEach var="listAllSpotSearch" items="${searchSpot}">
-        <div class="col-lg-3">
-            <div class="service-box team boxed-grey">
-                <div class="service-icon">
-                    <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
+    <c:if test="${spot.size()!=searchSpot.size()}">
+        <c:forEach var="listAllSpotSearch" items="${searchSpot}">
+            <div class="col-lg-3">
+                <div class="service-box team boxed-grey">
+                    <div class="service-icon">
+                        <img src="img/icons/service-icon-3-ConvertImage.png" alt="" />
+                    </div>
+                    <a href="<c:url value="spot/${listAllSpotSearch.id}/spotDetails"/>"><h5>${listAllSpotSearch.spotName}</h5></a>
+                    <c:forEach var="tagOfficiel" items="${spot}">
+                        <c:if test="${tagOfficiel.tag == true}">
+                            <a><p>Spot Officiel</p></a>
+                    </c:if>
+                        <c:if test="${tagOfficiel.tag == false}">
+                            <a><p>Spot Non-Officiel</p></a>
+                        </c:if>
+                    </c:forEach>
                 </div>
-                <a href="<c:url value="spot/${listAllSpotSearch.id}/spotDetails"/>"><h5>${listAllSpotSearch.spotName}</h5></a>
-                <c:forEach var="listAllSpotBySectors" items="${sectorName}">
-                    <c:if test="${listAllSpotSearch.id == listAllSpotBySectors.id}">
-                        <a href="<c:url value="/spot/${listAllSpotBySectors.spot.id}/sector/${listAllSpotBySectors.id}/sectorDetails"/> "><p> Secteur ${listAllSpotBySectors.sectorName}</p></a></c:if>
-                </c:forEach>
             </div>
+            </div>
+        </c:forEach>
+        <div class="col-lg-12">
+            <a type="button" class="btn btn-warning pull-right" href="<c:url value="/index#spots"/>">Reset</a>
         </div>
-        </div>
-    </c:forEach>
-    <div class="col-lg-12">
-    <a type="button" class="btn btn-warning pull-right" href="<c:url value="/index#spots"/>">Reset</a>
-    </div>
-</c:if>
+    </c:if>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">

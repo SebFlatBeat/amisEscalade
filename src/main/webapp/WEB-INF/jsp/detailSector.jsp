@@ -247,7 +247,6 @@
                 <div class="row col-lg-12 text-center">
                     <h4>Les Commentaires</h4>
                     <c:forEach items="${commentSectors}" var="comment">
-
                         <div class="boxed-grey col-lg-12 container-fluid table-bordered">
                             <p>par ${comment.climbUser.username} le <fmt:formatDate value="${comment.date}" type="both"></fmt:formatDate></p>
                             <comment>${comment.texteComment}</comment>

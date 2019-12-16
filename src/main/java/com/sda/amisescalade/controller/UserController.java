@@ -104,14 +104,19 @@ public class UserController {
 
 
     @GetMapping("/espacePerso")
-    public String espacePerso(Model modelListTopoUser, Model modelSpot, Model modelReservation, @RequestParam Optional <Long> spotId,  @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName, Model modelResultTopo, Model modelClimbUser,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry) {
+    public String espacePerso(Model modelListTopoUser, Model modelSpot, Model modelPages,Model modelSize, Model modelReservation, @RequestParam Optional <Long> spotId,  @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName, Model modelResultTopo, Model modelClimbUser,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClimbUser climbUser = climbUserDAO.findClimbUserByUserName(user.getUsername());
         modelClimbUser.addAttribute("climbUser", climbUser);
         List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
         modelListTopoUser.addAttribute("topoUser", topoUser);
-        List<Spot> searchSpot = spotDAO.findAllSpot();
+        Pageable firstPage = PageRequest.of(0,2);
+        List<Spot> searchSpot = spotDAO.findAllSpot(firstPage);
         modelSpot.addAttribute("searchSpot", searchSpot);
+        int[] pages = new int[firstPage.getPageNumber()];
+        modelPages.addAttribute("pages",pages);
+        int[] size = new int[firstPage.getPageSize()];
+        modelSize.addAttribute("size", size);
         List <Reservation> reservations = reservationDAO.findReservationsByOwner(climbUser.getUsername());
         modelReservation.addAttribute("reservations",reservations);
         List<String> cartographyListCity = cartographyDAO.findDistinctByCityCartography();
