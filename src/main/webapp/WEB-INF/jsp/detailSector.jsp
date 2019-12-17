@@ -244,7 +244,7 @@
     <section id="comments" class="home-section">
         <div class="heading-about">
             <div class="container">
-                <div class="row col-lg-12 text-center">
+                <div class="row col-lg-12">
                     <h4>Les Commentaires</h4>
                     <c:forEach items="${commentSectors}" var="comment">
                         <div class="boxed-grey col-lg-12 container-fluid table-bordered">

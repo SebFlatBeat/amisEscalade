@@ -18,6 +18,9 @@ public interface ScoringDAO extends JpaRepository <Scoring,Long> {
     @Query("select s from Scoring s left join fetch s.road r where r.sector.id = :idsecteur")
     public  Scoring findBySectorId(@Param("idsecteur") Long id);
 
+    @Query("select s from Scoring s left join fetch s.road r where r.id = :idroad")
+    public  Scoring findByRoadId(@Param("idroad") Long id);
+
     @Query("select distinct scoring from Scoring scoring left join fetch scoring.road r")
     public List<Scoring> findDistinctByRoad();
 

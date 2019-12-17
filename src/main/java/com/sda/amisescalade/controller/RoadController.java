@@ -109,9 +109,9 @@ public class RoadController {
         modelSector.addAttribute("sector",sector);
         Road road =roadDAO.findById(roadId).get();
         modelRoad.addAttribute("road", road);
-        Lenght lenght = lenghtDAO.findBySectorId(sectorId);
+        Lenght lenght = lenghtDAO.findByRoadId(roadId);
         modelLenght.addAttribute("lenght",lenght);
-        Scoring scoring = scoringDAO.findBySectorId(sectorId);
+        Scoring scoring = scoringDAO.findByRoadId(roadId);
         modelScoring.addAttribute("scoring",scoring);
 
         return "editRoad";
