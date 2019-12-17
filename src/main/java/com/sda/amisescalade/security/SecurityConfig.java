@@ -35,14 +35,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return new ClimbUserService();
-    };
+    }
 
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws
             Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);;
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
     }
 
 
@@ -61,6 +61,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/index")
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
                 .and()
                 .logout()

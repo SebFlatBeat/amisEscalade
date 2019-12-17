@@ -7,18 +7,16 @@ import com.sda.amisescalade.dto.CheckBoxForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +40,7 @@ public class UserController {
     private CartographyDAO cartographyDAO;
     @Autowired
     private ReservationDAO reservationDAO;
+
     /**
      *
      * @return index
@@ -110,7 +109,7 @@ public class UserController {
         modelClimbUser.addAttribute("climbUser", climbUser);
         List<Topo> topoUser = topoDAO.findTopoByClimbUserId(climbUser.getId());
         modelListTopoUser.addAttribute("topoUser", topoUser);
-        Pageable firstPage = PageRequest.of(0,2);
+        Pageable firstPage = PageRequest.of(0,7, Sort.by("spotName"));
         List<Spot> searchSpot = spotDAO.findAllSpot(firstPage);
         modelSpot.addAttribute("searchSpot", searchSpot);
         int[] pages = new int[firstPage.getPageNumber()];
@@ -190,6 +189,16 @@ public class UserController {
         searchTopos.add(resultTopo);
         model.addAttribute("searchTopos",searchTopos);
         return "redirect:/espacePerso#topos";
+    }
+
+    @RequestMapping(value = "/403")
+    public String accessDenied(){
+        return "403";
+    }
+
+    @RequestMapping(value = "/500")
+    public String accessError(){
+        return "500";
     }
 
 
