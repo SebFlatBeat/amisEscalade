@@ -3,6 +3,7 @@ package com.sda.amisescalade.controller;
 import com.sda.amisescalade.dao.ClimbUserDAO;
 import com.sda.amisescalade.dto.ClimbUserForm;
 import com.sda.amisescalade.entities.ClimbUser;
+import com.sda.amisescalade.entities.ClimbUserRole;
 import com.sda.amisescalade.entities.ClimbUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +56,7 @@ public class NewUserController {
     @RequestMapping("/")
     public String viewHome(Model model) {
 
-        return "index";
+        return "redirect:/index";
     }
 
 
@@ -120,6 +121,7 @@ public class NewUserController {
             newUser.setUserName(climbUserForm.getUserName());
             newUser.setPassword(passwordEncoder.encode(climbUserForm.getPassword()));
             newUser.setEmail(climbUserForm.getEmail());
+            newUser.grantAuthority(ClimbUserRole.USER);
             try {
                 //newUser = climbUserDAO.createClimbUser(climbUserForm);
                 climbUserDAO.save(newUser);

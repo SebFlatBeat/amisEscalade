@@ -45,9 +45,6 @@ public class SectorController {
     @Autowired
     private CommentSectorDAO commentSectorDAO;
 
-    @Autowired
-    private CartographyDAO cartographyDAO;
-
     @GetMapping(value = "spot/{spotId}/sectorForm")
     public String getFormSector(@PathVariable Long spotId) {
         return "/formSector";
@@ -81,7 +78,7 @@ public class SectorController {
         scoring.setLenght(lenght);
         scoring.setRating(sectorForm.getRating());
         scoringDAO.save(scoring);
-        return "redirect:/espacePerso";
+        return "redirect:/espacePerso#spots";
     }
 
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/editSector")
@@ -103,18 +100,30 @@ public class SectorController {
             updateSector.setSectorName(sectorForm.getSectorName());
         }
         if(sectorForm.getLocation() != null){
-        updateSector.setLocation(sectorForm.getLocation());
+            updateSector.setLocation(sectorForm.getLocation());
         }
         if(sectorForm.getAccess() != null){
-        updateSector.setAccess(sectorForm.getAccess());
+            updateSector.setAccess(sectorForm.getAccess());
         }
         updateSector.setClimbUser(climbUser);
         sectorDAO.save(updateSector);
-        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails)";
+        return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/sectorDetails")
-    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId, Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
+    public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId,Model modelClimbUser ,Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
+        UserDetails user = null;
+        ClimbUser climbUser = new ClimbUser();
+        climbUser.setId(0L);
+        try{
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch(ClassCastException e) {
+
+        }
+        if (user != null) {
+            climbUser  = climbUserDAO.findClimbUserByUserName(user.getUsername());
+        }
+        modelClimbUser.addAttribute("climbUser",climbUser);
         Spot spot = spotDAO.findById(spotId).get();
         modelSpot.addAttribute("spot",spot);
         Sector sectorDetails = sectorDAO.findById(sectorId).get();

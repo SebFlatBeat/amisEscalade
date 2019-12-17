@@ -44,6 +44,7 @@ public class Spot implements Serializable {
         this.department = department;
         this.region = region;
         this.country = country;
+
         this.tag = tag;
     }
 

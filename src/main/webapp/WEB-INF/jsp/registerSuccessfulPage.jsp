@@ -66,8 +66,8 @@
         <div class="row">
             <h2>Inscription Réussie</h2>
 
-<p>Bonjour, ${flashUser.username}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
-      <a class="btn btn-primary" role="button" href="<c:url value="/index" />">OK</a>
+            <p>Bonjour, ${flashUser.username}, nous vous remercions de vous être inscrit chez "Les Amis de l'Escalade"</p>
+            <a class="btn btn-primary" role="button" href="<c:url value="/index" />">OK</a>
         </div>
     </div>
 </section>

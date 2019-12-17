@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,7 +89,7 @@
                 <div class="col-lg-12 form-group">
                     <div class="col-lg-6 form-group text-center">
                         <div class="form-group">
-                            <label for="sectorName">Nom actuel du secteur :</label>
+                            <label for="sectorName">Nom actuel de la voie :</label>
                             <h4>${sector.sectorName}</h4>
                         </div>
                     </div>

@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,17 +20,17 @@
     <title>Enregistrer un Spot</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
     <!-- FavIcon -->
-    <link rel="icon" type="image/png" href="img/mountain_favicon.png" />
+    <link rel="icon" type="image/png" href="/img/mountain_favicon.png" />
 
     <!-- Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/animate.css" rel="stylesheet" />
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/animate.css" rel="stylesheet" />
     <!-- Squad theme CSS -->
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="color/default.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/color/default.css" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
@@ -85,11 +86,11 @@
     <div class="row">
         <div class="col-lg-12 boxed-grey">
             <form id="contact-form" action="/saveFormSpot" method="post" role="form" class="contactForm center-block" name="formSpot">
-                <div class="row col-md-12 form-group">
+                <div class="row col-lg-12 form-group">
                     <div class="col-lg-push-3 col-md-6">
                         <div class="form-group">
                             <label for="spotNameId"> Choisisez le lieu</label>
-                            <select  id="spotNameId" name="spotNameId" data-placeholder="Cherchez le lieu" class="chosen-select">
+                            <select id="spotNameId" name="spotNameId" data-placeholder="Cherchez le lieu" class="chosen-select form-control">
                                 <option></option>
                                 <c:forEach var="selectCity" items="${cartographyListCity}">
                                     <option value="${selectCity.id}">${selectCity.communeCartography} (${selectCity.codePostalCartography})</option>
@@ -97,21 +98,27 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row col-md-12 form-group">
+                    <div class="row col-lg-12 form-group">
                         <div class="col-lg-push-3 col-md-6">
                             <div class="form-group">
                                 <label for="spotName">Entrez le nom du Spot</label>
                                 <input id="spotName" name="spotName" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row col-md-12 form-group">
+                        <sec:authorize access="hasAuthority('USER')">
+                            <div>
+                            <input class="hidden" name="tag" value="false"/>
+                            </div>
+                        </sec:authorize>
+                        <sec:authorize access="hasAuthority('ADMIN')">
+                        <div class="row col-lg-12 form-group">
                             <fieldset class="col-lg-push-3 col-md-6 form-group">
                                 <label class="col-form-label col-md-8 pt-0">Tagger le spot comme étant un spot Offciel "les amis de l'escalade" ?</label>
                                 <div class="col-md-4">
                                     <div class="form-check">
                                         <label class="form-check-label" for="gridRadios1">
                                             Oui
-                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="true" checked/>
+                                            <input class="form-check-input center-block" type="radio" name="tag" id="gridRadios1" value="false" checked/>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -126,6 +133,7 @@
                         </div>
                     </div>
                 </div>
+                </sec:authorize>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
                         Envoyer

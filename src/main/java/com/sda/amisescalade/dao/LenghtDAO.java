@@ -11,4 +11,12 @@ import java.util.List;
 public interface LenghtDAO extends JpaRepository<Lenght, Long> {
     @Query("select l from Lenght l left join fetch l.road r where r.sector.id = :idsecteur")
     public List <Lenght> findLenghtBySectorId(@Param("idsecteur") Long id);
+
+    @Query("select lenght from Lenght lenght left join fetch lenght.road r where r.sector.id = :idsecteur")
+    public Lenght findBySectorId(@Param("idsecteur") Long id);
+
+    @Query("select lenght from Lenght lenght left join fetch lenght.road r where r.id = :idroad")
+    public Lenght findByRoadId(@Param("idroad") Long id);
 }
+
+

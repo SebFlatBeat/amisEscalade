@@ -45,6 +45,7 @@ public class Sector implements Serializable {
         this.sectorName = sectorName;
         this.location = location;
         this.access = access;
+
     }
 
     public Long getId() {

@@ -35,14 +35,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return new ClimbUserService();
-    };
+    }
 
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws
             Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);;
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
     }
 
 
@@ -57,7 +57,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.formLogin()
+        http    .authorizeRequests().antMatchers("/","/index","/index#search","/index#spots","/register","/registerSuccessful","/registerSuccessfulPage","/spot/{spotId}/spotDetails","/spot/{spotId}/sector/{sectorId}/sectorDetails","/css/**","/font-awesome/**","/js/**","/color/**","/img/**","/chosen/**","/contactform/**","/fonts/**").permitAll()
+                .antMatchers("/**").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/index")
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
                 .and()
                 .logout()

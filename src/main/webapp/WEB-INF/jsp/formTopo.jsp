@@ -7,6 +7,7 @@
 --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,37 +86,36 @@
         <div class="col-lg-12">
             <div class="boxed-grey">
 
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
                 <form id="contact-form" action="/saveFormTopo" method="post" role="form" class="contactForm">
                     <div class="row col-md-6">
                         <div class="form-group">
-                        <label for="spotId"> Choissisez le spot à affilier à votre Topo</label>
-                            <select id="spotId" name="spotId" class="chosen-select" data-placeholder="Cherchez le spot" >
+                            <label for="spotId"> Choissisez le spot à affilier à votre Topo</label>
+                            <select id="spotId" name="spotId" class="chosen-select col-lg-6 form-control" data-placeholder="Cherchez le spot" >
                                 <option></option>
                                 <c:forEach var="selectSpot" items="${spotList}">
-                                    <option value="${selectSpot.id}">${selectSpot.spotName}</option>
+                                    <option value="${selectSpot.id},${selectSpot.cartography.id}" >${selectSpot.spotName}</option>
                                 </c:forEach>
+
                             </select>
-                       <p>Votre spot n'apparait pas dans la liste? Ajoutez-le en cliquant ici : <a class="btn btn-xs btn-skin" type="button" href="<c:url value="/formSpot"/>">Ajouter un spot</a></p>
-                    </div>
-                    </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="topoName">
-                                   Le nom du Topo</label>
-                                <input type="text" name="topoName" class="form-control" id="topoName" placeholder="Entrez le nom du topo" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
-                            </div>
+                            <p>Votre spot n'apparait pas dans la liste? Ajoutez-le en cliquant ici : <a class="btn btn-xs btn-skin" type="button" href="<c:url value="/formSpot"/>">Ajouter un spot</a></p>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="topoName">
+                                Le nom du Topo</label>
+                            <input type="text" name="topoName" class="form-control" id="topoName" placeholder="Entrez le nom du topo" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                            <div class="validation"></div>
+                        </div>
+                    </div>
                     <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="topoDescription">
-                                    Description</label>
-                                <textarea class="form-control" name="topoDescription" id="topoDescription" placeholder="Entrez votre description"></textarea>
-                                <div class="validation"></div>
-                            </div>
+                        <div class="form-group">
+                            <label for="topoDescription">
+                                Description</label>
+                            <textarea class="form-control" name="topoDescription" id="topoDescription" placeholder="Entrez votre description"></textarea>
+                            <div class="validation"></div>
                         </div>
+                    </div>
                     <div class="col-md-12 boxed-grey">
                         <fieldset class="form-group">
                             <div class="row">
@@ -151,10 +151,10 @@
                             </div>
                         </fieldset>
                     </div>
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
-                                Valider</button>
-                        </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
+                            Valider</button>
+                    </div>
                 </form>
             </div>
         </div>
