@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoadDAO extends JpaRepository<Road, Long> {
-    public List<Road> findRoadsBySectorId(Long id);
-
-    @Query("select distinct road from Road road left join fetch road.sector s order by s asc ")
-    public List<Road> findDistinctBySector();
+    List<Road> findRoadsBySectorId(Long id);
 
     List<Spot> findById(Optional<Long> roadId);
 
     @Query("select distinct  count (road.sector.id) as NumberOfRoad from Road road group by road.sector.id order by NumberOfRoad")
-    public List<Long> findNumberOfRoad();
+    List<Long> findNumberOfRoad();
+
+
 
 }

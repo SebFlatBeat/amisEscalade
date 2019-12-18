@@ -15,14 +15,11 @@ public interface ScoringDAO extends JpaRepository <Scoring,Long> {
     @Query("select s from Scoring s left join fetch s.road r where r.sector.id = :idsecteur")
     List<Scoring> findScoringBySectorId(@Param("idsecteur") Long id);
 
-    @Query("select s from Scoring s left join fetch s.road r where r.sector.id = :idsecteur")
-    public  Scoring findBySectorId(@Param("idsecteur") Long id);
-
     @Query("select s from Scoring s left join fetch s.road r where r.id = :idroad")
-    public  Scoring findByRoadId(@Param("idroad") Long id);
+    Scoring findByRoadId(@Param("idroad") Long id);
 
-    @Query("select distinct scoring from Scoring scoring left join fetch scoring.road r")
-    public List<Scoring> findDistinctByRoad();
+    @Query("select distinct scoring.rating from Scoring scoring")
+    List<String> findDistinctByRoad();
 
     List<Spot> findById(Optional<Long> scoringId);
 

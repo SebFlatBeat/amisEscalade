@@ -46,7 +46,7 @@ public class UserController {
      * @return index
      */
     @RequestMapping("/index")
-    public String index(Model modelSpotAll, Model modelSearchSpot, Model modelSectorList,Model modelSectorNameList, Model modelRoadList, Model modelScoring,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry, @RequestParam Optional <Long> spotId,@RequestParam Optional <Long> sectorNumber, @RequestParam Optional <Long> roadNumber, @RequestParam Optional<Long> scoringId, @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName) {
+    public String index(Model modelSpotAll, Model modelSearchSpot, Model modelSectorList,Model modelSectorNameList, Model modelRoadList, Model modelScoring,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry, @RequestParam Optional <Long> spotId,@RequestParam Optional <Long> sectorNumber, @RequestParam Optional <Long> roadNumber, @RequestParam Optional<String> scoringString, @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName) {
         List<Spot> spot = spotDAO.findAll();
         modelSpotAll.addAttribute("spot", spot);
         List<Long> spotBySectors = sectorDAO.findNumberOfSector();
@@ -55,7 +55,7 @@ public class UserController {
         modelSectorNameList.addAttribute("sectorName",sectorName);
         List<Long> roads = roadDAO.findNumberOfRoad();
         modelRoadList.addAttribute("roads", roads);
-        List<Scoring> scorings = scoringDAO.findDistinctByRoad();
+        List<String> scorings = scoringDAO.findDistinctByRoad();
         modelScoring.addAttribute("scorings", scorings);
         List<String> cartographyListCity = cartographyDAO.findDistinctByCityCartography();
         modelCartoCity.addAttribute("cartographyListCity", cartographyListCity);
@@ -81,8 +81,8 @@ public class UserController {
             List<Long> spotIds = road.stream().map(element -> element[0]).collect(Collectors.toList());
             searchSpot = spotDAO.findAllById(spotIds);
         }
-        if(scoringId.isPresent() && !searchSpot.isEmpty()){
-            searchSpot = spotDAO.findByScoringInList(scoringId.get(),searchSpot);
+        if(scoringString.isPresent() && scoringString.get().isEmpty() && !searchSpot.isEmpty()){
+            searchSpot = spotDAO.findByScoringInList(scoringString.get(),searchSpot);
         }
         if(cartographyCityName.isPresent() && !cartographyCityName.get().isEmpty() && !searchSpot.isEmpty()){
             searchSpot = spotDAO.findByCartographyCityInList(cartographyCityName.get(),searchSpot);
