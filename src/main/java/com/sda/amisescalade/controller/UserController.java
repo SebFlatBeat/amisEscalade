@@ -43,7 +43,25 @@ public class UserController {
 
     /**
      *
-     * @return index
+     * @param modelSpotAll
+     * @param modelSearchSpot
+     * @param modelSectorList
+     * @param modelSectorNameList
+     * @param modelRoadList
+     * @param modelScoring
+     * @param modelCartoCity
+     * @param modelCartoDepartment
+     * @param modelCartoRegion
+     * @param modelCartoCountry
+     * @param spotId
+     * @param sectorNumber
+     * @param roadNumber
+     * @param scoringString
+     * @param cartographyCityName
+     * @param cartographyDepartementName
+     * @param cartographyRegionName
+     * @param cartographyCountryName
+     * @return
      */
     @RequestMapping("/index")
     public String index(Model modelSpotAll, Model modelSearchSpot, Model modelSectorList,Model modelSectorNameList, Model modelRoadList, Model modelScoring,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry, @RequestParam Optional <Long> spotId,@RequestParam Optional <Long> sectorNumber, @RequestParam Optional <Long> roadNumber, @RequestParam Optional<String> scoringString, @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName) {
@@ -101,7 +119,26 @@ public class UserController {
         return "index";
     }
 
-
+    /**
+     *
+     * @param modelListTopoUser
+     * @param modelSpot
+     * @param modelPages
+     * @param modelSize
+     * @param modelReservation
+     * @param spotId
+     * @param cartographyCityName
+     * @param cartographyDepartementName
+     * @param cartographyRegionName
+     * @param cartographyCountryName
+     * @param modelResultTopo
+     * @param modelClimbUser
+     * @param modelCartoCity
+     * @param modelCartoDepartment
+     * @param modelCartoRegion
+     * @param modelCartoCountry
+     * @return
+     */
     @GetMapping("/espacePerso")
     public String espacePerso(Model modelListTopoUser, Model modelSpot, Model modelPages,Model modelSize, Model modelReservation, @RequestParam Optional <Long> spotId,  @RequestParam Optional<String> cartographyCityName, @RequestParam Optional<String> cartographyDepartementName, @RequestParam Optional<String> cartographyRegionName, @RequestParam Optional<String> cartographyCountryName, Model modelResultTopo, Model modelClimbUser,Model modelCartoCity,Model modelCartoDepartment,Model modelCartoRegion, Model modelCartoCountry) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -191,11 +228,19 @@ public class UserController {
         return "redirect:/espacePerso#topos";
     }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/403")
     public String accessDenied(){
         return "403";
     }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/500")
     public String accessError(){
         return "500";

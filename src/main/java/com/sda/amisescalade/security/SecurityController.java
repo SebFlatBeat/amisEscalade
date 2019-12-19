@@ -12,13 +12,17 @@ import java.security.Principal;
 public class SecurityController {
     /**
      *
-     * @return index
+     * @return redirect:/index"
      */
     @RequestMapping("/login?logout")
     public String logout() {
         return "redirect:/index";
     }
 
+    /**
+     *
+     * @return redirect:/index
+     */
     @RequestMapping("/login")
     public String login() {
         return "redirect:/index";

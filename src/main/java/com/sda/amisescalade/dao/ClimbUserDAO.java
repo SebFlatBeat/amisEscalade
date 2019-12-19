@@ -8,9 +8,9 @@ import java.util.*;
 
 public interface ClimbUserDAO extends JpaRepository <ClimbUser,Long> {
 
- public ClimbUser findClimbUserByUserName(String name);
+ ClimbUser findClimbUserByUserName(String name);
 
- public ClimbUser findClimbUserByEmail(String mail);
+ ClimbUser findClimbUserByEmail(String mail);
 
  Optional<ClimbUser> findByUserName(String username);
 

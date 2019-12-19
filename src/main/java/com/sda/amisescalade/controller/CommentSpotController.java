@@ -28,6 +28,15 @@ public class CommentSpotController {
     @Autowired
     private CommentSpotDAO commentSpotDAO;
 
+    /**
+     *
+     * @param spotId
+     * @param model
+     * @param commentForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/spot/{spotId}/saveCommentSpot")
     public String saveCommentSpot(@PathVariable Long spotId, Model model, @ModelAttribute("commentForm") CommentForm commentForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,6 +51,16 @@ public class CommentSpotController {
         return "redirect:/spot/{spotId}/spotDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param commentSpotId
+     * @param model
+     * @param commentForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/spot/{spotId}/updateCommentSpot/{commentSpotId}")
     public String updateCommentSpot(@PathVariable Long spotId, @PathVariable Long commentSpotId, Model model, @ModelAttribute("commentForm") CommentForm commentForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -58,6 +77,12 @@ public class CommentSpotController {
         return "redirect:/spot/{spotId}/spotDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param commentSpotId
+     * @return
+     */
     @PostMapping("spot/{spotId}/deleteCommentSpot/{commentSpotId}")
     public String deleteCommentSector (@PathVariable Long spotId, @PathVariable Long commentSpotId) {
         Spot spot = spotDAO.findById(spotId).get();

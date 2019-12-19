@@ -45,11 +45,25 @@ public class SectorController {
     @Autowired
     private CommentSectorDAO commentSectorDAO;
 
+    /**
+     *
+     * @param spotId
+     * @return
+     */
     @GetMapping(value = "spot/{spotId}/sectorForm")
     public String getFormSector(@PathVariable Long spotId) {
         return "/formSector";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param model
+     * @param sectorForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "spot/{spotId}/sectorForm")
     public String saveFormSector(@PathVariable Long spotId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Spot spot = spotDAO.findById(spotId).get();
@@ -81,6 +95,14 @@ public class SectorController {
         return "redirect:/espacePerso#spots";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param modelSpot
+     * @param modelSector
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/editSector")
     public String editSector( @PathVariable Long spotId ,@PathVariable Long sectorId, Model modelSpot, Model modelSector){
         Spot spot = spotDAO.findById(spotId).get();
@@ -90,6 +112,16 @@ public class SectorController {
         return "editSector";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param model
+     * @param sectorForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/updateFormSector")
     public String updateSector(@PathVariable Long spotId, @PathVariable Long sectorId,Model model, @ModelAttribute("formSector") SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -110,6 +142,19 @@ public class SectorController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param modelClimbUser
+     * @param modelSpot
+     * @param modelSector
+     * @param modelRoad
+     * @param modelLenght
+     * @param modelCommentSector
+     * @param modelScoring
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/sectorDetails")
     public String sectorDetail(@PathVariable Long spotId,@PathVariable Long sectorId,Model modelClimbUser ,Model modelSpot, Model modelSector, Model modelRoad, Model modelLenght, Model modelCommentSector, Model modelScoring){
         UserDetails user = null;
@@ -139,6 +184,12 @@ public class SectorController {
         return "/detailSector";
     }
 
+    /**
+     *
+     * @param sectorId
+     * @param spotId
+     * @return
+     */
     @PostMapping("spot/{spotId}/sector/{sectorId}/deleteSector")
     public String deleteSector (@PathVariable Long sectorId, @PathVariable Long spotId) {
         Spot spot = spotDAO.findById(spotId).get();

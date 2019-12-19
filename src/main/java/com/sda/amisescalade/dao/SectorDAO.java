@@ -11,18 +11,14 @@ import java.util.Optional;
 
 public interface SectorDAO extends JpaRepository <Sector,Long> {
 
-    public List<Sector> findSectorsBySpotId(Long id);
-
-    public  List<Sector> findBySpot(List<Spot> spot);
-
-    public List<Sector> findBySectorName(Optional<String> sectorName);
+    List<Sector> findSectorsBySpotId(Long id);
 
     @Query("select distinct sector from Sector sector left join fetch sector.spot")
-    public List<Sector> findAllSpotBySectors();
+    List<Sector> findAllSpotBySectors();
 
     List<Spot> findById(Optional<Long> sectorId);
 
     @Query("select distinct  count (sector.spot.id) as NumberOfSector from Sector sector group by sector.spot.id order by NumberOfSector")
-    public List<Long> findNumberOfSector();
+    List<Long> findNumberOfSector();
 
 }
