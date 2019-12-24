@@ -99,7 +99,7 @@ public class UserController {
             List<Long> spotIds = road.stream().map(element -> element[0]).collect(Collectors.toList());
             searchSpot = spotDAO.findAllById(spotIds);
         }
-        if(scoringString.isPresent() && scoringString.get().isEmpty() && !searchSpot.isEmpty()){
+        if(scoringString.isPresent() && !scoringString.get().isEmpty() && !searchSpot.isEmpty()){
             searchSpot = spotDAO.findByScoringInList(scoringString.get(),searchSpot);
         }
         if(cartographyCityName.isPresent() && !cartographyCityName.get().isEmpty() && !searchSpot.isEmpty()){
