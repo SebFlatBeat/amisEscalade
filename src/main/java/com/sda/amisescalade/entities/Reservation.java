@@ -19,7 +19,6 @@ public class Reservation implements Serializable {
     private boolean accepted;
 
     @ManyToOne
-    @JoinColumn(name = "climb_user_id")
     @Cascade(org.hibernate.annotations.CascadeType.DETACH)
     private ClimbUser climbUser;
 

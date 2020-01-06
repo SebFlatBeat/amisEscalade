@@ -28,12 +28,10 @@ public class Topo implements Serializable {
     private String topoDescription;
 
     @ManyToOne
-    @JoinColumn(name = "climb_user_id")
     @Cascade(CascadeType.DETACH)
     private ClimbUser climbUser;
 
     @ManyToOne
-    @JoinColumn(name = "spot_id")
     private Spot spot;
 
     @ManyToOne

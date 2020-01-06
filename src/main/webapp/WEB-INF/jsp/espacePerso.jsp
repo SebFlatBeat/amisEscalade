@@ -528,13 +528,6 @@
                         </c:forEach>
                         </tbody>
                     </table>
-                    <ul class="pagination">
-                        <li>
-                            <c:forEach items="${searchSpot}">
-                                <a href="${pages}"></a>
-                            </c:forEach>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

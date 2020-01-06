@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ReservationDAO extends JpaRepository <Reservation, Long> {
-public List<Reservation> findReservationsByOwner(String username);
 
-public  Reservation findReservationsByTopoId(Long topoId);
+    List<Reservation> findReservationsByOwner(String username);
+
+    Reservation findReservationsByTopoId(Long topoId);
+
 }

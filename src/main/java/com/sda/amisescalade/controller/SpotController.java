@@ -50,7 +50,14 @@ public class SpotController {
         return "/formSpot";
     }
 
-
+    /**
+     *
+     * @param model
+     * @param spotForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/saveFormSpot")
     public String saveNewSpot(Model model, @ModelAttribute("formSpot") SpotForm spotForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -69,6 +76,13 @@ public class SpotController {
         return "redirect:/espacePerso";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param model
+     * @param modelCity
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/editSpot")
     public String updateSpot (@PathVariable Long spotId, Model model, Model modelCity){
         Spot spot = spotDAO.findById(spotId).get();
@@ -77,6 +91,16 @@ public class SpotController {
         modelCity.addAttribute("cartographyListCity", cartographyListCity);
         return "/editSpot";
     }
+
+    /**
+     *
+     * @param spotId
+     * @param model
+     * @param spotForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/spot/{spotId}/updateFormSpot")
     public String updateSpot(@PathVariable Long spotId,Model model, @ModelAttribute("formSpot") SpotForm spotForm, BindingResult result, final RedirectAttributes redirectAttributes) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -99,6 +123,15 @@ public class SpotController {
         return "redirect:/spot/{spotId}/spotDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param modelSpot
+     * @param modelSector
+     * @param modelSpotComment
+     * @param modelClimbUser
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/spotDetails")
     public String spotDetail(@PathVariable Long spotId, Model modelSpot, Model modelSector, Model modelSpotComment, Model modelClimbUser){
         UserDetails user = null;
@@ -110,7 +143,7 @@ public class SpotController {
 
         }
         if (user != null) {
-          climbUser  = climbUserDAO.findClimbUserByUserName(user.getUsername());
+            climbUser  = climbUserDAO.findClimbUserByUserName(user.getUsername());
         }
         modelClimbUser.addAttribute("climbUser", climbUser);
         Spot spotDetails = spotDAO.findById(spotId).get();
@@ -122,6 +155,11 @@ public class SpotController {
         return "/detailSpot";
     }
 
+    /**
+     *
+     * @param spotId
+     * @return
+     */
     @PostMapping("/spot/{spotId}/deleteSpot")
     public String deleteSpot (@PathVariable Long spotId) {
         Spot spot = spotDAO.findById(spotId).get();

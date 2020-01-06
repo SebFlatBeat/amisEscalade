@@ -86,6 +86,11 @@ public class TopoController {
         return "redirect:/espacePerso";
     }
 
+    /**
+     *
+     * @param modelListEditTopo
+     * @return
+     */
     @GetMapping("/editListTopo")
     public String ListupdateTopos(Model modelListEditTopo){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,6 +100,13 @@ public class TopoController {
         return "/editListTopo";
     }
 
+    /**
+     *
+     * @param topoId
+     * @param modelTopo
+     * @param modelSpot
+     * @return
+     */
     @GetMapping("/topo/{topoId}/editTopo")
     public String getUpdateTopos (@PathVariable Long topoId,Model modelTopo ,Model modelSpot){
         Topo topo = topoDAO.findById(topoId).get();
@@ -104,6 +116,14 @@ public class TopoController {
         return "/editTopo";
     }
 
+    /**
+     *
+     * @param topoId
+     * @param topoForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/topo/{topoId}/updateTopo")
     public String postUpdateTopos (@PathVariable Long topoId, @ModelAttribute("formTopo") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -130,6 +150,11 @@ public class TopoController {
         return "redirect:/espacePerso";
     }
 
+    /**
+     *
+     * @param modelListDeleteTopo
+     * @return
+     */
     @GetMapping("/deleteListTopo")
     public String ListdeleteTopos(Model modelListDeleteTopo){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -139,6 +164,11 @@ public class TopoController {
         return "/deleteListTopo";
     }
 
+    /**
+     *
+     * @param topoId
+     * @return
+     */
     @PostMapping("/topo/{topoId}/deleteTopo")
     public String deleteTopo (@PathVariable Long topoId) {
         Topo topo = topoDAO.findById(topoId).get();

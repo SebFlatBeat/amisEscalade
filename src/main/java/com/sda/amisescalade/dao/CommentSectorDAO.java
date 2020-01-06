@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommentSectorDAO extends JpaRepository<CommentSector, Long> {
-    public List<CommentSector> findBySectorId(Long sectorId);
+
+    List<CommentSector> findBySectorId(Long sectorId);
+
 }

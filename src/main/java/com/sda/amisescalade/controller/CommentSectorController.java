@@ -30,6 +30,17 @@ public class CommentSectorController {
     @Autowired
     private CommentSectorDAO commentSectorDAO;
 
+
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param model
+     * @param commentForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/spot/{spotId}/sector/{sectorId}/saveCommentSector")
     public String saveCommentSector(@PathVariable Long spotId, @PathVariable Long sectorId, Model model, @ModelAttribute("commentForm") CommentForm commentForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -45,6 +56,17 @@ public class CommentSectorController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param commentSectorId
+     * @param model
+     * @param commentForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/spot/{spotId}/sector/{sectorId}/updateCommentSector/{commentSectorId}")
     public String updateCommentSpot(@PathVariable Long spotId, @PathVariable Long sectorId,@PathVariable Long commentSectorId , Model model, @ModelAttribute("commentForm") CommentForm commentForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -61,6 +83,13 @@ public class CommentSectorController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    /**
+     *
+     * @param sectorId
+     * @param spotId
+     * @param commentSectorId
+     * @return
+     */
     @PostMapping("spot/{spotId}/sector/{sectorId}/deleteCommentSector/{commentSectorId}")
     public String deleteCommentSector (@PathVariable Long sectorId, @PathVariable Long spotId, @PathVariable Long commentSectorId) {
         Spot spot = spotDAO.findById(spotId).get();

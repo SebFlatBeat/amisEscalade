@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommentSpotDAO extends JpaRepository<CommentSpot, Long> {
-    public List<CommentSpot> findBySpotId(Long spotId);
+
+    List<CommentSpot> findBySpotId(Long spotId);
+
 }

@@ -199,11 +199,11 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="scoringId"> La cotation</label>
-                            <select id="scoringId" name="scoringId" class="chosen-select form-control" data-placeholder="Cherchez par la cotation" >
+                            <label for="scoringString"> La cotation</label>
+                            <select id="scoringString" name="scoringString" class="chosen-select form-control" data-placeholder="Cherchez par la cotation" >
                                 <option></option>
                                 <c:forEach var="findScoring" items="${scorings}">
-                                    <option value="${findScoring.road.sector.spot.id}">${findScoring.rating}</option>
+                                    <option value="${findScoring}">${findScoring}</option>
                                 </c:forEach>
                             </select>
                         </div>

@@ -12,14 +12,9 @@ import java.util.List;
 
 public interface TopoDAO extends JpaRepository <Topo,Long>  {
 
+    List<Topo> findTopoByClimbUserId(Long id) ;
 
-    public List<Topo> findTopoByClimbUserId(Long id) ;
-
-    public List <Topo> findBySpotId(Long id);
-
-    public List<Topo>findByCartographyId(Long id);
-
-    public List<Topo> findTopoByAvailableTrue();
+    List<Topo> findTopoByAvailableTrue();
 
     @Query("select topo from Topo topo where topo.spot.id =:spotId and topo in :listTopo")
     List<Topo> findBySpotIdInList(@Param("spotId") Long id, @Param("listTopo") List<Topo> listTopo);

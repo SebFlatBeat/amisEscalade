@@ -41,11 +41,27 @@ public class RoadController {
     @Autowired
     private LenghtDAO lenghtDAO;
 
+    /**
+     *
+     * @param sectorId
+     * @param spotId
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/roadForm")
     public String getFormRoad(@PathVariable Long sectorId, @PathVariable Long spotId) {
         return "/formRoad";
     }
 
+    /**
+     *
+     * @param sectorId
+     * @param spotId
+     * @param model
+     * @param sectorForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/roadForm")
     public String saveFormRoad(@PathVariable Long sectorId,@PathVariable Long spotId, Model model, @ModelAttribute("sectorForm") @Validated SectorForm sectorForm, BindingResult result, final RedirectAttributes redirectAttributes){
         Sector sector = sectorDAO.findById(sectorId).get();
@@ -71,6 +87,19 @@ public class RoadController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param roadId
+     * @param lenghtId
+     * @param scoringId
+     * @param model
+     * @param roadForm
+     * @param result
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/spot/{spotId}/sector/{sectorId}/road/{roadId}/lenght/{lenghtId}/scoring/{scoringId}/updateRoadForm")
     public String updateRoad(@PathVariable Long spotId, @PathVariable Long sectorId, @PathVariable Long roadId,@PathVariable Long lenghtId,@PathVariable Long scoringId, Model model, @ModelAttribute("formRoad")RoadForm roadForm, BindingResult result, final RedirectAttributes redirectAttributes){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -101,6 +130,20 @@ public class RoadController {
         return "redirect:/spot/{spotId}/sector/{sectorId}/sectorDetails";
     }
 
+    /**
+     *
+     * @param spotId
+     * @param sectorId
+     * @param roadId
+     * @param lenghtId
+     * @param scoringId
+     * @param modelSpot
+     * @param modelSector
+     * @param modelRoad
+     * @param modelLenght
+     * @param modelScoring
+     * @return
+     */
     @GetMapping(value = "/spot/{spotId}/sector/{sectorId}/road/{roadId}/lenght/{lenghtId}/scoring/{scoringId}/editRoad")
     public String editSector( @PathVariable Long spotId ,@PathVariable Long sectorId,@PathVariable Long roadId,@PathVariable Long lenghtId,@PathVariable Long scoringId, Model modelSpot, Model modelSector, Model modelRoad,Model modelLenght,Model modelScoring){
         Spot spot = spotDAO.findById(spotId).get();
@@ -117,7 +160,11 @@ public class RoadController {
         return "editRoad";
     }
 
-
+    /**
+     *
+     * @param roadId
+     * @return
+     */
 
     @PostMapping("/road/{roadId}/deleteRoad")
     public String deleteRoad (@PathVariable Long roadId) {
